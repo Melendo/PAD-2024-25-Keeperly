@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.startAnimation(slideUp);
         registerButton.startAnimation(slideUp);
 
-        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {x
+        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
             public void onChanged(@Nullable LoginFormState loginFormState) {
                 if (loginFormState == null) {

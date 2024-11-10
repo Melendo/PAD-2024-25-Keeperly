@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Main APP Colors-->
+    <color name="main_purple">#6750A4</color>
+    <color name="secondary_purple">#958DA5</color>
+    <color name="gray_purple">#958DA5</color>
+
+    <!-- Blues -->
+    <color name="aqua_blue">#4CC9F0</color>
+    <color name="sea_blue">#4361EE</color>
+
+    <!-- Reds and Pinks -->
+    <color name="light_red">#B58392</color>
+    <color name="error_red">#E46962</color>
+    <color name="bright_pink">#F72585</color>
+    <color name="purplish_pink">#B5179E</color>
 </resources>

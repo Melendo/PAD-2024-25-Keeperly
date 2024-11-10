@@ -19,4 +19,7 @@ public interface UsuarioDAO {
 
     @Query("SELECT * FROM usuarios")
     List<Usuario> getAllUsuarios();
+
+    @Query("SELECT * FROM usuarios WHERE id = :id")
+    Usuario getUsuarioById(int id);
 }

@@ -19,4 +19,7 @@ public interface TransaccionDAO {
 
     @Query("SELECT * FROM transacciones WHERE idCuenta = :cuentaId")
     List<Transaccion> getTransaccionesByCuenta(int cuentaId);
+
+    @Query("SELECT * FROM transacciones WHERE id = :id")
+    Transaccion getTransaccionById(int id);
 }

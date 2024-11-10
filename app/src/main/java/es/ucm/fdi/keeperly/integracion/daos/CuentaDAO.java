@@ -19,4 +19,7 @@ public interface CuentaDAO {
 
     @Query("SELECT * FROM cuentas WHERE idUsuario = :userId")
     List<Cuenta> getCuentasByUsuario(int userId);
+
+    @Query("SELECT * FROM cuentas WHERE idUsuario = :id")
+    Cuenta getCuentaById(int id);
 }

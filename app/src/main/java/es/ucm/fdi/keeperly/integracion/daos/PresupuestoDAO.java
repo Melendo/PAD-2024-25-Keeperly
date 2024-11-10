@@ -19,4 +19,7 @@ public interface PresupuestoDAO {
 
     @Query("SELECT * FROM presupuestos WHERE idUsuario = :userId")
     List<Presupuesto> getPresupuestosByUsuario(int userId);
+
+    @Query("SELECT * FROM presupuestos WHERE id = :id")
+    Presupuesto getPresupuestoById(int id);
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 
 import es.ucm.fdi.keeperly.data.LoginDataSource;
-import es.ucm.fdi.keeperly.data.LoginRepository;
+import es.ucm.fdi.keeperly.repository.LoginRepository;
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

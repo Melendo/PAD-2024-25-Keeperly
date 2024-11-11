@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import android.util.Patterns;
 
-import es.ucm.fdi.keeperly.data.LoginRepository;
+import es.ucm.fdi.keeperly.repository.LoginRepository;
 import es.ucm.fdi.keeperly.data.Result;
 import es.ucm.fdi.keeperly.data.model.LoggedInUser;
 import es.ucm.fdi.keeperly.R;

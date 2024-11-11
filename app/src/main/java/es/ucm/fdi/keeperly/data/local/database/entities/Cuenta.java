@@ -1,4 +1,4 @@
-package es.ucm.fdi.keeperly.integracion.entities;
+package es.ucm.fdi.keeperly.data.local.database.entities;
 
 import androidx.room.*;
 

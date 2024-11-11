@@ -1,4 +1,4 @@
-package es.ucm.fdi.keeperly.negocio;
+package es.ucm.fdi.keeperly.service;
 
 import android.content.Context;
 
@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import es.ucm.fdi.keeperly.integracion.KeeperlyDB;
-import es.ucm.fdi.keeperly.integracion.daos.UsuarioDAO;
-import es.ucm.fdi.keeperly.integracion.entities.Usuario;
+import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
+import es.ucm.fdi.keeperly.data.local.database.dao.UsuarioDAO;
+import es.ucm.fdi.keeperly.data.local.database.entities.Usuario;
 
 
 public class UsuarioSA {

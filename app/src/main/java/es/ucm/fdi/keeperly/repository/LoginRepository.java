@@ -1,5 +1,7 @@
-package es.ucm.fdi.keeperly.data;
+package es.ucm.fdi.keeperly.repository;
 
+import es.ucm.fdi.keeperly.data.LoginDataSource;
+import es.ucm.fdi.keeperly.data.Result;
 import es.ucm.fdi.keeperly.data.model.LoggedInUser;
 
 /**

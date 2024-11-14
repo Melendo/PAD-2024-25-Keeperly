@@ -40,8 +40,9 @@ public abstract class KeeperlyDB extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (KeeperlyDB.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                    INSTANCE = Room.databaseBuilder(context,
                                     KeeperlyDB.class, "keeperly_database")
+                            .allowMainThreadQueries()
                             .fallbackToDestructiveMigration()
                             .build();
                 }

@@ -1,8 +1,8 @@
 package es.ucm.fdi.keeperly.repository;
 
-import es.ucm.fdi.keeperly.data.LoginDataSource;
 import es.ucm.fdi.keeperly.data.Result;
-import es.ucm.fdi.keeperly.data.model.LoggedInUser;
+import es.ucm.fdi.keeperly.data.local.database.entities.Usuario;
+import es.ucm.fdi.keeperly.service.UsuarioSA;
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -12,20 +12,20 @@ public class LoginRepository {
 
     private static volatile LoginRepository instance;
 
-    private LoginDataSource dataSource;
+    private UsuarioSA usuarioSA;
 
     // If user credentials will be cached in local storage, it is recommended it be encrypted
     // @see https://developer.android.com/training/articles/keystore
-    private LoggedInUser user = null;
+    private Usuario user = null;
 
     // private constructor : singleton access
-    private LoginRepository(LoginDataSource dataSource) {
-        this.dataSource = dataSource;
+    private LoginRepository(UsuarioSA usuarioSA) {
+        this.usuarioSA = usuarioSA;
     }
 
-    public static LoginRepository getInstance(LoginDataSource dataSource) {
+    public static LoginRepository getInstance(UsuarioSA usuarioSA) {
         if (instance == null) {
-            instance = new LoginRepository(dataSource);
+            instance = new LoginRepository(usuarioSA);
         }
         return instance;
     }
@@ -36,20 +36,20 @@ public class LoginRepository {
 
     public void logout() {
         user = null;
-        dataSource.logout();
+        usuarioSA.logout();
     }
 
-    private void setLoggedInUser(LoggedInUser user) {
+    private void setLoggedInUser(Usuario user) {
         this.user = user;
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
     }
 
-    public Result<LoggedInUser> login(String username, String password) {
+    public Result<Usuario> login(String username, String password) {
         // handle login
-        Result<LoggedInUser> result = dataSource.login(username, password);
+        Result<Usuario> result = usuarioSA.login(username, password);
         if (result instanceof Result.Success) {
-            setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());
+            setLoggedInUser(((Result.Success<Usuario>) result).getData());
         }
         return result;
     }

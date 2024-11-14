@@ -4,11 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import android.content.Context;
 import android.util.Patterns;
 
+import es.ucm.fdi.keeperly.data.local.database.entities.Usuario;
 import es.ucm.fdi.keeperly.repository.LoginRepository;
 import es.ucm.fdi.keeperly.data.Result;
-import es.ucm.fdi.keeperly.data.model.LoggedInUser;
 import es.ucm.fdi.keeperly.R;
 
 public class LoginViewModel extends ViewModel {
@@ -33,11 +34,11 @@ public class LoginViewModel extends ViewModel {
 
     //se llama loginRepository.login con usuario y contrasenia y crea un loginResult para el resultado (exito o fallo)
     public void login(String username, String password) {
-        Result<LoggedInUser> result = loginRepository.login(username, password);
+        Result<Usuario> result = loginRepository.login(username, password);
 
         if (result instanceof Result.Success) {
-            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+            Usuario data = ((Result.Success<Usuario>) result).getData();
+            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getNombre())));
         } else {
             loginResult.setValue(new LoginResult(R.string.login_failed));
         }

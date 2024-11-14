@@ -5,7 +5,7 @@ package es.ucm.fdi.keeperly.ui.login;
  */
 class LoggedInUserView {
     private String displayName;
-    //... other data fields that may be accessible to the UI
+    // TODO : Añadir otros datos
 
     LoggedInUserView(String displayName) {
         this.displayName = displayName;

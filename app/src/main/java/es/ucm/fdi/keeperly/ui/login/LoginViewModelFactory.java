@@ -8,8 +8,7 @@ import es.ucm.fdi.keeperly.data.LoginDataSource;
 import es.ucm.fdi.keeperly.repository.LoginRepository;
 
 /**
- * ViewModel provider factory to instantiate LoginViewModel.
- * Required given LoginViewModel has a non-empty constructor
+ * Factoria para el LoginViweModel
  */
 public class LoginViewModelFactory implements ViewModelProvider.Factory {
 

@@ -13,6 +13,7 @@ import es.ucm.fdi.keeperly.R;
 
 public class LoginViewModel extends ViewModel {
 
+    //Se definen variables mutables del loginFormState y loginResult para actualizar valores en el viewModel
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
     private LoginRepository loginRepository;
@@ -21,6 +22,7 @@ public class LoginViewModel extends ViewModel {
         this.loginRepository = loginRepository;
     }
 
+    //Se definen la version de solo lectura de las variables para respetar encapsulamiento
     LiveData<LoginFormState> getLoginFormState() {
         return loginFormState;
     }
@@ -29,8 +31,8 @@ public class LoginViewModel extends ViewModel {
         return loginResult;
     }
 
+    //se llama loginRepository.login con usuario y contrasenia y crea un loginResult para el resultado (exito o fallo)
     public void login(String username, String password) {
-        // can be launched in a separate asynchronous job
         Result<LoggedInUser> result = loginRepository.login(username, password);
 
         if (result instanceof Result.Success) {
@@ -40,7 +42,7 @@ public class LoginViewModel extends ViewModel {
             loginResult.setValue(new LoginResult(R.string.login_failed));
         }
     }
-
+    //Validamos a tiempo de introduccion si los datos son correctos actualizando loginFormState
     public void loginDataChanged(String username, String password) {
         if (!isUserNameValid(username)) {
             loginFormState.setValue(new LoginFormState(R.string.invalid_username, null));
@@ -51,7 +53,7 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
-    // A placeholder username validation check
+    // Valida el nombre de usuario (correo con @ o nombre de usuario)
     private boolean isUserNameValid(String username) {
         if (username == null) {
             return false;
@@ -63,7 +65,7 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
-    // A placeholder password validation check
+    // Valida la contraseña con una longitud de min 5 caracteres
     private boolean isPasswordValid(String password) {
         return password != null && password.trim().length() > 5;
     }

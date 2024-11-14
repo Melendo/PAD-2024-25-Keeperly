@@ -1,7 +1,7 @@
 package es.ucm.fdi.keeperly.ui.login;
 
 /**
- * Class exposing authenticated user details to the UI.
+ * Clase para datos de la UI
  */
 class LoggedInUserView {
     private String displayName;

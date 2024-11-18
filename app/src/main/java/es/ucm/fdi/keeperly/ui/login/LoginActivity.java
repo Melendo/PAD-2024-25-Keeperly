@@ -27,6 +27,7 @@ import android.widget.Toast;
 import android.widget.ImageView;
 
 import es.ucm.fdi.keeperly.R;
+import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
 import es.ucm.fdi.keeperly.ui.login.LoginViewModel;
 import es.ucm.fdi.keeperly.ui.login.LoginViewModelFactory;
 import es.ucm.fdi.keeperly.databinding.ActivityLoginBinding;
@@ -39,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        KeeperlyDB.createInstance(getApplicationContext());
 
         //Bindear los elementos de la vista
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
@@ -93,7 +96,6 @@ public class LoginActivity extends AppCompatActivity {
                 updateUiWithUser(loginResult.getSuccess());
             }
             setResult(Activity.RESULT_OK);
-
             //Complete and destroy login activity once successful
             finish();
         });

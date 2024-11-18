@@ -36,7 +36,7 @@ public abstract class KeeperlyDB extends RoomDatabase {
     private static volatile KeeperlyDB INSTANCE;
 
     // Método para obtener la instancia de la base de datos
-    public static KeeperlyDB getInstance(final Context context) {
+    public static KeeperlyDB createInstance(final Context context) {
         if (INSTANCE == null) {
             synchronized (KeeperlyDB.class) {
                 if (INSTANCE == null) {
@@ -48,6 +48,10 @@ public abstract class KeeperlyDB extends RoomDatabase {
                 }
             }
         }
+        return INSTANCE;
+    }
+
+    public static KeeperlyDB getInstance() {
         return INSTANCE;
     }
 }

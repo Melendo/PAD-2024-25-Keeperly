@@ -23,6 +23,6 @@ public interface UsuarioDAO {
     @Query("SELECT * FROM usuarios WHERE id = :id")
     Usuario getUsuarioById(int id);
 
-    @Query("SELECT * FROM usuarios WHERE nombre = :nombre")
-    Usuario getUsuarioByNombre(String nombre);
+    @Query("SELECT * FROM usuarios WHERE email = :email")
+    Usuario getUsuarioByEmail(String email);
 }

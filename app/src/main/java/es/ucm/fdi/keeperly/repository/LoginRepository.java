@@ -2,7 +2,6 @@ package es.ucm.fdi.keeperly.repository;
 
 import es.ucm.fdi.keeperly.data.Result;
 import es.ucm.fdi.keeperly.data.local.database.entities.Usuario;
-import es.ucm.fdi.keeperly.service.UsuarioSA;
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -12,20 +11,20 @@ public class LoginRepository {
 
     private static volatile LoginRepository instance;
 
-    private UsuarioSA usuarioSA;
+    private UsuarioRepository usuarioRepository;
 
     // If user credentials will be cached in local storage, it is recommended it be encrypted
     // @see https://developer.android.com/training/articles/keystore
     private Usuario user = null;
 
     // private constructor : singleton access
-    private LoginRepository(UsuarioSA usuarioSA) {
-        this.usuarioSA = usuarioSA;
+    private LoginRepository(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
     }
 
-    public static LoginRepository getInstance(UsuarioSA usuarioSA) {
+    public static LoginRepository getInstance(UsuarioRepository usuarioRepository) {
         if (instance == null) {
-            instance = new LoginRepository(usuarioSA);
+            instance = new LoginRepository(usuarioRepository);
         }
         return instance;
     }
@@ -36,7 +35,6 @@ public class LoginRepository {
 
     public void logout() {
         user = null;
-        usuarioSA.logout();
     }
 
     private void setLoggedInUser(Usuario user) {
@@ -47,7 +45,7 @@ public class LoginRepository {
 
     public Result<Usuario> login(String username, String password) {
         // handle login
-        Result<Usuario> result = usuarioSA.login(username, password);
+        Result<Usuario> result = usuarioRepository.login(username, password);
         if (result instanceof Result.Success) {
             setLoggedInUser(((Result.Success<Usuario>) result).getData());
         }

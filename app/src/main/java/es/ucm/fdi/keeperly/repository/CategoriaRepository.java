@@ -1,4 +1,4 @@
-package es.ucm.fdi.keeperly.service;
+package es.ucm.fdi.keeperly.repository;
 
 import android.content.Context;
 
@@ -10,14 +10,22 @@ import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
 import es.ucm.fdi.keeperly.data.local.database.dao.CategoriaDAO;
 import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
 
-public class CategoriaSA {
+public class CategoriaRepository {
+
+    private static volatile CategoriaRepository instance;
+
     private final CategoriaDAO categoriaDao;
     private final ExecutorService executorService;
 
-    public CategoriaSA(Context context) {
-        KeeperlyDB db = KeeperlyDB.getInstance(context);
-        categoriaDao = db.categoriaDao();
+    private CategoriaRepository() {
+        categoriaDao = KeeperlyDB.getInstance().categoriaDao();
         executorService = Executors.newSingleThreadExecutor();
+    }
+
+    public static CategoriaRepository getInsance() {
+        if (instance == null)
+            instance = new CategoriaRepository();
+        return instance;
     }
 
     public void insert(Categoria categoria) {

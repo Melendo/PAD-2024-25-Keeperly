@@ -1,4 +1,4 @@
-package es.ucm.fdi.keeperly.service;
+package es.ucm.fdi.keeperly.repository;
 
 import android.content.Context;
 
@@ -10,14 +10,22 @@ import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
 import es.ucm.fdi.keeperly.data.local.database.dao.TransaccionDAO;
 import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 
-public class TransaccionSA {
+public class TransaccionRepository {
+
+    private static volatile TransaccionRepository instance;
+
     private final TransaccionDAO transaccionDao;
     private final ExecutorService executorService;
 
-    public TransaccionSA(Context context) {
-        KeeperlyDB db = KeeperlyDB.getInstance(context);
-        transaccionDao = db.transaccionDao();
+    private TransaccionRepository() {
+        transaccionDao = KeeperlyDB.getInstance().transaccionDao();
         executorService = Executors.newSingleThreadExecutor();
+    }
+
+    public TransaccionRepository getInstance() {
+        if (instance == null)
+            instance = new TransaccionRepository();
+        return instance;
     }
 
     public void insert(Transaccion transaccion) {

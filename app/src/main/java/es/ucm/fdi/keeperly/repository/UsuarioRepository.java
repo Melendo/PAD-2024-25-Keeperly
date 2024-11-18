@@ -16,22 +16,16 @@ import es.ucm.fdi.keeperly.exceptions.usuario.WrongPasswordException;
 
 public class UsuarioRepository {
 
-    private static volatile UsuarioRepository instance;
 
     private final UsuarioDAO usuarioDao;
     private final ExecutorService executorService;
 
 
-    private UsuarioRepository() {
+    public UsuarioRepository() {
         usuarioDao = KeeperlyDB.getInstance().usuarioDao();
         executorService = Executors.newSingleThreadExecutor();
     }
 
-    public static UsuarioRepository getInstance() {
-        if (instance == null)
-            instance = new UsuarioRepository();
-        return instance;
-    }
 
     public void insert(Usuario usuario) {
         executorService.execute(() -> usuarioDao.insert(usuario));

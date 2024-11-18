@@ -12,21 +12,15 @@ import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
 
 public class CuentaRepository {
 
-    private static volatile CuentaRepository instance;
 
     private final CuentaDAO cuentaDao;
     private final ExecutorService executorService;
 
-    private CuentaRepository() {
+    public CuentaRepository() {
         cuentaDao = KeeperlyDB.getInstance().cuentaDao();
         executorService = Executors.newSingleThreadExecutor();
     }
 
-    public CuentaRepository getInstance() {
-        if (instance == null)
-            instance = new CuentaRepository();
-        return instance;
-    }
 
     public void insert(Cuenta cuenta) {
         executorService.execute(() -> cuentaDao.insert(cuenta));

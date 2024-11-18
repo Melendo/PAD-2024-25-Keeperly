@@ -94,11 +94,10 @@
         android:id="@+id/divider2"
         android:layout_width="2dp"
         android:layout_height="150dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="20dp"
         android:background="@color/gray_purple"
         app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -157,9 +156,10 @@
         android:id="@+id/divider4"
         android:layout_width="2dp"
         android:layout_height="500dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="24dp"
         android:background="@color/gray_purple"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 

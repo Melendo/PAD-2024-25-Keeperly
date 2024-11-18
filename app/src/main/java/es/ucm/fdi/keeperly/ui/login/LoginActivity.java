@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 import android.widget.ImageView;
 
 import es.ucm.fdi.keeperly.R;
+import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
 import es.ucm.fdi.keeperly.ui.login.LoginViewModel;
 import es.ucm.fdi.keeperly.ui.login.LoginViewModelFactory;
 import es.ucm.fdi.keeperly.databinding.ActivityLoginBinding;
@@ -39,13 +41,17 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Binding para la identificacion de elementos en la vista
+        KeeperlyDB.createInstance(getApplicationContext());
+
+        //Bindear los elementos de la vista
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        //Mediante el ViewModelFactory obtenemos el LoginViewModel
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
+        //Bindeamos los campos de la pantalla de login
         final EditText usernameEditText = binding.usernameEditText;
         final EditText passwordEditText = binding.passwordEditText;
         final Button loginButton = binding.loginButton;
@@ -53,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         final ProgressBar loadingProgressBar = binding.loading;
         final ImageView logoImage = binding.appLogo;
 
+        //Animaciones para que quede bonico
         Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         Animation slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up);
 
@@ -62,42 +69,38 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.startAnimation(slideUp);
         registerButton.startAnimation(slideUp);
 
-        loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
-            @Override
-            public void onChanged(@Nullable LoginFormState loginFormState) {
-                if (loginFormState == null) {
-                    return;
-                }
-                loginButton.setEnabled(loginFormState.isDataValid());
-                if (loginFormState.getUsernameError() != null) {
-                    usernameEditText.setError(getString(loginFormState.getUsernameError()));
-                }
-                if (loginFormState.getPasswordError() != null) {
-                    passwordEditText.setError(getString(loginFormState.getPasswordError()));
-                }
+        //Usamos la clase LoginFormState para verificar si hay errores en el usuario/contrasenia e informar
+        loginViewModel.getLoginFormState().observe(this, loginFormState -> {
+            if (loginFormState == null) {
+                return;
+            }
+            loginButton.setEnabled(loginFormState.isDataValid());
+            if (loginFormState.getUsernameError() != null) {
+                usernameEditText.setError(getString(loginFormState.getUsernameError()));
+            }
+            if (loginFormState.getPasswordError() != null) {
+                passwordEditText.setError(getString(loginFormState.getPasswordError()));
             }
         });
 
-        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
-            @Override
-            public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult == null) {
-                    return;
-                }
-                loadingProgressBar.setVisibility(View.GONE);
-                if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
-                }
-                if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
-                }
-                setResult(Activity.RESULT_OK);
-
-                //Complete and destroy login activity once successful
-                finish();
+        //Usamos la clase loginResult para ver si el resultado del login e informar y cerrar la activity si hay exito
+        loginViewModel.getLoginResult().observe(this, loginResult -> {
+            if (loginResult == null) {
+                return;
             }
+            loadingProgressBar.setVisibility(View.GONE);
+            if (loginResult.getError() != null) {
+                showLoginFailed(loginResult.getError());
+            }
+            if (loginResult.getSuccess() != null) {
+                updateUiWithUser(loginResult.getSuccess());
+            }
+            setResult(Activity.RESULT_OK);
+            //Complete and destroy login activity once successful
+            finish();
         });
 
+        //Se define un textWatcher para los campos y en afterChanged se llama a loginDataChanged para ver la validez de los datos
         TextWatcher afterTextChangedListener = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -119,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
+            //Se intenta inicia sesion sin pulsar el boton de enviar formulario para fluidez
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -129,6 +133,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        //Se intenta iniciar sesion cuando se pulse el boton de enviar cuestionario
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,13 +144,16 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    //Funcion para mostrar el mensaje de bienvenida al iniciar sesion
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
+    //Funcion mostrar fallo de inicio de sesion
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
+
 }

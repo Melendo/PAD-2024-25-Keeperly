@@ -1,10 +1,10 @@
-package es.ucm.fdi.keeperly.integracion.daos;
+package es.ucm.fdi.keeperly.data.local.database.dao;
 
 import androidx.room.*;
 
 import java.util.List;
 
-import es.ucm.fdi.keeperly.integracion.entities.Usuario;
+import es.ucm.fdi.keeperly.data.local.database.entities.Usuario;
 
 @Dao
 public interface UsuarioDAO {
@@ -22,4 +22,7 @@ public interface UsuarioDAO {
 
     @Query("SELECT * FROM usuarios WHERE id = :id")
     Usuario getUsuarioById(int id);
+
+    @Query("SELECT * FROM usuarios WHERE email = :email")
+    Usuario getUsuarioByEmail(String email);
 }

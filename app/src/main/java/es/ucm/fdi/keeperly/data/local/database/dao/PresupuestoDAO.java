@@ -1,10 +1,10 @@
-package es.ucm.fdi.keeperly.integracion.daos;
+package es.ucm.fdi.keeperly.data.local.database.dao;
 
 import androidx.room.*;
 
 import java.util.List;
 
-import es.ucm.fdi.keeperly.integracion.entities.Presupuesto;
+import es.ucm.fdi.keeperly.data.local.database.entities.Presupuesto;
 
 @Dao
 public interface PresupuestoDAO {

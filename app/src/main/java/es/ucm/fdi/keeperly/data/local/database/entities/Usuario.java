@@ -1,4 +1,4 @@
-package es.ucm.fdi.keeperly.integracion.entities;
+package es.ucm.fdi.keeperly.data.local.database.entities;
 
 import androidx.room.*;
 
@@ -8,7 +8,7 @@ public class Usuario {
     private int id;
     private String nombre;
     private String email;
-    private String contraseña;
+    private String pw;
 
     // Getters y Setters
 
@@ -36,11 +36,11 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getPw() {
+        return pw;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setPw(String pw) {
+        this.pw = pw;
     }
 }

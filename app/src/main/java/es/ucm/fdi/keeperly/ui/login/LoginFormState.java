@@ -3,7 +3,7 @@ package es.ucm.fdi.keeperly.ui.login;
 import androidx.annotation.Nullable;
 
 /**
- * Data validation state of the login form.
+ * Validacion de los datos del formulario login
  */
 class LoginFormState {
     @Nullable

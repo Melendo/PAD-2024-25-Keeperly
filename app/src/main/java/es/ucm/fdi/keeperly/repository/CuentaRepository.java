@@ -1,4 +1,4 @@
-package es.ucm.fdi.keeperly.negocio;
+package es.ucm.fdi.keeperly.repository;
 
 import android.content.Context;
 
@@ -6,18 +6,26 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import es.ucm.fdi.keeperly.integracion.KeeperlyDB;
-import es.ucm.fdi.keeperly.integracion.daos.CuentaDAO;
-import es.ucm.fdi.keeperly.integracion.entities.Cuenta;
+import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
+import es.ucm.fdi.keeperly.data.local.database.dao.CuentaDAO;
+import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
 
-public class CuentaSA {
+public class CuentaRepository {
+
+    private static volatile CuentaRepository instance;
+
     private final CuentaDAO cuentaDao;
     private final ExecutorService executorService;
 
-    public CuentaSA(Context context) {
-        KeeperlyDB db = KeeperlyDB.getInstance(context);
-        cuentaDao = db.cuentaDao();
+    private CuentaRepository() {
+        cuentaDao = KeeperlyDB.getInstance().cuentaDao();
         executorService = Executors.newSingleThreadExecutor();
+    }
+
+    public CuentaRepository getInstance() {
+        if (instance == null)
+            instance = new CuentaRepository();
+        return instance;
     }
 
     public void insert(Cuenta cuenta) {

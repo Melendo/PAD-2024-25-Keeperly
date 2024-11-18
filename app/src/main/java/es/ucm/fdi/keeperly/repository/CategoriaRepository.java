@@ -12,20 +12,13 @@ import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
 
 public class CategoriaRepository {
 
-    private static volatile CategoriaRepository instance;
 
     private final CategoriaDAO categoriaDao;
     private final ExecutorService executorService;
 
-    private CategoriaRepository() {
+    public CategoriaRepository() {
         categoriaDao = KeeperlyDB.getInstance().categoriaDao();
         executorService = Executors.newSingleThreadExecutor();
-    }
-
-    public static CategoriaRepository getInsance() {
-        if (instance == null)
-            instance = new CategoriaRepository();
-        return instance;
     }
 
     public void insert(Categoria categoria) {

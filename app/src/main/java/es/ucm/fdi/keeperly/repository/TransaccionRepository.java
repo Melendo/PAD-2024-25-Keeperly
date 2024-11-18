@@ -12,21 +12,15 @@ import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 
 public class TransaccionRepository {
 
-    private static volatile TransaccionRepository instance;
 
     private final TransaccionDAO transaccionDao;
     private final ExecutorService executorService;
 
-    private TransaccionRepository() {
+    public TransaccionRepository() {
         transaccionDao = KeeperlyDB.getInstance().transaccionDao();
         executorService = Executors.newSingleThreadExecutor();
     }
 
-    public TransaccionRepository getInstance() {
-        if (instance == null)
-            instance = new TransaccionRepository();
-        return instance;
-    }
 
     public void insert(Transaccion transaccion) {
         executorService.execute(() -> transaccionDao.insert(transaccion));

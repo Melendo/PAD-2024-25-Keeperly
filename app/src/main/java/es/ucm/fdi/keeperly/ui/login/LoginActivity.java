@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 .get(LoginViewModel.class);
 
         //Bindeamos los campos de la pantalla de login
-        final EditText usernameEditText = binding.usernameEditText;
+        final EditText usernameEditText = binding.emailEditText;
         final EditText passwordEditText = binding.passwordEditText;
         final Button loginButton = binding.loginButton;
         final Button registerButton = binding.registerButton;

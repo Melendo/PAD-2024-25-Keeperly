@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="#F8F3FF">
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,19 +13,15 @@
         android:padding="16dp"
         android:gravity="center_vertical">
 
-        <!-- Circle TextView for the initial -->
-        <TextView
-            android:id="@+id/initialCircle"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/circle_background"
-            android:gravity="center"
-            android:text="P"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+        <!-- Circle Icon Background -->
+        <LinearLayout
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/circle_background_light"
+            android:gravity="center">
+        </LinearLayout>
 
-        <!-- Container for Texts -->
+        <!-- Text Container -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -35,23 +31,35 @@
 
             <!-- Title -->
             <TextView
-                android:id="@+id/cardTitle"
+                android:id="@+id/cardBudgetTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Personal"
+                android:text="Comida"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <!-- Subtitle or Value -->
+            <!-- Subtitle -->
             <TextView
-                android:id="@+id/cardSubtitle"
+                android:id="@+id/cardBudgetSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="0,00€"
-                android:textColor="#000000"
-                android:textSize="14sp" />
+                android:text="105,1€ / 150€"
+                android:textColor="#7E57C2"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+
+            <!-- ProgressBar -->
+            <ProgressBar
+                android:id="@+id/budgetProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:progress="70"
+                android:progressTint="#7E57C2"
+                android:backgroundTint="#E0D5F5"
+                android:layout_marginTop="8dp"
+                android:max="100" />
         </LinearLayout>
 
     </LinearLayout>

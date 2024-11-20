@@ -35,7 +35,6 @@
             android:background="@drawable/button_background"
             android:drawableEnd="@drawable/ic_logout"
             android:drawableTint="?android:attr/textColorPrimary"
-            android:onClick="onLogout"
             android:text="@string/menu_logout"
             android:textColor="?android:attr/textColorPrimary" />
 

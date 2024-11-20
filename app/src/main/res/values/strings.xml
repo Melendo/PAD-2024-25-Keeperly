@@ -33,4 +33,6 @@
     <string name="register_failed">El registro ha fallado</string>
     <string name="invalid_name">El nombre no es válido</string>
     <string name="invalid_repeat_pw">La contraseña no coincide</string>
+    <string name="invalid_email">El email no es valido</string>
+    <string name="register_failed_invalid_data">Datos no validos</string>
 </resources>

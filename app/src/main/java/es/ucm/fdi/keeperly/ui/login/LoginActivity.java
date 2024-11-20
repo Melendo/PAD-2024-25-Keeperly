@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ImageView;
 
+import es.ucm.fdi.keeperly.MenuActivity;
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
 import es.ucm.fdi.keeperly.ui.login.LoginViewModel;
@@ -96,10 +97,16 @@ public class LoginActivity extends AppCompatActivity {
             }
             if (loginResult.getSuccess() != null) {
                 updateUiWithUser(loginResult.getSuccess());
+                setResult(Activity.RESULT_OK);
+
+                // Redirigir al Home
+                Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+                //Complete and destroy login activity once successful
+                finish();
             }
-            setResult(Activity.RESULT_OK);
-            //Complete and destroy login activity once successful
-            finish();
         });
 
         //Se define un textWatcher para los campos y en afterChanged se llama a loginDataChanged para ver la validez de los datos

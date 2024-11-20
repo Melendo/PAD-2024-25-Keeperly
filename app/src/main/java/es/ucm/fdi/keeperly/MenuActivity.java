@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -32,6 +33,7 @@ public class MenuActivity extends AppCompatActivity {
 
         binding = ActivityMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        final Button logoutButton = binding.logoutButton;
 
         setSupportActionBar(binding.appBarMenu.toolbar);
         binding.appBarMenu.fab.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +55,11 @@ public class MenuActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        logoutButton.setOnClickListener(v -> {
+            onLogout();
+        });
+
     }
 
     @Override
@@ -71,10 +78,10 @@ public class MenuActivity extends AppCompatActivity {
 
     public void onLogout() {
         // Limpiar datos del usuario (ejemplo con SharedPreferences)
-//        LoginViewModel loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
-//                .get(LoginViewModel.class);
-//
-//        loginViewModel.logout();
+        LoginViewModel loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
+                .get(LoginViewModel.class);
+
+        loginViewModel.logout();
 
         // Redirigir al login
         Intent intent = new Intent(this, LoginActivity.class);

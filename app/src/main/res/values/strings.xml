@@ -25,4 +25,12 @@
     <string name="menu_accounts">Cuentas</string>
     <string name="menu_budgets">Presupuestos</string>
     <string name="menu_logout">Logout</string>
+
+    <string name="nombre">Nombre</string>
+    <string name="repita_la_contrase_a">Repita la Contraseña</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="inicio_sesi_n">Inicio Sesión</string>
+    <string name="register_failed">El registro ha fallado</string>
+    <string name="invalid_name">El nombre no es válido</string>
+    <string name="invalid_repeat_pw">La contraseña no coincide</string>
 </resources>

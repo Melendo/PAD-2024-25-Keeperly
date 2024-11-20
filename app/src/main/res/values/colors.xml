@@ -14,4 +14,7 @@
     <color name="error_red">#E46962</color>
     <color name="bright_pink">#F72585</color>
     <color name="purplish_pink">#B5179E</color>
+
+    <!-- Blacks -->
+    <color name="black">#000000</color>
 </resources>

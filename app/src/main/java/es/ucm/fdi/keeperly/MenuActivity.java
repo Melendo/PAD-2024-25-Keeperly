@@ -1,5 +1,6 @@
 package es.ucm.fdi.keeperly;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -7,6 +8,7 @@ import android.view.Menu;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -15,6 +17,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import es.ucm.fdi.keeperly.databinding.ActivityMenuBinding;
+import es.ucm.fdi.keeperly.ui.login.LoginActivity;
+import es.ucm.fdi.keeperly.ui.login.LoginViewModel;
+import es.ucm.fdi.keeperly.ui.login.LoginViewModelFactory;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -62,5 +67,20 @@ public class MenuActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void onLogout() {
+        // Limpiar datos del usuario (ejemplo con SharedPreferences)
+//        LoginViewModel loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
+//                .get(LoginViewModel.class);
+//
+//        loginViewModel.logout();
+
+        // Redirigir al login
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+
     }
 }

@@ -24,4 +24,5 @@
     <string name="menu_home">Inicio</string>
     <string name="menu_accounts">Cuentas</string>
     <string name="menu_budgets">Presupuestos</string>
+    <string name="menu_logout">Logout</string>
 </resources>

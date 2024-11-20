@@ -25,30 +25,34 @@
 
     <ProgressBar
         android:id="@+id/progressBar2"
-        style="?android:attr/progressBarStyle"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="44dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="40"
+        android:progressDrawable="@drawable/circular_progress"
+        android:progressTint="@color/main_purple"
+        android:rotation="270"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.148"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <ProgressBar
-        android:id="@+id/progressBar3"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="178dp" />
 
     <ProgressBar
         android:id="@+id/progressBar4"
-        style="?android:attr/progressBarStyle"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="44dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="80"
+        android:progressDrawable="@drawable/circular_progress"
+        android:progressTint="@color/main_purple"
+        android:rotation="270"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.644"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,13 +1,8 @@
 <resources>
     <string name="app_name">Keeperly</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome "</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="welcome">Bienvenido </string>
+    <string name="invalid_email">El email no es válido</string>
+    <string name="invalid_password">La contraseña debe tener más de 5 caracteres</string>
     <string name="login_failed">"Login failed"</string>
     <string name="logo_de_keeperly">Logo de Keeperly</string>
     <string name="correo">Correo</string>
@@ -16,4 +11,7 @@
     <string name="repita_la_contrase_a">Repita la Contraseña</string>
     <string name="registrarse">Registrarse</string>
     <string name="inicio_sesi_n">Inicio Sesión</string>
+    <string name="register_failed">El registro ha fallado</string>
+    <string name="invalid_name">El nombre no es válido</string>
+    <string name="invalid_repeat_pw">La contraseña no coincide</string>
 </resources>

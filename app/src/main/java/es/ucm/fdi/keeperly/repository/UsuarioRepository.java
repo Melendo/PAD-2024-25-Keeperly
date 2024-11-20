@@ -10,6 +10,7 @@ import es.ucm.fdi.keeperly.data.Result;
 import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
 import es.ucm.fdi.keeperly.data.local.database.dao.UsuarioDAO;
 import es.ucm.fdi.keeperly.data.local.database.entities.Usuario;
+import es.ucm.fdi.keeperly.exceptions.usuario.UserAlreadyExistsException;
 import es.ucm.fdi.keeperly.exceptions.usuario.UserNotFoundException;
 import es.ucm.fdi.keeperly.exceptions.usuario.WrongPasswordException;
 
@@ -61,6 +62,26 @@ public class UsuarioRepository {
             }
         } catch (Exception e) {
             return new Result.Error(new IOException("Error logging in", e));
+        }
+    }
+
+    public Result<Usuario> register(String email, String name, String password) {
+        try {
+            Usuario exists = usuarioDao.getUsuarioByEmail(email);
+            if (exists == null) {
+                Usuario usuario = new Usuario();
+                usuario.setEmail(email);
+                usuario.setNombre(name);
+                usuario.setPw(password);
+                usuarioDao.insert(usuario);
+
+                Usuario inserted = usuarioDao.getUsuarioByEmail(email);
+                return new Result.Success<Usuario>(inserted);
+            } else {
+                return new Result.Error(new UserAlreadyExistsException("User found in database"));
+            }
+        } catch (Exception e) {
+            return new Result.Error(new IOException("Error registering", e));
         }
     }
 

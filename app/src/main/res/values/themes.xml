@@ -6,4 +6,13 @@
     </style>
 
     <style name="Theme.Keeperly" parent="Base.Theme.Keeperly" />
+
+    <style name="Theme.Keeperly.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Keeperly.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Keeperly.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

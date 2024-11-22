@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    tools:context=".ui.login.LoginActivity">
+    tools:context=".ui.register.RegisterActivity">
 
     <!-- App Logo -->
     <ImageView
@@ -22,9 +21,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/emailEditText"
         android:contentDescription="@string/logo_de_keeperly"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="500dp"/>
 
-    <!-- EditText Usuario -->
+    <!-- EditText Nombre -->
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/nombre"
+        android:background="@drawable/rounded_edit_text"
+        android:padding="16dp"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@+id/appLogo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="500dp"/>
+
+    <!-- EditText Correo -->
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="0dp"
@@ -33,11 +48,11 @@
         android:background="@drawable/rounded_edit_text"
         android:padding="16dp"
         android:textColor="#000"
-        app:layout_constraintTop_toBottomOf="@+id/appLogo"
+        app:layout_constraintTop_toBottomOf="@+id/nameEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="32dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="500dp"/>
 
     <!-- EditText Contrasenia -->
     <EditText
@@ -53,34 +68,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="32dp"/>
+        android:layout_marginHorizontal="500dp"/>
 
-    <!-- Button Login -->
-    <Button
-        android:id="@+id/loginButton"
+    <!-- EditText Repetir Contrasenia -->
+    <EditText
+        android:id="@+id/repeatPasswordEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Iniciar Sesión"
-        android:backgroundTint="@color/main_purple"
-        android:textColor="#FFF"
+        android:hint="@string/repita_la_contrase_a"
+        android:background="@drawable/rounded_edit_text"
+        android:padding="16dp"
+        android:textColor="#000"
+        android:inputType="textPassword"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/registerButton"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="32dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="500dp"/>
 
     <!-- Button Registro -->
     <Button
         android:id="@+id/registerButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Registro"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
-        app:layout_constraintStart_toEndOf="@+id/loginButton"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/registrarse"
+        android:backgroundTint="@color/main_purple"
+        android:textColor="#FFF"
+        app:layout_constraintTop_toBottomOf="@+id/repeatPasswordEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/loginButton"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="500dp"/>
+
+    <!-- Button Login -->
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/inicio_sesi_n"
+        app:layout_constraintTop_toBottomOf="@+id/repeatPasswordEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/registerButton"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="500dp"
         />
 
     <ProgressBar

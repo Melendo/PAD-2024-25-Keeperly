@@ -43,6 +43,10 @@ public class LoginViewModel extends ViewModel {
             loginResult.setValue(new LoginResult(R.string.login_failed));
         }
     }
+
+    public void logout(){
+        loginRepository.logout();
+    }
     //Validamos a tiempo de introduccion si los datos son correctos actualizando loginFormState
     public void loginDataChanged(String username, String password) {
         if (!isUserNameValid(username)) {

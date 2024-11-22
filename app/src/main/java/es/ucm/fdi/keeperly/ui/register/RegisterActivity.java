@@ -93,17 +93,27 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         registerViewModel.getRegisterResult().observe(this, registerResult -> {
-           if (registerResult == null)
-               return;
-           loadingProgressBar.setVisibility(View.GONE);
-           if (registerResult.getError() != null) {
-               showRegisterFailed(registerResult.getError());
-           }
-           if (registerResult.getSuccess() != null) {
-               updateUiWithRegister(registerResult.getSuccess());
-           }
-           setResult(Activity.RESULT_OK);
-           finish();
+            if (registerResult == null) {
+                return;
+            }
+            loadingProgressBar.setVisibility(View.GONE);
+            if (registerResult.getError() != null) {
+                showRegisterFailed(registerResult.getError());
+            }
+            if (registerResult.getSuccess() != null) {
+                updateUiWithRegister(registerResult.getSuccess());
+                setResult(Activity.RESULT_OK);
+
+                // Redirigir al login
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+                //Complete and destroy register activity once successful
+                finish();
+            }
+            showRegisterFailed(registerResult.getError());
+
         });
 
         TextWatcher afterTextChangedListener = new TextWatcher() {

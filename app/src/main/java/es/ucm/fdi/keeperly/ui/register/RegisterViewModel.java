@@ -34,14 +34,20 @@ public class RegisterViewModel extends ViewModel {
     }
 
     public void register(String email, String name, String password) {
-       Result<Usuario> result = usuarioRepository.register(email, name, password);
+        if (isEmailValid(email) && isNameValid(name) && isPasswordValid(password)) {
 
-       if(result instanceof Result.Success) {
-           Usuario data = ((Result.Success<Usuario>) result).getData();
-           registerResult.setValue(new RegisterResult(new RegisteredUserView(data.getId(), data.getNombre())));
-       } else {
-           registerResult.setValue(new RegisterResult(R.string.register_failed));
-       }
+            Result<Usuario> result = usuarioRepository.register(email, name, password);
+
+            if (result instanceof Result.Success) {
+                Usuario data = ((Result.Success<Usuario>) result).getData();
+                registerResult.setValue(new RegisterResult(new RegisteredUserView(data.getId(), data.getNombre())));
+            } else {
+                registerResult.setValue(new RegisterResult(R.string.register_failed));
+            }
+        }else {
+            registerResult.setValue(new RegisterResult(R.string.register_failed_invalid_data));
+        }
+        registerFormState.setValue(new RegisterFormState(false));
     }
 
     public void registerDataChanged(String email, String name, String password, String repeatpassword) {

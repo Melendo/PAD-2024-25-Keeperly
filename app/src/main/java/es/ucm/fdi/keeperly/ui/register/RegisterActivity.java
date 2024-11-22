@@ -91,6 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+
         registerViewModel.getRegisterResult().observe(this, registerResult -> {
            if (registerResult == null)
                return;

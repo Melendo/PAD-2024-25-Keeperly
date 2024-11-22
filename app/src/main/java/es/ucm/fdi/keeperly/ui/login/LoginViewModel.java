@@ -56,7 +56,7 @@ public class LoginViewModel extends ViewModel {
 
     // Valida el nombre de usuario (correo con @ o nombre de usuario)
     private boolean isUserNameValid(String username) {
-        if (username == null) {
+        if (username == null || username.isEmpty()) {
             return false;
         }
         if (username.contains("@")) {
@@ -68,6 +68,6 @@ public class LoginViewModel extends ViewModel {
 
     // Valida la contraseña con una longitud de min 5 caracteres
     private boolean isPasswordValid(String password) {
-        return password != null && password.trim().length() > 5;
+        return password != null && !password.isEmpty() && password.trim().length() > 5;
     }
 }

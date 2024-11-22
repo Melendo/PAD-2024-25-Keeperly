@@ -152,7 +152,7 @@
         android:text="Presupuestos"
         android:textAlignment="center"
         android:textSize="48sp"
-        android:layout_marginHorizontal="250"
+        android:layout_marginHorizontal="250dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.815"
         app:layout_constraintStart_toStartOf="@id/divider4"

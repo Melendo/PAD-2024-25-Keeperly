@@ -140,9 +140,15 @@ public class LoginActivity extends AppCompatActivity {
 
         //Se intenta iniciar sesion cuando se pulse el boton de enviar cuestionario
         loginButton.setOnClickListener(v -> {
-            loadingProgressBar.setVisibility(View.VISIBLE);
-            loginViewModel.login(usernameEditText.getText().toString(),
-                    passwordEditText.getText().toString());
+            if (usernameEditText.getText().toString().isEmpty()) {
+                usernameEditText.setError("Este campo no puede estar vacío");
+            } else if (passwordEditText.getText().toString().isEmpty()) {
+                passwordEditText.setError("Este campo no puede estar vacío");
+            } else {
+                loadingProgressBar.setVisibility(View.VISIBLE);
+                loginViewModel.login(usernameEditText.getText().toString(),
+                        passwordEditText.getText().toString());
+            }
         });
 
         registerButton.setOnClickListener(v -> {

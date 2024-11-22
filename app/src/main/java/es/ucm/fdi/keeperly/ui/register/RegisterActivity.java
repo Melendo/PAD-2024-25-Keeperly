@@ -142,10 +142,20 @@ public class RegisterActivity extends AppCompatActivity {
         repeatpwEditText.addTextChangedListener(afterTextChangedListener);
 
         registerButton.setOnClickListener(v -> {
-            loadingProgressBar.setVisibility(View.VISIBLE);
-            registerViewModel.register(emailEditText.getText().toString(),
-                    nameEditText.getText().toString(),
-                    passwordEditText.getText().toString());
+            if (nameEditText.getText().toString().isEmpty()) {
+                nameEditText.setError("Este campo no puede estar vacío");
+            } else if (emailEditText.getText().toString().isEmpty()) {
+                emailEditText.setError("Este campo no puede estar vacío");
+            } else if (passwordEditText.getText().toString().isEmpty()) {
+                passwordEditText.setError("Este campo no puede estar vacío");
+            } else if (repeatpwEditText.getText().toString().isEmpty()) {
+                repeatpwEditText.setError("Este campo no puede estar vacío");
+            } else {
+                loadingProgressBar.setVisibility(View.VISIBLE);
+                registerViewModel.register(emailEditText.getText().toString(),
+                        nameEditText.getText().toString(),
+                        passwordEditText.getText().toString());
+            }
         });
 
         loginButton.setOnClickListener(v -> {

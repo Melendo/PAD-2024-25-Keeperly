@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -82,7 +83,9 @@ public class MenuActivity extends AppCompatActivity {
                 .get(LoginViewModel.class);
 
         loginViewModel.logout();
-
+        String logout_successfully = getString(R.string.logout_successfully);
+        // TODO : initiate successful logged in experience
+        Toast.makeText(getApplicationContext(), logout_successfully, Toast.LENGTH_LONG).show();
         // Redirigir al login
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

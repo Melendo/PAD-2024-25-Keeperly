@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import es.ucm.fdi.keeperly.data.Result;
 import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
 import es.ucm.fdi.keeperly.data.local.database.dao.CuentaDAO;
 import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;

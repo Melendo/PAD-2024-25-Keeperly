@@ -12,4 +12,7 @@
     <string name="logo_de_keeperly">Logo de Keeperly</string>
     <string name="correo">Correo</string>
     <string name="contrase_a">Contraseña</string>
+    <string name="create_account_failed">Could not create an account</string>
+    <string name="invalid_accountname">Account name must be 1 to 30 characters</string>
+    <string name="invalid_balance">Balance must be positive</string>
 </resources>

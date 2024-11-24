@@ -40,4 +40,6 @@ public class CategoriaRepository {
     public Categoria getCategoriaById(int id) {
         return categoriaDao.getCategoriaById(id);
     }
+
+    public Categoria getCategoriaByNombre(String nombre) { return categoriaDao.getCategoriaByNombre(nombre);}
 }

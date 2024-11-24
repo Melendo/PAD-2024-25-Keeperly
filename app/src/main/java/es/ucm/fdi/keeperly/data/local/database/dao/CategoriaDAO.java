@@ -22,4 +22,7 @@ public interface CategoriaDAO {
 
     @Query ("SELECT * FROM categorias WHERE id =:id")
     Categoria getCategoriaById(int id);
+
+    @Query ("SELECT * FROM categorias WHERE nombre =:nombre")
+    Categoria getCategoriaByNombre(String nombre);
 }

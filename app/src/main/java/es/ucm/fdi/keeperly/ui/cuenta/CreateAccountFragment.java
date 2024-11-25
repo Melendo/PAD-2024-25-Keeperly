@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import es.ucm.fdi.keeperly.R;
+import es.ucm.fdi.keeperly.data.local.database.entities.Usuario;
 import es.ucm.fdi.keeperly.repository.LoginRepository;
 import es.ucm.fdi.keeperly.repository.RepositoryFactory;
 
@@ -34,22 +36,36 @@ public class CreateAccountFragment extends Fragment {
         createAccountViewModel = new ViewModelProvider(this, new CreateAccountViewModelFactory()).get(CreateAccountViewModel.class);
         //Cambios en el formulario
         createAccountViewModel.getCuentaFormState().observe(getViewLifecycleOwner(), formState -> {
+            //No se ha inicializado
             if (formState == null) {
                 return;
             }
-            //Si  los datos mantienen bien el formato se activa el botond e crear
+            //Si los datos son validos se activa el boton de crear
             crear.setEnabled(formState.isDataValid());
-
+            //Muestra el mensaje de error si el nombre no es valido
             if (formState.getNameError() != null) {
-                nombre.setError(getString(formState.getNameError()));
+                nombre.setError(getString(R.string.invalid_accountname));
             }
+            //Muestra el mensaje de error si el balance no es valido
             if (formState.getBalanceError() != null) {
-                balance.setError(getString(formState.getBalanceError()));
+                balance.setError(getString(R.string.invalid_balance));
             }
         });
         //Resultado del formulario
         createAccountViewModel.getCuentaResult().observe(getViewLifecycleOwner(), result -> {
-
+            //Si no hay resultado
+            if (result == null) {
+                return;
+            }
+            //Si el resultado tiene un error
+            if (result.getError() != null) {
+                Toast.makeText(requireContext(), getString(R.string.create_account_failed), Toast.LENGTH_SHORT).show();
+            }
+            //Si se crea con exito la cuenta
+            if (result.getSuccess() != null) {
+                Toast.makeText(requireContext(), getString(R.string.success_account_creation), Toast.LENGTH_SHORT).show();
+                requireActivity().onBackPressed(); // Regresa a la pantalla anterior
+            }
         });
         //Boton crear cuenta
         crear.setOnClickListener(new View.OnClickListener() {
@@ -59,9 +75,9 @@ public class CreateAccountFragment extends Fragment {
                 String textoBalance = balance.getText().toString();
                 double balanceC = textoBalance.isEmpty() ? 0 : Double.parseDouble(textoBalance);
                 //Obtiene el id del usuario logeado
-                //int idUsuario = LoginRepository.getInstance(RepositoryFactory.getInstance().getUsuarioRepository());
-                //createAccountViewModel.createAccount(nombreC, balanceC, idUsuario);
-
+                Usuario loggedUser = LoginRepository.getInstance(RepositoryFactory.getInstance().getUsuarioRepository()).getLoggedUser();
+                int idUsuario = loggedUser.getId();
+                createAccountViewModel.createAccount(nombreC, balanceC, idUsuario);
             }
         });
         //Boton cancelar
@@ -71,7 +87,6 @@ public class CreateAccountFragment extends Fragment {
                 requireActivity().onBackPressed(); //Retrocede a la pantalla anterior
             }
         });
-
         return view;
     }
 }

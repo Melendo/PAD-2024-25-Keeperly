@@ -51,4 +51,11 @@ public class LoginRepository {
         }
         return result;
     }
+
+    public Usuario getLoggedUser() {
+        if (user != null) {
+            throw new IllegalStateException("No se encontro ningun usuario");
+        }
+        return user;
+    }
 }

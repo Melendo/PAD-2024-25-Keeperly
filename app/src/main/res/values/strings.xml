@@ -15,4 +15,8 @@
     <string name="create_account_failed">Could not create an account</string>
     <string name="invalid_accountname">Account name must be 1 to 30 characters</string>
     <string name="invalid_balance">Balance must be positive</string>
+    <string name="account_name">Nombre de la cuenta</string>
+    <string name="balance">Balance</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="crear_cuenta">Crear cuenta</string>
 </resources>

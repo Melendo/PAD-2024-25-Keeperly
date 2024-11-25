@@ -36,13 +36,21 @@
     <string name="invalid_email">El email no es valido</string>
     <string name="register_failed_invalid_data">Datos no validos</string>
     <string name="logout_successfully">Sesion Cerrada correctamente</string>
-
-
+    <string name="transacciones">Transacciones</string>
     <string name="crear_presupuesto">Crear Presupuesto</string>
+    <string name="a_adir_transacci_n">Añadir Transacción</string>
     <string-array name="categorias_array">
         <item>Ocio</item>
         <item>Alimentación</item>
         <item>Transporte</item>
         <item>Otros</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="concepto">Concepto</string>
+    <string name="cantidad">Cantidad</string>
+    <string name="categor_a">Categoría</string>
+    <string name="cuenta">Cuenta</string>
+    <string name="guardar_transacci_n">Guardar Transacción</string>
+    <string name="cancelar">Cancelar</string>
 </resources>

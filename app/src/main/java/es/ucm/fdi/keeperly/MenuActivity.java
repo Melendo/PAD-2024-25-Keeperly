@@ -43,7 +43,7 @@ public class MenuActivity extends AppCompatActivity {
 
         // Configurar destinos de nivel superior
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_accounts, R.id.nav_budgets)
+                R.id.nav_home, R.id.nav_accounts, R.id.nav_budgets, R.id.nav_transaccion)
                 .setOpenableLayout(drawer)
                 .build();
 

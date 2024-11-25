@@ -1,37 +1,27 @@
 package es.ucm.fdi.keeperly.ui.login;
 
 import android.app.Activity;
-
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import es.ucm.fdi.keeperly.MenuActivity;
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
-import es.ucm.fdi.keeperly.ui.login.LoginViewModel;
-import es.ucm.fdi.keeperly.ui.login.LoginViewModelFactory;
 import es.ucm.fdi.keeperly.databinding.ActivityLoginBinding;
 import es.ucm.fdi.keeperly.ui.register.RegisterActivity;
 
@@ -43,6 +33,14 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        try {
+//            KeeperlyDB db = Room.databaseBuilder(getApplicationContext(),
+//                            KeeperlyDB.class, "keeperly_database")
+//                    .build();
+//        } catch (Exception e) {
+//            Log.e("DatabaseInit", "Error al inicializar la base de datos", e);
+//        }
 
         KeeperlyDB.createInstance(getApplicationContext());
 

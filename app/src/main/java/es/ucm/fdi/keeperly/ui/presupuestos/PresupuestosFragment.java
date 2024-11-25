@@ -31,7 +31,7 @@ public class PresupuestosFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        PresupuestosViewModel budgetsViewModelViewModel =
+        PresupuestosViewModel presupuestosViewModel =
                 new ViewModelProvider(this).get(PresupuestosViewModel.class);
 
         binding = FragmentPresupuestosBinding.inflate(inflater, container, false);
@@ -46,7 +46,7 @@ public class PresupuestosFragment extends Fragment {
         });
 
         final TextView textView = binding.textBudgets;
-        budgetsViewModelViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        presupuestosViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

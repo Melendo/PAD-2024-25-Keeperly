@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel;
 
 import java.sql.Date;
 
-import es.ucm.fdi.keeperly.data.local.database.entities.Presupuesto;
 import es.ucm.fdi.keeperly.repository.PresupuestoRepository;
 import es.ucm.fdi.keeperly.repository.RepositoryFactory;
 
@@ -23,6 +22,10 @@ public class PresupuestosViewModel extends ViewModel {
 
     public LiveData<String> getText() {
         return mText;
+    }
+
+    public LiveData<Integer> getInsertStatus() {
+        return presupuestoRepository.getOperationStatus();
     }
 
     // Método para crear un nuevo presupuesto

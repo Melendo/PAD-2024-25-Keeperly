@@ -34,14 +34,6 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        try {
-//            KeeperlyDB db = Room.databaseBuilder(getApplicationContext(),
-//                            KeeperlyDB.class, "keeperly_database")
-//                    .build();
-//        } catch (Exception e) {
-//            Log.e("DatabaseInit", "Error al inicializar la base de datos", e);
-//        }
-
         KeeperlyDB.createInstance(getApplicationContext());
 
         //Bindear los elementos de la vista

@@ -4,12 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.view.GravityCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -34,33 +35,40 @@ public class MenuActivity extends AppCompatActivity {
 
         binding = ActivityMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        final Button logoutButton = binding.logoutButton;
 
         setSupportActionBar(binding.appBarMenu.toolbar);
-        binding.appBarMenu.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .setAnchorView(R.id.fab).show();
-            }
-        });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
+        // Configurar destinos de nivel superior
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_accounts, R.id.nav_budgets)
                 .setOpenableLayout(drawer)
                 .build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        logoutButton.setOnClickListener(v -> {
-            onLogout();
-        });
+        // Configurar clics en los ítems del NavigationView
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
 
+            if (id == R.id.nav_logout) { // Si se selecciona Logout
+                showLogoutConfirmationDialog(); // Mostrar diálogo de confirmación
+                return true; // Consumir el evento
+            }
+
+            // Para otros ítems, delega la navegación al NavController
+            boolean handled = NavigationUI.onNavDestinationSelected(item, navController);
+
+            if (handled) {
+                drawer.closeDrawer(GravityCompat.START); // Cierra el menú lateral
+            }
+
+            return handled;
+        });
     }
 
     @Override
@@ -76,6 +84,16 @@ public class MenuActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    private void showLogoutConfirmationDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Cerrar sesión")
+                .setMessage("¿Estás seguro de que deseas cerrar sesión?")
+                .setPositiveButton("Salir", (dialog, which) -> onLogout()) // Confirmar logout
+                .setNegativeButton("Cancelar", null) // Cerrar el diálogo sin hacer nada
+                .show();
+    }
+
 
     public void onLogout() {
         // Limpiar datos del usuario (ejemplo con SharedPreferences)

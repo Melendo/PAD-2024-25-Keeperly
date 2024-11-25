@@ -1,4 +1,4 @@
-package es.ucm.fdi.keeperly.ui.accounts;
+package es.ucm.fdi.keeperly.ui.inicio;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,23 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import es.ucm.fdi.keeperly.databinding.FragmentAccountsBinding;
+import es.ucm.fdi.keeperly.databinding.FragmentInicioBinding;
 
+public class InicioFragment extends Fragment {
 
-public class AccountsFragment extends Fragment {
-
-    private FragmentAccountsBinding binding;
+    private FragmentInicioBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        AccountsViewModel accountsViewModel =
-                new ViewModelProvider(this).get(AccountsViewModel.class);
+        InicioViewModel homeViewModel =
+                new ViewModelProvider(this).get(InicioViewModel.class);
 
-        binding = FragmentAccountsBinding.inflate(inflater, container, false);
+        binding = FragmentInicioBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textAccounts;
-        accountsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textHome;
+        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

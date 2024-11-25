@@ -1,4 +1,4 @@
-package es.ucm.fdi.keeperly.ui.budgets;
+package es.ucm.fdi.keeperly.ui.cuentas;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,23 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import es.ucm.fdi.keeperly.databinding.FragmentBudgetsBinding;
+import es.ucm.fdi.keeperly.databinding.FragmentCuentasBinding;
 
 
-public class BudgetsFragment extends Fragment {
+public class CuentasFragment extends Fragment {
 
-    private FragmentBudgetsBinding binding;
+    private FragmentCuentasBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        BudgetsViewModel budgetsViewModelViewModel =
-                new ViewModelProvider(this).get(BudgetsViewModel.class);
+        CuentasViewModel accountsViewModel =
+                new ViewModelProvider(this).get(CuentasViewModel.class);
 
-        binding = FragmentBudgetsBinding.inflate(inflater, container, false);
+        binding = FragmentCuentasBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textBudgets;
-        budgetsViewModelViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textAccounts;
+        accountsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

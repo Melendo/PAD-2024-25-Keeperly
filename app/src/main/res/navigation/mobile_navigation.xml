@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="es.ucm.fdi.keeperly.ui.home.HomeFragment"
+        android:name="es.ucm.fdi.keeperly.ui.inicio.InicioFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_inicio" />
 
     <fragment
         android:id="@+id/nav_accounts"
-        android:name="es.ucm.fdi.keeperly.ui.accounts.AccountsFragment"
+        android:name="es.ucm.fdi.keeperly.ui.cuentas.CuentasFragment"
         android:label="@string/menu_accounts"
-        tools:layout="@layout/fragment_accounts" />
+        tools:layout="@layout/fragment_cuentas" />
 
     <fragment
         android:id="@+id/nav_budgets"
-        android:name="es.ucm.fdi.keeperly.ui.budgets.BudgetsFragment"
+        android:name="es.ucm.fdi.keeperly.ui.presupuestos.PresupuestosFragment"
         android:label="@string/menu_budgets"
-        tools:layout="@layout/fragment_budgets" />
+        tools:layout="@layout/fragment_presupuestos" />
 </navigation>

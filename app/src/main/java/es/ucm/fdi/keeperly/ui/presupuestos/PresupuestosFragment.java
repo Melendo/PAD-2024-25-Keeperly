@@ -9,7 +9,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.view.GravityCompat;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.databinding.FragmentPresupuestosBinding;
 
 
@@ -24,6 +36,14 @@ public class PresupuestosFragment extends Fragment {
 
         binding = FragmentPresupuestosBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        FloatingActionButton fabCrearPresupuesto = root.findViewById(R.id.fab_crear_presupuesto);
+
+        fabCrearPresupuesto.setOnClickListener(v -> {
+            // Navegación hacia el formulario de creación de presupuesto
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_menu);
+            navController.navigate(R.id.action_budgetsFragment_to_crearPresupuestoFragment);
+        });
 
         final TextView textView = binding.textBudgets;
         budgetsViewModelViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);

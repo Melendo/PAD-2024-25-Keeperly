@@ -22,4 +22,13 @@
         android:name="es.ucm.fdi.keeperly.ui.presupuestos.PresupuestosFragment"
         android:label="@string/menu_budgets"
         tools:layout="@layout/fragment_presupuestos" />
+    <action
+        android:id="@+id/action_budgetsFragment_to_crearPresupuestoFragment"
+        app:destination="@id/crearPresupuestoFragment" />
+
+    <fragment
+        android:id="@+id/crearPresupuestoFragment"
+        android:name="es.ucm.fdi.keeperly.ui.presupuestos.CrearPresupuestoFragment"
+        android:label="Crear Presupuesto"
+        tools:layout="@layout/fragment_crear_presupuesto" />
 </navigation>

@@ -36,4 +36,13 @@
     <string name="invalid_email">El email no es valido</string>
     <string name="register_failed_invalid_data">Datos no validos</string>
     <string name="logout_successfully">Sesion Cerrada correctamente</string>
+
+
+    <string name="crear_presupuesto">Crear Presupuesto</string>
+    <string-array name="categorias_array">
+        <item>Ocio</item>
+        <item>Alimentación</item>
+        <item>Transporte</item>
+        <item>Otros</item>
+    </string-array>
 </resources>

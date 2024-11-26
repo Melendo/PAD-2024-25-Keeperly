@@ -1,16 +1,16 @@
-package es.ucm.fdi.keeperly.ui.budgets;
+package es.ucm.fdi.keeperly.ui.inicio;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class BudgetsViewModel extends ViewModel {
+public class InicioViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public BudgetsViewModel() {
+    public InicioViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is budgets fragment");
+        mText.setValue("This is home fragment");
     }
 
     public LiveData<String> getText() {

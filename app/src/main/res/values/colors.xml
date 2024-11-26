@@ -17,4 +17,7 @@
 
     <!-- Blacks -->
     <color name="black">#000000</color>
+
+    <!-- Greens -->
+    <color name="success_green">#29AF0C</color>
 </resources>

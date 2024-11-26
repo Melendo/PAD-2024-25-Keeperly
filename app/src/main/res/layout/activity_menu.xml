@@ -25,19 +25,6 @@
         app:headerLayout="@layout/nav_header_menu"
         app:menu="@menu/activity_main_drawer">
 
-        <Button
-            android:id="@+id/logoutButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|start"
-            android:layout_margin="16dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/button_background"
-            android:drawableEnd="@drawable/ic_logout"
-            android:drawableTint="?android:attr/textColorPrimary"
-            android:text="@string/menu_logout"
-            android:textColor="?android:attr/textColorPrimary" />
-
 
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

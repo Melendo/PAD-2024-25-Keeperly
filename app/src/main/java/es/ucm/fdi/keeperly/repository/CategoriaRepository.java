@@ -26,12 +26,7 @@ public class CategoriaRepository {
         executorService = Executors.newSingleThreadExecutor();
     }
 
-    public LiveData<Integer> getInsertStatus() {
-        return operationStatus;
-    }
-
     public void insert(Categoria categoria) {
-        operationStatus.postValue(-1);
         if (categoria.getNombre().isEmpty()) {
             operationStatus.postValue(-2);
 
@@ -47,6 +42,7 @@ public class CategoriaRepository {
                             operationStatus.postValue(1);
                         } catch (Exception e) {
                             e.printStackTrace();
+                            operationStatus.postValue(-1);
                         }
                     });
                 }
@@ -74,5 +70,15 @@ public class CategoriaRepository {
 
     public Categoria getCategoriaByNombre(String nombre) {
         return categoriaDao.getCategoriaByNombre(nombre);
+    }
+
+    public Categoria construirCategoria(String nombre) {
+        Categoria categoria = new Categoria();
+        categoria.setNombre(nombre);
+        return categoria;
+    }
+
+    public LiveData<Integer> getOperationStatus() {
+        return operationStatus;
     }
 }

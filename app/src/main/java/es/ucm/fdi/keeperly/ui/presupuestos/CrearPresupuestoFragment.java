@@ -75,7 +75,7 @@ public class CrearPresupuestoFragment extends Fragment {
         });
 
         // Observa el estado del insert
-        presupuestosViewModel.getInsertStatus().observe(getViewLifecycleOwner(), status -> {
+        presupuestosViewModel.getOperationStatus().observe(getViewLifecycleOwner(), status -> {
             if (status != null) {
                 switch (status) {
                     case 1: // Éxito

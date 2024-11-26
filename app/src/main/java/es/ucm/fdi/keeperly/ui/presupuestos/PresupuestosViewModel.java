@@ -24,7 +24,7 @@ public class PresupuestosViewModel extends ViewModel {
         return mText;
     }
 
-    public LiveData<Integer> getInsertStatus() {
+    public LiveData<Integer> getOperationStatus() {
         return presupuestoRepository.getOperationStatus();
     }
 

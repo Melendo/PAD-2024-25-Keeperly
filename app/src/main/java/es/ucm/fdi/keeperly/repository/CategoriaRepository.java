@@ -60,7 +60,7 @@ public class CategoriaRepository {
         executorService.execute(() -> categoriaDao.delete(categoria));
     }
 
-    public List<Categoria> getAllCategorias() {
+    public LiveData<List<Categoria>> getAllCategorias() {
         return categoriaDao.getAllCategorias();
     }
 
@@ -70,12 +70,6 @@ public class CategoriaRepository {
 
     public Categoria getCategoriaByNombre(String nombre) {
         return categoriaDao.getCategoriaByNombre(nombre);
-    }
-
-    public Categoria construirCategoria(String nombre) {
-        Categoria categoria = new Categoria();
-        categoria.setNombre(nombre);
-        return categoria;
     }
 
     public LiveData<Integer> getOperationStatus() {

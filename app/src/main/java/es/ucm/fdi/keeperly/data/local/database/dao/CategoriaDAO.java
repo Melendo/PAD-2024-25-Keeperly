@@ -1,5 +1,6 @@
 package es.ucm.fdi.keeperly.data.local.database.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface CategoriaDAO {
     void delete(Categoria categoria);
 
     @Query("SELECT * FROM categorias")
-    List<Categoria> getAllCategorias();
+    LiveData<List<Categoria>> getAllCategorias();
 
     @Query ("SELECT * FROM categorias WHERE id =:id")
     Categoria getCategoriaById(int id);

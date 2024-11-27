@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <!-- HOME -->
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="es.ucm.fdi.keeperly.ui.inicio.InicioFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_inicio" />
+
+    <!-- CUENTAS -->
+
+    <fragment
+        android:id="@+id/nav_cuentas"
+        android:name="es.ucm.fdi.keeperly.ui.cuentas.CuentasFragment"
+        android:label="@string/menu_accounts"
+        tools:layout="@layout/fragment_cuentas" />
+
+    <!-- PRESUPUETOS -->
+    <fragment
+        android:id="@+id/nav_presupuestos"
+        android:name="es.ucm.fdi.keeperly.ui.presupuestos.PresupuestosFragment"
+        android:label="@string/menu_budgets"
+        tools:layout="@layout/fragment_presupuestos" />
+    <action
+        android:id="@+id/action_budgetsFragment_to_crearPresupuestoFragment"
+        app:destination="@id/crearPresupuestoFragment" />
+
+    <fragment
+        android:id="@+id/crearPresupuestoFragment"
+        android:name="es.ucm.fdi.keeperly.ui.presupuestos.CrearPresupuestoFragment"
+        android:label="Crear Presupuesto"
+        tools:layout="@layout/fragment_crear_presupuesto" />
+
+    <!-- CATEGORIAS -->
+    <fragment
+        android:id="@+id/nav_categorias"
+        android:name="es.ucm.fdi.keeperly.ui.categorias.CategoriasFragment"
+        android:label="@string/menu_categories"
+        tools:layout="@layout/fragment_categorias" />
+    <action
+        android:id="@+id/action_categoriasFragment_to_crearCategoriaFragment"
+        app:destination="@id/crearCategoriaFragment" />
+    <fragment
+        android:id="@+id/crearCategoriaFragment"
+        android:name="es.ucm.fdi.keeperly.ui.categorias.CrearCategoriaFragment"
+        android:label="Crear Categoria"
+        tools:layout="@layout/fragment_crear_categoria" />
+
+</navigation>

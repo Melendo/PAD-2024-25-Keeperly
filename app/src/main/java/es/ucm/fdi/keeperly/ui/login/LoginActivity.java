@@ -1,36 +1,29 @@
 package es.ucm.fdi.keeperly.ui.login;
 
 import android.app.Activity;
-
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+
+import es.ucm.fdi.keeperly.MenuActivity;
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
-import es.ucm.fdi.keeperly.ui.login.LoginViewModel;
-import es.ucm.fdi.keeperly.ui.login.LoginViewModelFactory;
 import es.ucm.fdi.keeperly.databinding.ActivityLoginBinding;
+import es.ucm.fdi.keeperly.ui.register.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -52,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 .get(LoginViewModel.class);
 
         //Bindeamos los campos de la pantalla de login
-        final EditText usernameEditText = binding.usernameEditText;
+        final EditText usernameEditText = binding.emailEditText;
         final EditText passwordEditText = binding.passwordEditText;
         final Button loginButton = binding.loginButton;
         final Button registerButton = binding.registerButton;
@@ -94,10 +87,16 @@ public class LoginActivity extends AppCompatActivity {
             }
             if (loginResult.getSuccess() != null) {
                 updateUiWithUser(loginResult.getSuccess());
+                setResult(Activity.RESULT_OK);
+
+                // Redirigir al Home
+                Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+                //Complete and destroy login activity once successful
+                finish();
             }
-            setResult(Activity.RESULT_OK);
-            //Complete and destroy login activity once successful
-            finish();
         });
 
         //Se define un textWatcher para los campos y en afterChanged se llama a loginDataChanged para ver la validez de los datos
@@ -120,27 +119,32 @@ public class LoginActivity extends AppCompatActivity {
         };
         usernameEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
-            //Se intenta inicia sesion sin pulsar el boton de enviar formulario para fluidez
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginViewModel.login(usernameEditText.getText().toString(),
-                            passwordEditText.getText().toString());
-                }
-                return false;
+        //Se intenta inicia sesion sin pulsar el boton de enviar formulario para fluidez
+        passwordEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                loginViewModel.login(usernameEditText.getText().toString(),
+                        passwordEditText.getText().toString());
             }
+            return false;
         });
 
         //Se intenta iniciar sesion cuando se pulse el boton de enviar cuestionario
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        loginButton.setOnClickListener(v -> {
+            if (usernameEditText.getText().toString().isEmpty()) {
+                usernameEditText.setError("Este campo no puede estar vacío");
+            } else if (passwordEditText.getText().toString().isEmpty()) {
+                passwordEditText.setError("Este campo no puede estar vacío");
+            } else {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
             }
+        });
+
+        registerButton.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 

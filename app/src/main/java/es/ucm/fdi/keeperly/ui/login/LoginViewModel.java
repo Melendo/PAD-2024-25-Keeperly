@@ -43,10 +43,14 @@ public class LoginViewModel extends ViewModel {
             loginResult.setValue(new LoginResult(R.string.login_failed));
         }
     }
+
+    public void logout(){
+        loginRepository.logout();
+    }
     //Validamos a tiempo de introduccion si los datos son correctos actualizando loginFormState
     public void loginDataChanged(String username, String password) {
         if (!isUserNameValid(username)) {
-            loginFormState.setValue(new LoginFormState(R.string.invalid_username, null));
+            loginFormState.setValue(new LoginFormState(R.string.invalid_name, null));
         } else if (!isPasswordValid(password)) {
             loginFormState.setValue(new LoginFormState(null, R.string.invalid_password));
         } else {
@@ -56,7 +60,7 @@ public class LoginViewModel extends ViewModel {
 
     // Valida el nombre de usuario (correo con @ o nombre de usuario)
     private boolean isUserNameValid(String username) {
-        if (username == null) {
+        if (username == null || username.isEmpty()) {
             return false;
         }
         if (username.contains("@")) {
@@ -68,6 +72,6 @@ public class LoginViewModel extends ViewModel {
 
     // Valida la contraseña con una longitud de min 5 caracteres
     private boolean isPasswordValid(String password) {
-        return password != null && password.trim().length() > 5;
+        return password != null && !password.isEmpty() && password.trim().length() > 5;
     }
 }

@@ -7,9 +7,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import es.ucm.fdi.keeperly.MenuActivity;
 import es.ucm.fdi.keeperly.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends MenuActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

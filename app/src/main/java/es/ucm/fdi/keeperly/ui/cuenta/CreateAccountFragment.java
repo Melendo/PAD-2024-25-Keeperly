@@ -26,7 +26,7 @@ public class CreateAccountFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_crearCuenta, container, false);
+        View view = inflater.inflate(R.layout.fragment_crear_cuenta, container, false);
         //Vincula las vistas
         nombre = view.findViewById(R.id.accountNameEditText);
         balance = view.findViewById(R.id.balanceEditText);

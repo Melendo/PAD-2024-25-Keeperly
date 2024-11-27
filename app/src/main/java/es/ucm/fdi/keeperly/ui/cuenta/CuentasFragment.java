@@ -16,6 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.databinding.FragmentCuentasBinding;
+import es.ucm.fdi.keeperly.ui.cuentas.CuentasViewModel;
 
 
 public class CuentasFragment extends Fragment {

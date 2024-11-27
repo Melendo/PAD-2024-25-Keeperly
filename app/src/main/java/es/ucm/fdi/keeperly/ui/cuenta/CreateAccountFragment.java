@@ -78,6 +78,8 @@ public class CreateAccountFragment extends Fragment {
                 Usuario loggedUser = LoginRepository.getInstance(RepositoryFactory.getInstance().getUsuarioRepository()).getLoggedUser();
                 int idUsuario = loggedUser.getId();
                 createAccountViewModel.createAccount(nombreC, balanceC, idUsuario);
+                getParentFragmentManager().popBackStack(); // Redirige a la vista anterior
+
             }
         });
         //Boton cancelar

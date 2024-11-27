@@ -37,9 +37,6 @@ public class CategoriasViewModel extends ViewModel {
         return categorias;
     }
 
-    public LiveData<Integer> getOperationStatus() {
-        return categoriaRepository.getOperationStatus();
-    }
 
     public Categoria getCategoriaByNombre(String nombre){
         return categoriaRepository.getCategoriaByNombre(nombre);
@@ -50,5 +47,14 @@ public class CategoriasViewModel extends ViewModel {
 
     public void update(Categoria categoria) {
         categoriaRepository.update(categoria);
+    }
+
+    public LiveData<Integer> getOperationStatus() {
+        return categoriaRepository.getOperationStatus();
+    }
+
+    public LiveData<Integer> getDeleteStatus() {
+        return categoriaRepository.getDeleteStatus();
+
     }
 }

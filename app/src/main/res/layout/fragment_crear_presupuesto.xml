@@ -10,33 +10,33 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/gradient_background">
+        android:layout_height="wrap_content">
 
         <!-- Título -->
-        <TextView
-            android:id="@+id/tvTitulo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Crear Presupuesto"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#FFF"
+        <ImageView
+            android:id="@+id/budgetIcon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:contentDescription="@string/icono_de_categorias"
+            android:src="@drawable/ic_budget"
+            android:background="@drawable/round_shape"
+            android:backgroundTint="@color/main_purple"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="24dp" />
+            android:layout_marginTop="24dp"
+            android:scaleType="center" />
 
         <!-- Input Nombre -->
         <EditText
             android:id="@+id/etNombre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Nombre del presupuesto"
+            android:hint="@string/nombre_del_presupuesto"
             android:background="@drawable/rounded_edit_text"
             android:padding="16dp"
             android:textColor="#000"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitulo"
+            app:layout_constraintTop_toBottomOf="@+id/budgetIcon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"
@@ -49,7 +49,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_edit_text"
             android:padding="8dp"
-            android:entries="@array/categorias_array"
             app:layout_constraintTop_toBottomOf="@+id/etNombre"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,8 +76,8 @@
             android:id="@+id/etFechaInicio"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Fecha de inicio (YYYY-MM-DD)"
-            android:focusable="false"
+            android:hint="@string/fecha_de_inicio_yyyy_mm_dd"
+            android:focusable="true"
             android:clickable="true"
             android:background="@drawable/rounded_edit_text"
             android:padding="16dp"
@@ -94,8 +93,8 @@
             android:id="@+id/etFechaFin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Fecha de fin (YYYY-MM-DD)"
-            android:focusable="false"
+            android:hint="@string/fecha_de_fin_yyyy_mm_dd"
+            android:focusable="true"
             android:clickable="true"
             android:background="@drawable/rounded_edit_text"
             android:padding="16dp"
@@ -123,8 +122,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cancelar"
-                android:backgroundTint="@color/error_red"
+                android:text="@string/cancelar"
+                android:backgroundTint="@color/secondary_purple"
                 android:textColor="#FFF"
                 android:layout_marginEnd="8dp" />
 
@@ -133,8 +132,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Crear"
-                android:backgroundTint="@color/success_green"
+                android:text="@string/crear"
+                android:backgroundTint="@color/main_purple"
                 android:textColor="#FFF" />
         </LinearLayout>
 

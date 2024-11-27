@@ -76,11 +76,32 @@ public class CategoriasFragment extends Fragment {
                         .setMessage("¿Seguro que deseas eliminar la categoría " + categoria.getNombre() + "?")
                         .setPositiveButton("Eliminar", (dialog, which) -> {
                             categoriaViewModel.delete(categoria);
-                            Toast.makeText(getContext(), "Categoría " + categoria.getNombre() + " eliminada", Toast.LENGTH_SHORT).show();
                             categoriaViewModel.getCategorias().observe(getViewLifecycleOwner(), categoriaAdapter::setCategorias);
                         })
                         .setNegativeButton("Cancelar", null)
                         .show();
+            }
+        });
+
+        categoriasViewModel.getDeleteStatus().observe(getViewLifecycleOwner(), status -> {
+            if (status != null) {
+                switch (status) {
+                    case 1: // Éxito
+                        Toast.makeText(getContext(), "Categoria eliminada con éxito", Toast.LENGTH_SHORT).show();
+                        break;
+                    case -1: // Error de base de datos
+                        Toast.makeText(getContext(), "Error al eliminar la categoria", Toast.LENGTH_SHORT).show();
+                        break;
+                    case -2: // Otro error (opcional)
+                        Toast.makeText(getContext(), "Error: la Categoria está asignada a Presupuestos", Toast.LENGTH_SHORT).show();
+                        break;
+                    case -3: // Otro error (opcional)
+                        Toast.makeText(getContext(), "Error: la Categoria está asignada a transacciones", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        Toast.makeText(getContext(), "Error desconocido", Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
         });
 

@@ -48,7 +48,7 @@ public class CrearCategoriaFragment extends Fragment {
             getParentFragmentManager().popBackStack(); // Redirige a la vista anterior
         });
 
-        // Observa el estado del insert
+        // Observa el estado del update
         categoriasViewModel.getOperationStatus().observe(getViewLifecycleOwner(), status -> {
             if (status != null) {
                 switch (status) {

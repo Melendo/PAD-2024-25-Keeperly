@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             loadingProgressBar.setVisibility(View.GONE);
             if (loginResult.getError() != null) {
-                showLoginFailed(loginResult.getError());
+                showLoginFailed(loginResult.getError().toString());
             }
             if (loginResult.getSuccess() != null) {
                 updateUiWithUser(loginResult.getSuccess());
@@ -156,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //Funcion mostrar fallo de inicio de sesion
-    private void showLoginFailed(@StringRes Integer errorString) {
+    private void showLoginFailed(String errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
 

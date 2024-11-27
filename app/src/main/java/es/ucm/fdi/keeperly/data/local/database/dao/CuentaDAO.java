@@ -4,6 +4,7 @@ import androidx.room.*;
 
 import java.util.List;
 
+import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
 import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
 
 @Dao

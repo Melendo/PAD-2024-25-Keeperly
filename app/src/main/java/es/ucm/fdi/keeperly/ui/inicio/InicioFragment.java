@@ -26,16 +26,11 @@ public class InicioFragment extends Fragment {
 
         final TextView welcomeText = binding.welcomeText;
         inicioViewModel.getWelcomeText().observe(getViewLifecycleOwner(), welcomeText::setText);
-        final TextView priceThisMonth = binding.priceThisMonth;
+        final TextView priceThisMonth = binding.numDineroTotal;
         inicioViewModel.getPriceThisMonth().observe(getViewLifecycleOwner(), priceThisMonth::setText);
-        final TextView priceLastMonth = binding.priceLastMonth;
+        final TextView priceLastMonth = binding.numGastadoTotal;
         inicioViewModel.getPriceLastMonth().observe(getViewLifecycleOwner(), priceLastMonth::setText);
-        final ProgressBar progressBarThisMonth = binding.progressBarThisMonth;
-        inicioViewModel.getProgressBarThisMonth().observe(getViewLifecycleOwner(), progressBarThisMonth::setProgress);
-        final ProgressBar progressBarLastMonth = binding.progressBarLastMonth;
-        inicioViewModel.getProgressBarLastMonth().observe(getViewLifecycleOwner(), progressBarLastMonth::setProgress);
-        final RecyclerView recyclerViewCuentas = binding.recyclerViewCuentas;
-        final RecyclerView recyclerViewPresupuestos = binding.recyclerViewPresupuestos;
+
 
         return root;
     }

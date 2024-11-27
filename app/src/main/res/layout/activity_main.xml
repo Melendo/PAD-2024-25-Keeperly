@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewTotal"
         android:layout_width="60dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
@@ -69,7 +69,7 @@
         app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewGastado"
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
@@ -115,7 +115,7 @@
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <TextView
-        android:id="@+id/priceThisMonth"
+        android:id="@+id/numDineroTotal"
         android:layout_width="60dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
@@ -123,10 +123,10 @@
         android:fontFamily="sans-serif-medium"
         android:text="105,23€"
         app:layout_constraintStart_toEndOf="@+id/progressBarThisMonth"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTotal" />
 
     <TextView
-        android:id="@+id/priceLastMonth"
+        android:id="@+id/numGastadoTotal"
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
@@ -134,7 +134,7 @@
         android:fontFamily="sans-serif-medium"
         android:text="423,12€"
         app:layout_constraintStart_toEndOf="@+id/progressBarLastMonth"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewGastado" />
 
     <View
         android:id="@+id/divider3"

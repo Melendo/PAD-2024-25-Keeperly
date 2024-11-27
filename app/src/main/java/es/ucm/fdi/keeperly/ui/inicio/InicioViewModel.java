@@ -4,27 +4,29 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import es.ucm.fdi.keeperly.repository.LoginRepository;
+import es.ucm.fdi.keeperly.repository.RepositoryFactory;
+
 public class InicioViewModel extends ViewModel {
 
     private final MutableLiveData<String> welcomeText;
-    private final MutableLiveData<String> priceThisMonth;
-    private final MutableLiveData<String> priceLastMonth;
-    private final MutableLiveData<Integer> progressBarThisMonth;
-    private final MutableLiveData<Integer> progressBarLastMonth;
+    private final MutableLiveData<String> numDineroTotal;
+    private final MutableLiveData<String> numTotalGastado;;
+
+    private final LoginRepository loginRepository;
 
     public InicioViewModel() {
         welcomeText = new MutableLiveData<>();
-        priceThisMonth = new MutableLiveData<>();
-        priceLastMonth = new MutableLiveData<>();
-        progressBarThisMonth = new MutableLiveData<>();
-        progressBarLastMonth = new MutableLiveData<>();
+        numDineroTotal = new MutableLiveData<>();
+        numTotalGastado = new MutableLiveData<>();
+
+        loginRepository = LoginRepository.getInstance(RepositoryFactory.getInstance().getUsuarioRepository());
 
 
-        welcomeText.setValue("Bienvenido, Iván");
-        priceThisMonth.setValue("69.42€");
-        priceLastMonth.setValue("123.45€");
-        progressBarThisMonth.setValue(45);
-        progressBarLastMonth.setValue(80);
+        welcomeText.setValue("Hola, " + loginRepository.getUser().getNombre());
+        numDineroTotal.setValue("69.42€");
+        numTotalGastado.setValue("123.45€");
+
     }
 
     public LiveData<String> getWelcomeText() {
@@ -32,19 +34,10 @@ public class InicioViewModel extends ViewModel {
     }
 
     public LiveData<String> getPriceThisMonth() {
-        return priceThisMonth;
+        return numDineroTotal;
     }
 
     public LiveData<String> getPriceLastMonth() {
-        return priceLastMonth;
+        return numTotalGastado;
     }
-
-    public LiveData<Integer> getProgressBarThisMonth() {
-        return progressBarThisMonth;
-    }
-
-    public LiveData<Integer> getProgressBarLastMonth() {
-        return progressBarLastMonth;
-    }
-
 }

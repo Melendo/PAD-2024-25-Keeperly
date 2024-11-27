@@ -24,61 +24,29 @@
         tools:ignore="HardcodedText" />
 
 
-    <ProgressBar
-        android:id="@+id/progressBarThisMonth"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="44dp"
-        android:indeterminate="false"
-        android:max="100"
-        android:progress="40"
-        android:progressDrawable="@drawable/circular_progress"
-        android:progressTint="@color/main_purple"
-        android:rotation="270"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.081"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
-
-    <ProgressBar
-        android:id="@+id/progressBarLastMonth"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="44dp"
-        android:indeterminate="false"
-        android:max="100"
-        android:progress="80"
-        android:progressDrawable="@drawable/circular_progress"
-        android:progressTint="@color/main_purple"
-        android:rotation="270"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.655"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
-
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="80dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="52dp"
+        android:id="@+id/textViewTotal"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Este mes"
-        app:layout_constraintStart_toEndOf="@+id/progressBarThisMonth"
+        android:text="Total Cuentas:"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toStartOf="@+id/divider2"
         app:layout_constraintTop_toBottomOf="@+id/welcomeText"
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="80dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="52dp"
+        android:id="@+id/textViewGastado"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Último mes"
-        app:layout_constraintStart_toEndOf="@+id/progressBarLastMonth"
+        android:text="Total Gastado:"
+        android:textSize="22sp"
+        app:layout_constraintStart_toEndOf="@+id/divider2"
         app:layout_constraintTop_toBottomOf="@+id/welcomeText"
         tools:ignore="HardcodedText" />
 
@@ -119,27 +87,29 @@
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/priceThisMonth"
-        android:layout_width="70dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:id="@+id/numDineroTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
         android:fontFamily="sans-serif-medium"
         android:text="105,23€"
-        app:layout_constraintStart_toEndOf="@+id/progressBarThisMonth"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toStartOf="@+id/divider2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTotal"
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/priceLastMonth"
-        android:layout_width="80dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:id="@+id/numGastadoTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-medium"
         android:text="423,12€"
-        app:layout_constraintStart_toEndOf="@+id/progressBarLastMonth"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        android:textSize="34sp"
+        app:layout_constraintStart_toEndOf="@+id/divider2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewGastado"
         tools:ignore="HardcodedText" />
 
     <View

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -14,16 +16,23 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import es.ucm.fdi.keeperly.R;
+import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
+import es.ucm.fdi.keeperly.ui.categorias.CategoriasViewModel;
 
 
 public class CrearPresupuestoFragment extends Fragment {
 
     private PresupuestosViewModel presupuestosViewModel;
+    private CategoriasViewModel categoriaViewModel;
+
     private EditText etNombre, etCantidad, etFechaInicio, etFechaFin;
     private Spinner spCategoria;
+    private String categoriaSeleccionada;
     private Button btnCrear, btnCancelar;
 
 
@@ -32,10 +41,51 @@ public class CrearPresupuestoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_crear_presupuesto, container, false);
 
+        // Inicializamos el ViewModel
+        presupuestosViewModel = new ViewModelProvider(this).get(PresupuestosViewModel.class);
+
         // Inicializamos las vistas
         etNombre = rootView.findViewById(R.id.etNombre);
         spCategoria = rootView.findViewById(R.id.spCategoria); // Si es un Spinner
         etCantidad = rootView.findViewById(R.id.etCantidad);
+
+        categoriaViewModel = new ViewModelProvider(this).get(CategoriasViewModel.class);
+        categoriaViewModel.getCategorias().observe(getViewLifecycleOwner(), categorias -> {
+            if (categorias != null) {
+                // Crea una lista de nombres de categorías
+                List<String> nombresCategorias = new ArrayList<>();
+                nombresCategorias.add(0, "Selecciona una categoría");
+                for (Categoria categoria : categorias) {
+                    nombresCategorias.add(categoria.getNombre());
+                }
+
+                // Configura el adaptador
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        nombresCategorias
+                );
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spCategoria.setAdapter(adapter);
+            }
+        });
+
+        spCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    categoriaSeleccionada =  parent.getItemAtPosition(position).toString();
+                } else {
+                    categoriaSeleccionada = "";
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Manejar caso donde no se selecciona nada (opcional)
+            }
+        });
+
 
         //Fechas
         etFechaInicio = rootView.findViewById(R.id.etFechaInicio);
@@ -44,8 +94,6 @@ public class CrearPresupuestoFragment extends Fragment {
         etFechaInicio.setOnClickListener(v -> showDatePickerDialog(etFechaInicio));
         etFechaFin.setOnClickListener(v -> showDatePickerDialog(etFechaFin));
 
-        // Inicializamos el ViewModel
-        presupuestosViewModel = new ViewModelProvider(this).get(PresupuestosViewModel.class);
 
         // Configurar el botón de crear presupuesto
         btnCrear = rootView.findViewById(R.id.btnCrear);
@@ -54,15 +102,14 @@ public class CrearPresupuestoFragment extends Fragment {
                 // Obtenemos los datos del formulario
                 String nombre = etNombre.getText().toString();
                 int usuario = 1;
-                int categoria = Integer.parseInt(spCategoria.getSelectedItem().toString()); // Suponiendo que es un Spinner
                 double cantidad = Double.parseDouble(etCantidad.getText().toString());
                 Date fechaInicio = Date.valueOf(etFechaInicio.getText().toString());
                 Date fechaFin = Date.valueOf(etFechaFin.getText().toString());
 
 
                 // Llamamos al método del ViewModel para crear el presupuesto
-
-                presupuestosViewModel.crearPresupuesto(nombre, usuario, categoria, cantidad, fechaInicio, fechaFin);
+                int idCat = categoriaViewModel.getCategoriaByNombre(categoriaSeleccionada).getId();
+                presupuestosViewModel.crearPresupuesto(nombre, usuario, idCat, cantidad, fechaInicio, fechaFin);
             }
         });
 
@@ -128,6 +175,11 @@ public class CrearPresupuestoFragment extends Fragment {
     private boolean validarCampos() {
         if (etNombre.getText().toString().isEmpty()) {
             etNombre.setError("El nombre es obligatorio");
+            return false;
+        }
+
+        if (categoriaSeleccionada.isEmpty()) {
+            Toast.makeText(requireContext(), "Debes seleccionar una categoría", Toast.LENGTH_SHORT).show();
             return false;
         }
 

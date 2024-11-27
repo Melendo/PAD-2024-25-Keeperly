@@ -41,6 +41,9 @@ public class CategoriasViewModel extends ViewModel {
         return categoriaRepository.getOperationStatus();
     }
 
+    public Categoria getCategoriaByNombre(String nombre){
+        return categoriaRepository.getCategoriaByNombre(nombre);
+    }
     public void delete(Categoria categoria) {
         categoriaRepository.delete(categoria);
     }

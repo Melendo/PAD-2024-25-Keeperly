@@ -40,4 +40,12 @@ public class CategoriasViewModel extends ViewModel {
     public LiveData<Integer> getOperationStatus() {
         return categoriaRepository.getOperationStatus();
     }
+
+    public void delete(Categoria categoria) {
+        categoriaRepository.delete(categoria);
+    }
+
+    public void update(Categoria categoria) {
+        categoriaRepository.update(categoria);
+    }
 }

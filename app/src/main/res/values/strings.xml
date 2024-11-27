@@ -45,4 +45,7 @@
         <item>3</item>
     </string-array>
     <string name="menu_categories">Categorias</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="editar">Editar</string>
+    <string name="editar_categoria">Editar Categoría</string>
 </resources>

@@ -42,10 +42,11 @@ public class RegisterViewModel extends ViewModel {
                 Usuario data = ((Result.Success<Usuario>) result).getData();
                 registerResult.setValue(new RegisterResult(new RegisteredUserView(data.getId(), data.getNombre())));
             } else {
-                registerResult.setValue(new RegisterResult(R.string.register_failed));
+                Result.Error error = (Result.Error) result;
+                registerResult.setValue(new RegisterResult(error.getError().getMessage()));
             }
         }else {
-            registerResult.setValue(new RegisterResult(R.string.register_failed_invalid_data));
+            registerResult.setValue(new RegisterResult(String.valueOf(R.string.register_failed_invalid_data)));
         }
         registerFormState.setValue(new RegisterFormState(false));
     }

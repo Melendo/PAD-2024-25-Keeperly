@@ -40,11 +40,14 @@
     <string name="crear_presupuesto">Crear Presupuesto</string>
     <string name="a_adir_transacci_n">Añadir Transacción</string>
     <string-array name="categorias_array">
-        <item>Ocio</item>
-        <item>Alimentación</item>
-        <item>Transporte</item>
-        <item>Otros</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
+    <string name="menu_categories">Categorias</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="editar">Editar</string>
+    <string name="editar_categoria">Editar Categoría</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="concepto">Concepto</string>

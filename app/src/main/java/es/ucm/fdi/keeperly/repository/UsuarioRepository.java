@@ -55,13 +55,13 @@ public class UsuarioRepository {
                 if (Objects.equals(usuario.getPw(), password)) {
                     return new Result.Success<Usuario>(usuario);
                 } else {
-                    return new Result.Error(new WrongPasswordException("Wrong pw"));
+                    return new Result.Error(new WrongPasswordException("Conraseña incorrecta"));
                 }
             } else {
-                return new Result.Error(new UserNotFoundException("User not found in database"));
+                return new Result.Error(new UserNotFoundException("El usuario no existe"));
             }
         } catch (Exception e) {
-            return new Result.Error(new IOException("Error logging in", e));
+            return new Result.Error(new IOException("Error al hacer login", e));
         }
     }
 
@@ -78,10 +78,10 @@ public class UsuarioRepository {
                 Usuario inserted = usuarioDao.getUsuarioByEmail(email);
                 return new Result.Success<Usuario>(inserted);
             } else {
-                return new Result.Error(new UserAlreadyExistsException("User found in database"));
+                return new Result.Error(new UserAlreadyExistsException("El correo ya está en uso"));
             }
         } catch (Exception e) {
-            return new Result.Error(new IOException("Error registering", e));
+            return new Result.Error(new IOException("Error en el registro", e));
         }
     }
 

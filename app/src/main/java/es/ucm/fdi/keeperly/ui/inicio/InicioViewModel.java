@@ -21,8 +21,6 @@ public class InicioViewModel extends ViewModel {
     //private final CuentaRepository cuentaRepository;
     //private final TransaccionRepository transaccionRepository;
 
-    //private final List<Cuenta> cuentas>;
-    //private final List<Transaccion> transacciones>;
 
 
     public InicioViewModel() {

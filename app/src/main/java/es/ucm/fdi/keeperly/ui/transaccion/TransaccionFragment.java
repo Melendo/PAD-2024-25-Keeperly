@@ -32,7 +32,7 @@ public class TransaccionFragment extends Fragment {
 
         FloatingActionButton fabCreateTransaccion = view.findViewById(R.id.fab_add_transaction);
         fabCreateTransaccion.setOnClickListener(v -> {
-            NavHostFragment.findNavController(this).navigate(R.id.nav_host_fragment_content_menu);
+            NavHostFragment.findNavController(this).navigate(R.id.action_nav_transaccion_to_createTransaccionFragment);
         });
 
         return view;

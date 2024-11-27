@@ -56,4 +56,10 @@
     <string name="cuenta">Cuenta</string>
     <string name="guardar_transacci_n">Guardar Transacción</string>
     <string name="cancelar">Cancelar</string>
+    <string name="concepto_invalido">El concepto es inválido</string>
+    <string name="cantidad_invalida">La cantidad es inválida</string>
+    <string name="fecha_invalida">La fecha es inválida</string>
+    <string name="crear_transaccion_fallado">La creación de la transacción ha fallado</string>
+    <string name="crear_transaccion_datos_invalidos">Los datos de esta transacción no son válidos</string>
+    <string name="crear">Crear</string>
 </resources>

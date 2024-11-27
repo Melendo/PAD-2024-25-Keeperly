@@ -13,4 +13,52 @@ public class CreateTransaccionFormState {
     private Integer categoriaError;
     @Nullable
     private Integer fechaError;
+    private boolean isDataValid;
+
+    CreateTransaccionFormState(@Nullable Integer conceptoError, @Nullable Integer cantidadError, @Nullable Integer cuentaError, @Nullable Integer categoriaError, @Nullable Integer fechaError) {
+        this.conceptoError = conceptoError;
+        this.cantidadError = cantidadError;
+        this.cuentaError = cuentaError;
+        this.categoriaError = categoriaError;
+        this.fechaError = fechaError;
+        this.isDataValid = false;
+    }
+
+    CreateTransaccionFormState(boolean isDataValid) {
+        this.conceptoError = null;
+        this.cantidadError = null;
+        this.cuentaError = null;
+        this.categoriaError = null;
+        this.fechaError = null;
+        this.isDataValid = isDataValid;
+    }
+
+    @Nullable
+    public Integer getConceptoError() {
+        return conceptoError;
+    }
+
+    @Nullable
+    public Integer getCantidadError() {
+        return cantidadError;
+    }
+
+    @Nullable
+    public Integer getCuentaError() {
+        return cuentaError;
+    }
+
+    @Nullable
+    public Integer getCategoriaError() {
+        return categoriaError;
+    }
+
+    @Nullable
+    public Integer getFechaError() {
+        return fechaError;
+    }
+
+    public boolean isDataValid() {
+        return isDataValid;
+    }
 }

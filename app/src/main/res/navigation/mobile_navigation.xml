@@ -32,7 +32,13 @@
         android:id="@+id/nav_transaccion"
         android:name="es.ucm.fdi.keeperly.ui.transaccion.TransaccionFragment"
         android:label="@string/transacciones"
-        tools:layout="@layout/fragment_transaccion"/>
+        tools:layout="@layout/fragment_transaccion">
+
+        <action
+            android:id="@+id/action_nav_transaccion_to_createTransaccionFragment"
+            app:destination="@id/createTransaccionFragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/crearPresupuestoFragment"
@@ -65,10 +71,5 @@
     <action
         android:id="@+id/action_budgetsFragment_to_crearPresupuestoFragment"
         app:destination="@id/crearPresupuestoFragment" />
-
-    <action
-        android:id="@+id/action_nav_transaccion_to_createTransaccionFragment"
-        app:destination="@id/createTransaccionFragment"
-        />
 
 </navigation>

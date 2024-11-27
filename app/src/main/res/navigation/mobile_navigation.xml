@@ -17,10 +17,19 @@
 
     <fragment
         android:id="@+id/nav_cuentas"
-        android:name="es.ucm.fdi.keeperly.ui.cuentas.CuentasFragment"
+        android:name="es.ucm.fdi.keeperly.ui.cuenta.CuentasFragment"
         android:label="@string/menu_accounts"
         tools:layout="@layout/fragment_cuentas" />
 
+    <action
+        android:id="@+id/action_cuentasFragment_to_crearCuentaFragment"
+        app:destination="@id/crearCuentaFragment" />
+
+    <fragment
+        android:id="@+id/crearCuentaFragment"
+        android:name="es.ucm.fdi.keeperly.ui.cuenta.CreateAccountFragment"
+        android:label="@string/menu_create_accounts"
+        tools:layout="@layout/fragment_crear_cuenta" />
     <!-- PRESUPUETOS -->
     <fragment
         android:id="@+id/nav_presupuestos"

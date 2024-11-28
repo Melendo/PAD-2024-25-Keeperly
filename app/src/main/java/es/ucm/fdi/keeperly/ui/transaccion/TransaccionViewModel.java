@@ -34,10 +34,10 @@ public class TransaccionViewModel extends ViewModel {
 
     public void createTransaccion(String concepto, double cantidad, int cuenta, int categoria, Date fecha) {
         if (isConceptoValid(concepto) && isCantidadValid(cantidad) && isDateValid(fecha)) {
-            Result<Transaccion> result = transaccionRepository.createTransaccion(concepto, cantidad, cuenta, categoria, fecha);
+            Result<Boolean> result = transaccionRepository.createTransaccion(concepto, cantidad, cuenta, categoria, fecha);
 
             if(result instanceof Result.Success) {
-                Transaccion data = ((Result.Success<Transaccion>) result).getData();
+                Boolean data = ((Result.Success<Boolean>) result).getData();
                 createTransaccionResult.setValue(new CreateTransaccionResult(true));
             } else {
                 createTransaccionResult.setValue(new CreateTransaccionResult(R.string.crear_transaccion_fallado));
@@ -69,6 +69,6 @@ public class TransaccionViewModel extends ViewModel {
     }
 
     private boolean isDateValid (Date fecha) {
-        return !fecha.after(new Date());
+        return fecha != null && !fecha.after(new Date());
     }
 }

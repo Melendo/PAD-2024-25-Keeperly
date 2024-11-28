@@ -20,10 +20,13 @@ import android.icu.text.DateFormat;
 import android.widget.Toast;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
@@ -34,7 +37,6 @@ public class CreateTransaccionFragment extends Fragment {
 
     private TransaccionViewModel transaccionViewModel;
     private CategoriasViewModel categoriasViewModel;
-    private FragmentCreateTransaccionBinding binding;
 
     private String categoriaSeleccionada;
 
@@ -50,20 +52,17 @@ public class CreateTransaccionFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_transaccion, container, false);
 
-        // Inicializar el Binding
-        binding = FragmentCreateTransaccionBinding.inflate(getLayoutInflater());
-
         // Inicializar el ViewModel
         transaccionViewModel = new ViewModelProvider(this, new TransaccionViewModelFactory()).get(TransaccionViewModel.class);
 
         // Obtener referencias a los elementos de la interfaz de usuario
-        final EditText conceptoEditText = binding.conceptoEditText;
-        final EditText cantidadEditText = binding.cantidadEditText;
-        final Spinner cuentaSpinner = binding.cuentaSpinner;
-        final Spinner categoriaSpinner = binding.categoriaSpinner;
-        final EditText fechaField = binding.fechaField;
-        final Button crearButton = binding.saveTransactionButton;
-        final Button cancelarButton = binding.cancelTransactionButton;
+        final EditText conceptoEditText = view.findViewById(R.id.conceptoEditText);
+        final EditText cantidadEditText = view.findViewById(R.id.cantidadEditText);
+        final Spinner cuentaSpinner = view.findViewById(R.id.cuentaSpinner);
+        final Spinner categoriaSpinner = view.findViewById(R.id.categoriaSpinner);
+        final EditText fechaField = view.findViewById(R.id.fechaField);
+        final Button crearButton = view.findViewById(R.id.saveTransactionButton);
+        final Button cancelarButton = view.findViewById(R.id.cancelTransactionButton);
 
         // Configurar el ViewModel de Categorías
         categoriasViewModel = new ViewModelProvider(this).get(CategoriasViewModel.class);
@@ -123,13 +122,14 @@ public class CreateTransaccionFragment extends Fragment {
                 double cantidad = Double.parseDouble(cantidadEditText.getText().toString());
                 String cuenta = cuentaSpinner.getSelectedItem().toString();
                 String categoria = categoriaSpinner.getSelectedItem().toString();
-                String fecha = fechaField.getText().toString();
 
                 int idcategoria = categoriasViewModel.getCategoriaByNombre(categoriaSeleccionada).getId();
                 int idcuenta = 1;
 
                 try {
-                    transaccionViewModel.createTransaccion(concepto, cantidad, idcuenta, idcategoria, DateFormat.getDateInstance().parse(fecha));
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                    Date fecha = dateFormat.parse(fechaField.getText().toString());
+                    transaccionViewModel.createTransaccion(concepto, cantidad, idcuenta, idcategoria, fecha);
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }
@@ -137,7 +137,11 @@ public class CreateTransaccionFragment extends Fragment {
         });
 
         cancelarButton.setOnClickListener(v -> {
-            limpiarCampos();
+            conceptoEditText.setText("");
+            cantidadEditText.setText("");
+            cuentaSpinner.setSelection(0);
+            categoriaSpinner.setSelection(0);
+            fechaField.setText("");
             Toast.makeText(requireContext(), "Operacion cancelada", Toast.LENGTH_SHORT).show();
             getParentFragmentManager().popBackStack();
         });
@@ -167,7 +171,11 @@ public class CreateTransaccionFragment extends Fragment {
             }
             if (createTransaccionResult.getSuccess() != null) {
                 Toast.makeText(requireContext(), "Transaccion creada", Toast.LENGTH_SHORT).show();
-                limpiarCampos();
+                conceptoEditText.setText("");
+                cantidadEditText.setText("");
+                cuentaSpinner.setSelection(0);
+                categoriaSpinner.setSelection(0);
+                fechaField.setText("");
                 getParentFragmentManager().popBackStack();
             }
         });
@@ -186,16 +194,34 @@ public class CreateTransaccionFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 int idCuenta = 1; //TODO
-                int idCategoria = categoriasViewModel.getCategoriaByNombre(categoriaSeleccionada).getId();;
-                try {
-                    transaccionViewModel.createTransaccionDataChanged(conceptoEditText.getText().toString(),
-                            Double.parseDouble(cantidadEditText.getText().toString()),
-                            idCuenta,
-                            idCategoria,
-                            DateFormat.getDateInstance().parse(fechaField.getText().toString()));
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
+                int idCategoria;
+                if (!Objects.equals(categoriaSeleccionada, ""))
+                    idCategoria = categoriasViewModel.getCategoriaByNombre(categoriaSeleccionada).getId();
+                else
+                    idCategoria = -1;
+
+                double cantidad;
+                if (cantidadEditText.getText().toString().isEmpty())
+                    cantidad = -1;
+                else
+                    cantidad = Double.parseDouble(cantidadEditText.getText().toString());
+
+                Date fecha;
+                if (fechaField.getText().toString().isEmpty() || fechaField.getText().toString().equals("0"))
+                    fecha = null;
+                else {
+                    try {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                        fecha = dateFormat.parse(fechaField.getText().toString());
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
+                transaccionViewModel.createTransaccionDataChanged(conceptoEditText.getText().toString(),
+                        cantidad,
+                        idCuenta,
+                        idCategoria,
+                        fecha);
             }
         };
 
@@ -218,7 +244,7 @@ public class CreateTransaccionFragment extends Fragment {
                 requireContext(),
                 (view, year1, month1, dayOfMonth) -> {
                     // Formatear la fecha seleccionada
-                    String fechaSeleccionada = String.format("%04d-%02d-%02d", year1, month1 + 1, dayOfMonth);
+                    String fechaSeleccionada = String.format("%02d-%02d-%04d", dayOfMonth, month1 + 1, year1);
                     editText.setText(fechaSeleccionada);
                 },
                 year, month, day
@@ -227,13 +253,5 @@ public class CreateTransaccionFragment extends Fragment {
 
         // Mostrar el diálogo
         datePickerDialog.show();
-    }
-
-    private void limpiarCampos() {
-        binding.conceptoEditText.setText("");
-        binding.cantidadEditText.setText("");
-        binding.cuentaSpinner.setSelection(0);
-        binding.categoriaSpinner.setSelection(0);
-        binding.fechaField.setText("");
     }
 }

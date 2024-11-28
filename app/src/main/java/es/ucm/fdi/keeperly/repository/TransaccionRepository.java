@@ -44,7 +44,7 @@ public class TransaccionRepository {
         return transaccionDao.getTransaccionById(id);
     }
 
-    public Result<Transaccion> createTransaccion(String concepto, double cantidad, int cuenta, int categoria, Date fecha) {
+    public Result<Boolean> createTransaccion(String concepto, double cantidad, int cuenta, int categoria, Date fecha) {
         Transaccion transaccion = new Transaccion();
         transaccion.setConcepto(concepto);
         transaccion.setCantidad(cantidad);

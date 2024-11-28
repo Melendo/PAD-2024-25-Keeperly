@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 import es.ucm.fdi.keeperly.data.local.database.dao.CategoriaDAO;
 import es.ucm.fdi.keeperly.data.local.database.dao.CuentaDAO;
@@ -21,6 +22,8 @@ import es.ucm.fdi.keeperly.data.local.database.entities.Usuario;
         entities = {Usuario.class, Cuenta.class, Presupuesto.class, Categoria.class, Transaccion.class},
         version = 1
 )
+@TypeConverters({DateConverter.class})
+
 public abstract class KeeperlyDB extends RoomDatabase {
     public abstract UsuarioDAO usuarioDao();
 
@@ -36,7 +39,7 @@ public abstract class KeeperlyDB extends RoomDatabase {
     private static volatile KeeperlyDB INSTANCE;
 
     // Método para obtener la instancia de la base de datos
-    public static KeeperlyDB createInstance(final Context context) {
+    public static void createInstance(final Context context) {
         if (INSTANCE == null) {
             synchronized (KeeperlyDB.class) {
                 if (INSTANCE == null) {
@@ -48,7 +51,6 @@ public abstract class KeeperlyDB extends RoomDatabase {
                 }
             }
         }
-        return INSTANCE;
     }
 
     public static KeeperlyDB getInstance() {

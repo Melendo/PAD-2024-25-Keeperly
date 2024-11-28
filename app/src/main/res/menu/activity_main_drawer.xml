@@ -9,13 +9,21 @@
             android:icon="@drawable/ic_home"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_accounts"
+            android:id="@+id/nav_cuentas"
             android:icon="@drawable/ic_account"
             android:title="@string/menu_accounts" />
         <item
-            android:id="@+id/nav_budgets"
+            android:id="@+id/nav_presupuestos"
             android:icon="@drawable/ic_budget"
             android:title="@string/menu_budgets" />
+        <item
+            android:id="@+id/nav_transaccion"
+            android:icon="@drawable/ic_transaccion"
+            android:title="@string/transacciones"/>
+        <item
+            android:id="@+id/nav_categorias"
+            android:icon="@drawable/ic_categories"
+            android:title="@string/menu_categories" />
 
         <item
             android:id="@+id/nav_logout"

@@ -98,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
             loadingProgressBar.setVisibility(View.GONE);
             if (registerResult.getError() != null) {
-                showRegisterFailed(registerResult.getError());
+                showRegisterFailed(registerResult.getError().toString());
             }
             if (registerResult.getSuccess() != null) {
                 updateUiWithRegister(registerResult.getSuccess());
@@ -170,7 +170,7 @@ public class RegisterActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
-    private void showRegisterFailed(@StringRes Integer errorString) {
+    private void showRegisterFailed(String errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_LONG).show();
     }
 

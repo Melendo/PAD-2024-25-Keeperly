@@ -10,9 +10,9 @@ public class RegisterResult {
     @Nullable
     private RegisteredUserView success;
     @Nullable
-    private Integer error;
+    private String error;
 
-    RegisterResult(@Nullable Integer error) { this.error = error; }
+    RegisterResult(@Nullable String error) { this.error = error; }
 
     RegisterResult(@Nullable RegisteredUserView success) {this.success = success; }
 
@@ -20,5 +20,5 @@ public class RegisterResult {
     RegisteredUserView getSuccess() { return success; }
 
     @Nullable
-    Integer getError() { return error; }
+    String getError() { return error; }
 }

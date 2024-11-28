@@ -2,6 +2,8 @@ package es.ucm.fdi.keeperly.data.local.database.entities;
 
 import androidx.room.*;
 
+import java.util.Collection;
+
 @Entity(tableName = "categorias")
 public class Categoria {
     @PrimaryKey(autoGenerate = true)
@@ -25,4 +27,5 @@ public class Categoria {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
 }

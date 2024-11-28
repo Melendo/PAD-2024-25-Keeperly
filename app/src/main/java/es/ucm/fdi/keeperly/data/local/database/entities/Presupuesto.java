@@ -1,6 +1,11 @@
 package es.ucm.fdi.keeperly.data.local.database.entities;
 
-import androidx.room.*;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import java.util.Date;
 
 @Entity(
         tableName = "presupuestos",
@@ -17,8 +22,9 @@ public class Presupuesto {
     private int idCategoria;
     private double cantidad;
     private double gastado;
-    private String fechaInicio;
-    private String fechaFin;
+    private Date fechaInicio;
+    private Date fechaFin;
+
 
     // Getters y Setters
 
@@ -70,19 +76,19 @@ public class Presupuesto {
         this.gastado = gastado;
     }
 
-    public String getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public String getFechaFin() {
+    public Date getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(String fechaFin) {
+    public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
 }

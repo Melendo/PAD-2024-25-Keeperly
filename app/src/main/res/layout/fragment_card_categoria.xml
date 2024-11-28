@@ -1,0 +1,58 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+
+        <!-- Icono circular con la inicial -->
+        <TextView
+            android:id="@+id/iconoCategoria"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/circle_background"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Nombre de la categoría -->
+        <TextView
+            android:id="@+id/textViewCategoriaNombre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Botón editar -->
+        <ImageButton
+            android:id="@+id/btnEditarCategoria"
+            android:layout_width="48dp"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_edit_button_icon"
+            android:contentDescription="@string/editar"
+            android:src="@drawable/ic_edit" />
+
+        <!-- Botón eliminar -->
+        <ImageButton
+            android:id="@+id/btnEliminarCategoria"
+            android:layout_width="48dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="3dp"
+            android:background="@drawable/rounded_delete_button_icon"
+            android:contentDescription="@string/eliminar"
+            android:src="@drawable/ic_delete" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

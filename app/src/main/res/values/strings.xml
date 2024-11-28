@@ -39,10 +39,15 @@
 
 
     <string name="crear_presupuesto">Crear Presupuesto</string>
-    <string-array name="categorias_array">
-        <item>Ocio</item>
-        <item>Alimentación</item>
-        <item>Transporte</item>
-        <item>Otros</item>
-    </string-array>
+    <string name="menu_categories">Categorias</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="editar">Editar</string>
+    <string name="editar_categoria">Editar Categoría</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="crear">Crear</string>
+    <string name="fecha_dd_mm_yyyy_ini">Fecha Inicio (DD-MM-YYYY)</string>
+    <string name="fecha_dd_mm_yyyy_fin">Fecha Inicio (DD-MM-YYYY)</string>
+    <string name="nombre_del_presupuesto">Nombre del presupuesto</string>
+    <string name="icono_de_categorias">Icono de Categorias</string>
+    <string name="cantidad">Cantidad</string>
 </resources>

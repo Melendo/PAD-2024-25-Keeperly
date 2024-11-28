@@ -9,7 +9,7 @@
 
     <!-- UI elements go here -->
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/welcomeText"
         android:layout_width="313dp"
         android:layout_height="64dp"
         android:fontFamily="sans-serif-black"
@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.058" />
 
     <ProgressBar
-        android:id="@+id/progressBar2"
+        android:id="@+id/progressBarThisMonth"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -37,11 +37,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.114"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
 
 
     <ProgressBar
-        android:id="@+id/progressBar4"
+        android:id="@+id/progressBarLastMonth"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -55,29 +55,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.655"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewTotal"
         android:layout_width="60dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="52dp"
         android:fontFamily="sans-serif-medium"
         android:text="Este mes"
-        app:layout_constraintStart_toEndOf="@+id/progressBar2"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toEndOf="@+id/progressBarThisMonth"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewGastado"
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="52dp"
         android:fontFamily="sans-serif-medium"
         android:text="Último mes"
-        app:layout_constraintStart_toEndOf="@+id/progressBar4"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toEndOf="@+id/progressBarLastMonth"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
 
     <View
         android:id="@+id/divider"
@@ -99,7 +99,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
 
     <TextView
         android:id="@+id/textView4"
@@ -115,26 +115,26 @@
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/numDineroTotal"
         android:layout_width="60dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:fontFamily="sans-serif-medium"
         android:text="105,23€"
-        app:layout_constraintStart_toEndOf="@+id/progressBar2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintStart_toEndOf="@+id/progressBarThisMonth"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTotal" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/numGastadoTotal"
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:fontFamily="sans-serif-medium"
         android:text="423,12€"
-        app:layout_constraintStart_toEndOf="@+id/progressBar4"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintStart_toEndOf="@+id/progressBarLastMonth"
+        app:layout_constraintTop_toBottomOf="@+id/textViewGastado" />
 
     <View
         android:id="@+id/divider3"
@@ -145,7 +145,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewCuentas" />
 
     <TextView
         android:id="@+id/textView7"
@@ -161,7 +161,7 @@
         app:layout_constraintTop_toBottomOf="@+id/divider3" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewCuentas"
         android:layout_width="373dp"
         android:layout_height="130dp"
         android:layout_marginTop="57dp"

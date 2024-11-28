@@ -83,7 +83,7 @@ public class CategoriasFragment extends Fragment {
             }
         });
 
-        categoriasViewModel.getDeleteStatus().observe(getViewLifecycleOwner(), status -> {
+        categoriaViewModel.getDeleteStatus().observe(getViewLifecycleOwner(), status -> {
             if (status != null) {
                 switch (status) {
                     case 1: // Éxito
@@ -104,7 +104,6 @@ public class CategoriasFragment extends Fragment {
                 }
             }
         });
-
         return root;
     }
 

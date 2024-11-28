@@ -45,8 +45,9 @@
     <string name="editar_categoria">Editar Categoría</string>
     <string name="cancelar">Cancelar</string>
     <string name="crear">Crear</string>
-    <string name="fecha_de_fin_yyyy_mm_dd">Fecha de fin (YYYY-MM-DD)</string>
-    <string name="fecha_de_inicio_yyyy_mm_dd">Fecha de inicio (YYYY-MM-DD)</string>
+    <string name="fecha_dd_mm_yyyy_ini">Fecha Inicio (DD-MM-YYYY)</string>
+    <string name="fecha_dd_mm_yyyy_fin">Fecha Inicio (DD-MM-YYYY)</string>
     <string name="nombre_del_presupuesto">Nombre del presupuesto</string>
     <string name="icono_de_categorias">Icono de Categorias</string>
+    <string name="cantidad">Cantidad</string>
 </resources>

@@ -33,6 +33,7 @@
         android:background="@drawable/rounded_edit_text"
         android:padding="16dp"
         android:textColor="#000"
+        android:inputType="textEmailAddress"
         app:layout_constraintTop_toBottomOf="@+id/appLogo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

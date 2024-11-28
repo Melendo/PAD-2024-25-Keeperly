@@ -65,6 +65,14 @@ public class CuentaRepository {
         return cuentaDao.getCuentaById(id);
     }
 
+    public Cuenta creaCuenta(String nombre, double balance, int usuario) {
+        Cuenta cuenta = new Cuenta();
+        cuenta.setNombre(nombre);
+        cuenta.setBalance(balance);
+        cuenta.setIdUsuario(usuario);
+        return cuenta;
+    }
+
     public LiveData<Integer> getOperationStatus() {
         return operStatus;
     }

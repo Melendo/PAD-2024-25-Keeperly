@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/crearCuentaFragment"
-        android:name="es.ucm.fdi.keeperly.ui.cuenta.CreateAccountFragment"
+        android:name="es.ucm.fdi.keeperly.ui.cuenta.CrearCuentaFragment"
         android:label="@string/menu_create_accounts"
         tools:layout="@layout/fragment_crear_cuenta" />
     <!-- PRESUPUETOS -->

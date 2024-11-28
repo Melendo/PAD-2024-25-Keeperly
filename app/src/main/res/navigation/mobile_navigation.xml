@@ -27,9 +27,18 @@
         android:name="es.ucm.fdi.keeperly.ui.presupuestos.PresupuestosFragment"
         android:label="@string/menu_budgets"
         tools:layout="@layout/fragment_presupuestos" />
-    <action
-        android:id="@+id/action_budgetsFragment_to_crearPresupuestoFragment"
-        app:destination="@id/crearPresupuestoFragment" />
+
+    <fragment
+        android:id="@+id/nav_transaccion"
+        android:name="es.ucm.fdi.keeperly.ui.transaccion.TransaccionFragment"
+        android:label="@string/transacciones"
+        tools:layout="@layout/fragment_transaccion">
+
+        <action
+            android:id="@+id/action_nav_transaccion_to_createTransaccionFragment"
+            app:destination="@id/createTransaccionFragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/crearPresupuestoFragment"
@@ -51,5 +60,16 @@
         android:name="es.ucm.fdi.keeperly.ui.categorias.CrearCategoriaFragment"
         android:label="Crear Categoria"
         tools:layout="@layout/fragment_crear_categoria" />
+
+
+    <fragment
+        android:id="@+id/createTransaccionFragment"
+        android:name="es.ucm.fdi.keeperly.ui.transaccion.CreateTransaccionFragment"
+        android:label="Crear Transaccion"
+        tools:layout="@layout/fragment_create_transaccion"/>
+
+    <action
+        android:id="@+id/action_budgetsFragment_to_crearPresupuestoFragment"
+        app:destination="@id/crearPresupuestoFragment" />
 
 </navigation>

@@ -16,7 +16,10 @@
             android:id="@+id/nav_presupuestos"
             android:icon="@drawable/ic_budget"
             android:title="@string/menu_budgets" />
-
+        <item
+            android:id="@+id/nav_transaccion"
+            android:icon="@drawable/ic_transaccion"
+            android:title="@string/transacciones"/>
         <item
             android:id="@+id/nav_categorias"
             android:icon="@drawable/ic_categories"

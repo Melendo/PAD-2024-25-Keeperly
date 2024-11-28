@@ -14,7 +14,7 @@ public class Transaccion {
     private int id;
     private int idCategoria;
     private int idCuenta;
-    private boolean tipo; // true: ingreso, false: gasto
+    private String concepto;
     private double cantidad;
     private String fecha;
 
@@ -44,12 +44,12 @@ public class Transaccion {
         this.idCuenta = idCuenta;
     }
 
-    public boolean isTipo() {
-        return tipo;
+    public String getConcepto() {
+        return concepto;
     }
 
-    public void setTipo(boolean tipo) {
-        this.tipo = tipo;
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
     }
 
     public double getCantidad() {

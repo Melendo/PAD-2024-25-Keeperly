@@ -36,18 +36,34 @@
     <string name="invalid_email">El email no es valido</string>
     <string name="register_failed_invalid_data">Datos no validos</string>
     <string name="logout_successfully">Sesion Cerrada correctamente</string>
-
-
+    <string name="transacciones">Transacciones</string>
     <string name="crear_presupuesto">Crear Presupuesto</string>
+    <string name="a_adir_transacci_n">Añadir Transacción</string>
+    <string-array name="categorias_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
     <string name="menu_categories">Categorias</string>
     <string name="eliminar">Eliminar</string>
     <string name="editar">Editar</string>
     <string name="editar_categoria">Editar Categoría</string>
-    <string name="cancelar">Cancelar</string>
-    <string name="crear">Crear</string>
     <string name="fecha_dd_mm_yyyy_ini">Fecha Inicio (DD-MM-YYYY)</string>
     <string name="fecha_dd_mm_yyyy_fin">Fecha Inicio (DD-MM-YYYY)</string>
     <string name="nombre_del_presupuesto">Nombre del presupuesto</string>
     <string name="icono_de_categorias">Icono de Categorias</string>
     <string name="cantidad">Cantidad</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="concepto">Concepto</string>
+    <string name="categor_a">Categoría</string>
+    <string name="cuenta">Cuenta</string>
+    <string name="guardar_transacci_n">Guardar Transacción</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="concepto_invalido">El concepto es inválido</string>
+    <string name="cantidad_invalida">La cantidad es inválida</string>
+    <string name="fecha_invalida">La fecha es inválida</string>
+    <string name="crear_transaccion_fallado">La creación de la transacción ha fallado</string>
+    <string name="crear_transaccion_datos_invalidos">Los datos de esta transacción no son válidos</string>
+    <string name="crear">Crear</string>
 </resources>

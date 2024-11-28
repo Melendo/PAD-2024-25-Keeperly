@@ -1,6 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.main.MainActivity">
+
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="313dp"
+        android:layout_height="64dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Hola, Carlos"
+        android:textSize="48sp"
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.044"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textViewTotal"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Total Cuentas:"
+        android:textSize="50sp"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeText"
+        tools:ignore="HardcodedText"
+        tools:layout_editor_absoluteX="124dp" />
+
+    <TextView
+        android:id="@+id/textViewGastado"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Total Gastado:"
+        android:textSize="50sp"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeText"
+        tools:ignore="HardcodedText"
+        tools:layout_editor_absoluteX="983dp" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="1600dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/gray_purple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="2dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="18dp"
+        android:background="@color/gray_purple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Cuentas"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="48sp"
+        android:layout_marginHorizontal="300dp"
+        app:layout_constraintEnd_toEndOf="@id/divider4"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/numDineroTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="105,23€"
+        android:textSize="60sp"
+        tools:ignore="HardcodedText"
+        tools:layout_editor_absoluteX="424dp"
+        tools:layout_editor_absoluteY="136dp" />
+
+    <TextView
+        android:id="@+id/numGastadoTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="423,12€"
+        android:textSize="60sp"
+        tools:ignore="HardcodedText"
+        tools:layout_editor_absoluteX="1283dp"
+        tools:layout_editor_absoluteY="136dp" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Presupuestos"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        android:layout_marginHorizontal="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.815"
+        app:layout_constraintStart_toStartOf="@id/divider4"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        tools:ignore="HardcodedText" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="2dp"
+        android:layout_height="500dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/gray_purple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="748dp"
+        android:layout_height="438dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/divider4"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="779dp"
+        android:layout_height="430dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="124dp"
+        app:layout_constraintStart_toEndOf="@+id/divider4"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -104,6 +104,28 @@ public class CategoriasFragment extends Fragment {
                 }
             }
         });
+
+        categoriaViewModel.getUpdateStatus().observe(getViewLifecycleOwner(), status -> {
+            if (status != null) {
+                switch (status) {
+                    case 1: // Éxito
+                        Toast.makeText(getContext(), "Categoria Editada con éxito", Toast.LENGTH_SHORT).show();
+                        break;
+                    case -1: // Error de base de datos
+                        Toast.makeText(getContext(), "Error al editar la categoria", Toast.LENGTH_SHORT).show();
+                        break;
+                    case -2: // Otro error (opcional)
+                        Toast.makeText(getContext(), "Error: el nombre no puede ser vacio", Toast.LENGTH_SHORT).show();
+                        break;
+                    case -3: // Otro error (opcional)
+                        Toast.makeText(getContext(), "Error: Ya existe una Categoria con ese nombre", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        Toast.makeText(getContext(), "Error desconocido", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
         return root;
     }
 
@@ -129,14 +151,11 @@ public class CategoriasFragment extends Fragment {
         // Botón Guardar
         btnGuardar.setOnClickListener(v -> {
             String nuevoNombre = editTextNombre.getText().toString().trim();
-            if (!nuevoNombre.isEmpty()) {
+            if (!nuevoNombre.isEmpty() && !nuevoNombre.equals(categoria.getNombre())) {
                 // Actualiza el nombre de la categoría
                 categoria.setNombre(nuevoNombre);
                 categoriaViewModel.update(categoria); // Llamar al método update del ViewModel
-                Toast.makeText(getContext(), "Categoría actualizada", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
-            } else {
-                Toast.makeText(getContext(), "El nombre no puede estar vacío", Toast.LENGTH_SHORT).show();
             }
         });
 

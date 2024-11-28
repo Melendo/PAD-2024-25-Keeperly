@@ -55,6 +55,9 @@ public class CategoriasViewModel extends ViewModel {
 
     public LiveData<Integer> getDeleteStatus() {
         return categoriaRepository.getDeleteStatus();
+    }
 
+    public LiveData<Integer> getUpdateStatus() {
+        return categoriaRepository.getUpdateStatus();
     }
 }

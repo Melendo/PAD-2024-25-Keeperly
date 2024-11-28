@@ -19,6 +19,7 @@ public class CategoriaRepository {
 
     private final MutableLiveData<Integer> operationStatus = new MutableLiveData<>();
     private final MutableLiveData<Integer> deleteStatus = new MutableLiveData<>();
+    private final MutableLiveData<Integer> updateStatus = new MutableLiveData<>();
 
 
     private final CategoriaDAO categoriaDao;
@@ -56,7 +57,23 @@ public class CategoriaRepository {
     }
 
     public void update(Categoria categoria) {
-        executorService.execute(() -> categoriaDao.update(categoria));
+        if (categoria.getNombre().isEmpty()) {
+            updateStatus.postValue(-2);
+
+        } else {
+            try {
+                Categoria existeCategoria = categoriaDao.getCategoriaByNombre(categoria.getNombre());
+                if(existeCategoria == null || (existeCategoria != null && existeCategoria.getId() == categoria.getId())){
+                    executorService.execute(() -> categoriaDao.update(categoria));
+                    updateStatus.postValue(1);
+                }else{
+                    updateStatus.postValue(-3);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                updateStatus.postValue(-1);
+            }
+        }
     }
 
     public void delete(Categoria categoria) {
@@ -99,5 +116,9 @@ public class CategoriaRepository {
 
     public LiveData<Integer> getDeleteStatus() {
         return deleteStatus;
+    }
+
+    public LiveData<Integer> getUpdateStatus() {
+        return updateStatus;
     }
 }

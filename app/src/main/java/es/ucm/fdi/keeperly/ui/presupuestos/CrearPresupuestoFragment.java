@@ -1,6 +1,7 @@
 package es.ucm.fdi.keeperly.ui.presupuestos;
 
 import android.app.DatePickerDialog;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +16,12 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.sql.Date;
+import java.util.Date;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
@@ -62,7 +65,7 @@ public class CrearPresupuestoFragment extends Fragment {
                 // Configura el adaptador
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(
                         requireContext(),
-                        android.R.layout.simple_spinner_item,
+                        android.R.layout.simple_spinner_dropdown_item,
                         nombresCategorias
                 );
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -74,7 +77,7 @@ public class CrearPresupuestoFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 0) {
-                    categoriaSeleccionada =  parent.getItemAtPosition(position).toString();
+                    categoriaSeleccionada = parent.getItemAtPosition(position).toString();
                 } else {
                     categoriaSeleccionada = "";
                 }
@@ -103,8 +106,15 @@ public class CrearPresupuestoFragment extends Fragment {
                 String nombre = etNombre.getText().toString();
                 int usuario = 1;
                 double cantidad = Double.parseDouble(etCantidad.getText().toString());
-                Date fechaInicio = Date.valueOf(etFechaInicio.getText().toString());
-                Date fechaFin = Date.valueOf(etFechaFin.getText().toString());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                Date fechaInicio, fechaFin;
+                try {
+                    fechaInicio = dateFormat.parse(etFechaInicio.getText().toString());
+                    fechaFin = dateFormat.parse(etFechaFin.getText().toString());
+
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
 
 
                 // Llamamos al método del ViewModel para crear el presupuesto
@@ -160,7 +170,7 @@ public class CrearPresupuestoFragment extends Fragment {
                 requireContext(),
                 (view, year1, month1, dayOfMonth) -> {
                     // Formatear la fecha seleccionada
-                    String fechaSeleccionada = String.format("%04d-%02d-%02d", year1, month1 + 1, dayOfMonth);
+                    String fechaSeleccionada = String.format("%02d-%02d-%04d", dayOfMonth, month1 + 1, year1);
                     editText.setText(fechaSeleccionada);
                 },
                 year, month, day

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.Date;
 
+import es.ucm.fdi.keeperly.repository.LoginRepository;
 import es.ucm.fdi.keeperly.repository.PresupuestoRepository;
 import es.ucm.fdi.keeperly.repository.RepositoryFactory;
 
@@ -29,8 +30,9 @@ public class PresupuestosViewModel extends ViewModel {
     }
 
     // Método para crear un nuevo presupuesto
-    public void crearPresupuesto(String nombre,int usuario, int categoria, double cantidad, Date fechaInicio, Date fechaFin) {
+    public void crearPresupuesto(String nombre, int categoria, double cantidad, Date fechaInicio, Date fechaFin) {
+        LoginRepository loginRepository = LoginRepository.getInstance(RepositoryFactory.getInstance().getUsuarioRepository());
 
-        presupuestoRepository.insert(presupuestoRepository.construirPresupuesto(nombre, usuario , categoria, cantidad, fechaInicio, fechaFin)); // Insertamos el presupuesto en la base de datos
+        presupuestoRepository.insert(presupuestoRepository.construirPresupuesto(nombre, loginRepository.getLoggedUser().getId() , categoria, cantidad, fechaInicio, fechaFin)); // Insertamos el presupuesto en la base de datos
     }
 }

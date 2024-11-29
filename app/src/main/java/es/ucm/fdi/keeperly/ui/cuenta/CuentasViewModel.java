@@ -30,10 +30,6 @@ public class CuentasViewModel extends ViewModel {
         return mText;
     }
 
-    public LiveData<List<Cuenta>> getCuentas() {
-        return cuentas;
-    }
-
     public void crearCuenta(String nombre, double balance, int idUsuario) {
         cuentaRepository.insert(cuentaRepository.creaCuenta(nombre, balance, idUsuario));
     }

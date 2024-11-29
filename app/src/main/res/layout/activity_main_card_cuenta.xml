@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp"
+        android:padding="8dp"
         android:gravity="center_vertical">
 
         <!-- Icono -->
@@ -20,7 +20,6 @@
             android:layout_height="40dp"
             android:background="@drawable/circle_background"
             android:gravity="center"
-            android:text="C"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -35,21 +34,19 @@
 
             <!-- NombreCuenta -->
             <TextView
-                android:id="@+id/textViewCuentaNombre"
+                android:id="@+id/textViewCuentaMainNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cuenta Personal"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <!-- Dinero de la cuenta -->
             <TextView
-                android:id="@+id/textViewSaldoCuenta"
+                android:id="@+id/textViewSaldoCuentaMain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="0,00€"
                 android:textColor="#000000"
                 android:textSize="14sp" />
         </LinearLayout>

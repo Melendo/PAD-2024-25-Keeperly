@@ -14,7 +14,6 @@ import java.util.List;
 
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
-import es.ucm.fdi.keeperly.ui.categorias.CategoriasAdapter;
 
 public class CuentasInicioAdapter extends RecyclerView.Adapter<CuentasInicioAdapter.CuentaInicioViewHolder>{
     private List<Cuenta> cuentas = new ArrayList<>();
@@ -22,7 +21,7 @@ public class CuentasInicioAdapter extends RecyclerView.Adapter<CuentasInicioAdap
     @NonNull
     @Override
     public CuentaInicioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_card_cuenta, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_main_card_cuenta, parent, false);
         return new CuentaInicioViewHolder(itemView);
     }
 
@@ -35,7 +34,7 @@ public class CuentasInicioAdapter extends RecyclerView.Adapter<CuentasInicioAdap
         String inicial = cuenta.getNombre().substring(0, 1).toUpperCase();
         holder.iconoTextView.setText(inicial);
 
-        holder.saldoTextView.setText(String.valueOf(cuenta.getBalance()));
+        holder.saldoTextView.setText(String.valueOf(cuenta.getBalance() + "€"));
 
     }
 
@@ -51,8 +50,8 @@ public class CuentasInicioAdapter extends RecyclerView.Adapter<CuentasInicioAdap
 
         public CuentaInicioViewHolder(@NonNull View itemView) {
             super(itemView);
-            nombreTextView = itemView.findViewById(R.id.textViewCuentaNombre);
-            saldoTextView = itemView.findViewById(R.id.textViewSaldoCuenta);
+            nombreTextView = itemView.findViewById(R.id.textViewCuentaMainNombre);
+            saldoTextView = itemView.findViewById(R.id.textViewSaldoCuentaMain);
             iconoTextView = itemView.findViewById(R.id.iconoCuentaInicio);
         }
     }

@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="Presupuesto muy largo para probar el comportamiento"
             android:textSize="22sp"
             android:textAlignment="textEnd"
             app:layout_constraintBottom_toBottomOf="@id/textViewNombre"
@@ -78,7 +77,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="$1000.00"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewCantidad" />
@@ -88,7 +86,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="$500.00"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewGastado" />
@@ -121,7 +118,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="01/11/2024"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewFechaInicio" />
@@ -131,16 +127,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="30/11/2024"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewFechaFin" />
 
         <!-- Categoría -->
-
-
-        <!-- Divider Line -->
-
         <TextView
             android:id="@+id/textViewCategoria"
             android:layout_width="0dp"
@@ -163,7 +154,6 @@
             android:layout_marginTop="16dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="Categoría de ejemplo muy larga para probar"
             android:textSize="20sp"
             android:textAlignment="textEnd"
             app:layout_constraintEnd_toEndOf="parent"
@@ -173,6 +163,7 @@
             app:layout_constraintBottom_toTopOf="@+id/view5"
             />
 
+        <!-- Divider Line -->
         <View
         android:id="@+id/view5"
             android:layout_width="0dp"
@@ -191,6 +182,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/editar"
+            android:drawableEnd="@drawable/ic_edit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view5" />
 
@@ -200,6 +192,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/eliminar"
+            android:drawableEnd="@drawable/ic_delete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view5" />
 

@@ -15,7 +15,7 @@
 
         <!-- Icono -->
         <TextView
-            android:id="@+id/iconoCuentaInicio"
+            android:id="@+id/iconoPresupuestoInicioMain"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/circle_background"

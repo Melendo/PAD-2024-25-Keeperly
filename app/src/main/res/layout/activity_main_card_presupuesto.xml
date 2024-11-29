@@ -15,7 +15,7 @@
 
         <!-- Icono -->
         <TextView
-            android:id="@+id/iconoCuentaInicio"
+            android:id="@+id/iconoPresupuestoInicioMain"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/circle_background"
@@ -35,7 +35,7 @@
 
             <!-- NombrePresupuesto -->
             <TextView
-                android:id="@+id/cardBudgetTitle"
+                android:id="@+id/textViewPresupuestoMainNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Presupuesto"
@@ -44,8 +44,15 @@
                 android:textStyle="bold" />
 
             <!-- Precio presupuesto -->
+
             <TextView
-                android:id="@+id/cardBudgetSubtitle"
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/textViewDineroGastadoPresupuestoMain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="105,1€ / 150€"
@@ -64,6 +71,7 @@
                 android:backgroundTint="#E0D5F5"
                 android:layout_marginTop="8dp"
                 android:max="100" />
+
         </LinearLayout>
 
     </LinearLayout>

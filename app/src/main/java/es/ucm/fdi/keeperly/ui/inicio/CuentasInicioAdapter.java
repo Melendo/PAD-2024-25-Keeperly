@@ -28,13 +28,13 @@ public class CuentasInicioAdapter extends RecyclerView.Adapter<CuentasInicioAdap
     @Override
     public void onBindViewHolder(@NonNull CuentasInicioAdapter.CuentaInicioViewHolder holder, int position) {
         Cuenta cuenta = cuentas.get(position);
+
         holder.nombreTextView.setText(cuenta.getNombre());
+        holder.saldoTextView.setText(String.valueOf(cuenta.getBalance()));
 
         // Icono circular con la primera letra
-        String inicial = cuenta.getNombre().substring(0, 1).toUpperCase();
-        holder.iconoTextView.setText(inicial);
-
-        holder.saldoTextView.setText(String.valueOf(cuenta.getBalance()));
+        String initial = cuenta.getNombre().substring(0, 1).toUpperCase();
+        holder.iconoTextView.setText(initial);
 
     }
 
@@ -44,6 +44,7 @@ public class CuentasInicioAdapter extends RecyclerView.Adapter<CuentasInicioAdap
     }
 
     static class CuentaInicioViewHolder extends RecyclerView.ViewHolder {
+
         private final TextView nombreTextView;
         private final TextView saldoTextView;
         private final TextView iconoTextView;
@@ -52,7 +53,7 @@ public class CuentasInicioAdapter extends RecyclerView.Adapter<CuentasInicioAdap
             super(itemView);
             nombreTextView = itemView.findViewById(R.id.textViewCuentaMainNombre);
             saldoTextView = itemView.findViewById(R.id.textViewSaldoCuentaMain);
-            iconoTextView = itemView.findViewById(R.id.iconoCuentaInicio);
+            iconoTextView = itemView.findViewById(R.id.iconoPresupuestoInicioMain);
         }
     }
 

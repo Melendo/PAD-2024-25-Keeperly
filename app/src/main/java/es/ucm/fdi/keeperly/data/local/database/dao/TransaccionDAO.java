@@ -26,4 +26,5 @@ public interface TransaccionDAO {
 
     @Query("SELECT * FROM transacciones WHERE idCategoria = :id")
     List<Transaccion> getTransaccionesPorCategoria(int id);
+
 }

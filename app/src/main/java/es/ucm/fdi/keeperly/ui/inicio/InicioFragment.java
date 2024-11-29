@@ -20,15 +20,20 @@ public class InicioFragment extends Fragment {
 
     private InicioViewModel inicioViewModel;
     private FragmentInicioBinding binding;
+
     private CuentasInicioAdapter cuentasInicioAdapter;
+    private PresupuestosInicioAdapter presupuestosInicioAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //Declaración del ViewModel
         inicioViewModel = new ViewModelProvider(this).get(InicioViewModel.class);
 
+        //Binding del fragment
         binding = FragmentInicioBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        //RecyclerView de cuentas
         RecyclerView recyclerViewCuentas = root.findViewById(R.id.recyclerViewCuentas);
         recyclerViewCuentas.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewCuentas.setHasFixedSize(true);
@@ -36,9 +41,20 @@ public class InicioFragment extends Fragment {
         cuentasInicioAdapter = new CuentasInicioAdapter();
         recyclerViewCuentas.setAdapter(cuentasInicioAdapter);
 
+        //RecyclerView de presupuestos
+        RecyclerView recyclerViewPresupuestos = root.findViewById(R.id.recyclerViewPresupuestos);
+        recyclerViewPresupuestos.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewPresupuestos.setHasFixedSize(true);
+
+        presupuestosInicioAdapter = new PresupuestosInicioAdapter();
+        recyclerViewPresupuestos.setAdapter(presupuestosInicioAdapter);
+
+        //Observadores del ViewModel
         inicioViewModel.getCuentas().observe(getViewLifecycleOwner(), cuentasInicioAdapter::setCuentas);
+        inicioViewModel.getPresupuestos().observe(getViewLifecycleOwner(), presupuestosInicioAdapter::setPresupuestos);
 
 
+        //Observadores de los campos del fragment
         final TextView welcomeText = binding.welcomeText;
         inicioViewModel.getWelcomeText().observe(getViewLifecycleOwner(), welcomeText::setText);
 
@@ -47,7 +63,6 @@ public class InicioFragment extends Fragment {
 
         final TextView priceLastMonth = binding.numGastadoTotal;
         inicioViewModel.getPriceLastMonth().observe(getViewLifecycleOwner(), priceLastMonth::setText);
-
 
         return root;
     }

@@ -50,7 +50,7 @@ public class TransaccionRepository {
         transaccion.setCantidad(cantidad);
         transaccion.setIdCuenta(cuenta);
         transaccion.setIdCategoria(categoria);
-        transaccion.setFecha(fecha.toString());
+        transaccion.setFecha(fecha);
         transaccionDao.insert(transaccion);
 
         return new Result.Success<Boolean>(true);

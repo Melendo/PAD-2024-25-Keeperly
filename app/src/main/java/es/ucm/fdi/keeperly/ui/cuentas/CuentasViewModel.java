@@ -8,6 +8,7 @@ public class CuentasViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
+
     public CuentasViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is accounts fragment");

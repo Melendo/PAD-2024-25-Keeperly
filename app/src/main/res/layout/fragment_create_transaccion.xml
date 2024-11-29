@@ -49,7 +49,7 @@
             android:background="@drawable/rounded_edit_text"
             android:padding="16dp"
             android:textColor="#000"
-            android:inputType="numberDecimal"
+            android:inputType="numberSigned|numberDecimal"
             app:layout_constraintTop_toBottomOf="@id/conceptoEditText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

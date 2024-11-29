@@ -32,11 +32,13 @@ import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
 import es.ucm.fdi.keeperly.databinding.FragmentCreateTransaccionBinding;
 import es.ucm.fdi.keeperly.ui.categorias.CategoriasViewModel;
+import es.ucm.fdi.keeperly.ui.cuentas.CuentasViewModel;
 
 public class CreateTransaccionFragment extends Fragment {
 
     private TransaccionViewModel transaccionViewModel;
     private CategoriasViewModel categoriasViewModel;
+    private CuentasViewModel cuentasViewModel;
 
     private String categoriaSeleccionada;
 
@@ -104,6 +106,10 @@ public class CreateTransaccionFragment extends Fragment {
         });
 
         // Configurar el ViewModel de Cuentas
+        cuentasViewModel = new ViewModelProvider(this).get(CuentasViewModel.class);
+        cuentasViewModel.getCuentas().observe(getViewLifecycleOwner(), cuentas -> {
+
+                }
 
         // Fecha
         fechaField.setOnClickListener(v -> showDatePickerDialog(fechaField));
@@ -147,7 +153,7 @@ public class CreateTransaccionFragment extends Fragment {
         });
 
         // Observar el estado del formulario
-        transaccionViewModel.getCreateTransaccionFormState().observe(this, createTransaccionFormState -> {
+        transaccionViewModel.getCreateTransaccionFormState().observe(getViewLifecycleOwner(), createTransaccionFormState -> {
            if (createTransaccionFormState == null)
                return;
            crearButton.setEnabled(createTransaccionFormState.isDataValid());
@@ -162,7 +168,7 @@ public class CreateTransaccionFragment extends Fragment {
            }
         });
 
-        transaccionViewModel.getCreateTransaccionResult().observe(this, createTransaccionResult -> {
+        transaccionViewModel.getCreateTransaccionResult().observe(getViewLifecycleOwner(), createTransaccionResult -> {
             if (createTransaccionResult == null) {
                 return;
             }

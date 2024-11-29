@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <!-- Nombre del Presupuesto -->
+        <TextView
+            android:id="@+id/textViewNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/nombre_presupuesto"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewNombreValor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Cantidad -->
+        <TextView
+            android:id="@+id/textViewCantidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/cantidad_presupuesto"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewCantidadValor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Gastado -->
+        <TextView
+            android:id="@+id/textViewGastado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/gastado_presupuesto"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewGastadoValor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Fechas -->
+        <TextView
+            android:id="@+id/textViewFechaInicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/fecha_de_inicio"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewFechaInicioValor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textViewFechaFin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/fecha_de_fin"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewFechaFinValor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!--<TextView
+            android:id="@+id/textViewCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/fecha_de_fin"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewCategoriaValor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" /> -->
+
+
+    </LinearLayout>
+</ScrollView>
+

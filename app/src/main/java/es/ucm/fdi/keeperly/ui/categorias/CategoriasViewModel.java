@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
+import es.ucm.fdi.keeperly.data.local.database.entities.Presupuesto;
 import es.ucm.fdi.keeperly.repository.CategoriaRepository;
 import es.ucm.fdi.keeperly.repository.LoginRepository;
 import es.ucm.fdi.keeperly.repository.RepositoryFactory;
@@ -43,9 +44,10 @@ public class CategoriasViewModel extends ViewModel {
     }
 
 
-    public Categoria getCategoriaByNombre(String nombre){
+    public Categoria getCategoriaByNombre(String nombre) {
         return categoriaRepository.getCategoriaByNombre(nombre);
     }
+
     public void delete(Categoria categoria) {
         categoriaRepository.delete(categoria);
     }
@@ -64,5 +66,9 @@ public class CategoriasViewModel extends ViewModel {
 
     public LiveData<Integer> getUpdateStatus() {
         return categoriaRepository.getUpdateStatus();
+    }
+
+    public Categoria getCategoriaById(int categoriaId) {
+        return categoriaRepository.getCategoriaById(categoriaId);
     }
 }

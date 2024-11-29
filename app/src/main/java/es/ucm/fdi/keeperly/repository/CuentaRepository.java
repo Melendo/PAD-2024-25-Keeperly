@@ -19,18 +19,10 @@ public class CuentaRepository {
 
     private final CuentaDAO cuentaDao;
     private final ExecutorService executorService;
-    private static volatile CuentaRepository instance;
 
     public CuentaRepository() {
         cuentaDao = KeeperlyDB.getInstance().cuentaDao();
         executorService = Executors.newSingleThreadExecutor();
-    }
-
-    public static CuentaRepository getInstance() {
-        if (instance == null) {
-            instance = new CuentaRepository();
-        }
-        return instance;
     }
 
     public void insert(Cuenta cuenta) {

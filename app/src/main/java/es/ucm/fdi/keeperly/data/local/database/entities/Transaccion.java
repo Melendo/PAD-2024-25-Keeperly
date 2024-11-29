@@ -2,6 +2,8 @@ package es.ucm.fdi.keeperly.data.local.database.entities;
 
 import androidx.room.*;
 
+import java.util.Date;
+
 @Entity(
         tableName = "transacciones",
         foreignKeys = {
@@ -16,7 +18,7 @@ public class Transaccion {
     private int idCuenta;
     private String concepto;
     private double cantidad;
-    private String fecha;
+    private Date fecha;
 
     // Getters y Setters
 
@@ -60,11 +62,11 @@ public class Transaccion {
         this.cantidad = cantidad;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 }

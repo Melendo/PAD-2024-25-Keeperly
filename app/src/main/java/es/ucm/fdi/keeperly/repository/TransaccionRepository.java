@@ -9,17 +9,21 @@ import java.util.concurrent.Executors;
 
 import es.ucm.fdi.keeperly.data.Result;
 import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
+import es.ucm.fdi.keeperly.data.local.database.dao.CuentaDAO;
 import es.ucm.fdi.keeperly.data.local.database.dao.TransaccionDAO;
+import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
 import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 
 public class TransaccionRepository {
 
 
     private final TransaccionDAO transaccionDao;
+    private final CuentaDAO cuentaDao;
     private final ExecutorService executorService;
 
     public TransaccionRepository() {
         transaccionDao = KeeperlyDB.getInstance().transaccionDao();
+        cuentaDao = KeeperlyDB.getInstance().cuentaDao();
         executorService = Executors.newSingleThreadExecutor();
     }
 
@@ -50,7 +54,14 @@ public class TransaccionRepository {
         transaccion.setCantidad(cantidad);
         transaccion.setIdCuenta(cuenta);
         transaccion.setIdCategoria(categoria);
-        transaccion.setFecha(fecha.toString());
+        transaccion.setFecha(fecha);
+
+        Cuenta cuentaactualizar = cuentaDao.getCuentaById(transaccion.getIdCuenta());
+        double old_bal = cuentaactualizar.getBalance();
+        double new_bal = old_bal + transaccion.getCantidad();
+        cuentaactualizar.setBalance(new_bal);
+        cuentaDao.update(cuentaactualizar);
+
         transaccionDao.insert(transaccion);
 
         return new Result.Success<Boolean>(true);

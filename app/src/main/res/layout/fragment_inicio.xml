@@ -29,7 +29,7 @@
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="32dp"
         android:fontFamily="sans-serif-medium"
         android:text="Total Cuentas:"
         android:textSize="22sp"
@@ -90,14 +90,12 @@
         android:id="@+id/numDineroTotal"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="48dp"
         android:fontFamily="sans-serif-medium"
-        android:text="105,23€"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toStartOf="@+id/divider2"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTotal"
-        tools:ignore="HardcodedText" />
+        android:textSize="26sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTotal" />
 
     <TextView
         android:id="@+id/numGastadoTotal"
@@ -106,11 +104,9 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-medium"
-        android:text="423,12€"
-        android:textSize="34sp"
+        android:textSize="26sp"
         app:layout_constraintStart_toEndOf="@+id/divider2"
-        app:layout_constraintTop_toBottomOf="@+id/textViewGastado"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewGastado" />
 
     <View
         android:id="@+id/divider3"

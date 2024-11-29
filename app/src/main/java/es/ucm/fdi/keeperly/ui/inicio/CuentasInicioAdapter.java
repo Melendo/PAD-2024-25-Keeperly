@@ -34,7 +34,7 @@ public class CuentasInicioAdapter extends RecyclerView.Adapter<CuentasInicioAdap
         String inicial = cuenta.getNombre().substring(0, 1).toUpperCase();
         holder.iconoTextView.setText(inicial);
 
-        holder.saldoTextView.setText(String.valueOf(cuenta.getBalance() + "€"));
+        holder.saldoTextView.setText(String.valueOf(cuenta.getBalance()));
 
     }
 
@@ -61,4 +61,5 @@ public class CuentasInicioAdapter extends RecyclerView.Adapter<CuentasInicioAdap
         this.cuentas = cuentas;
         notifyDataSetChanged();
     }
+
 }

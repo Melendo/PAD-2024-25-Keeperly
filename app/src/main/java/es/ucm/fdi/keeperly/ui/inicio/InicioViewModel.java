@@ -2,6 +2,7 @@ package es.ucm.fdi.keeperly.ui.inicio;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
@@ -28,12 +29,22 @@ public class InicioViewModel extends ViewModel {
 
         this.cuentas = cuentaRepository.getAllCuentas(loginRepository.getLoggedUser().getId());
 
+        cuentas.observeForever(new Observer<List<Cuenta>>() {
+            @Override
+            public void onChanged(List<Cuenta> cuentas) {
+                double sumaTotal = 0;
+                for (Cuenta cuenta : cuentas) {
+                    sumaTotal += cuenta.getBalance();
+                }
+                numDineroTotal.postValue(String.format("%.2f€", sumaTotal));
+            }
+        });
+
 
         welcomeText = new MutableLiveData<>();
         welcomeText.setValue("Hola, " + loginRepository.getLoggedUser().getNombre());
 
         numDineroTotal = new MutableLiveData<>();
-        numDineroTotal.setValue("69.42€");
 
         numTotalGastado = new MutableLiveData<>();
         numTotalGastado.setValue("123.45€");
@@ -55,4 +66,5 @@ public class InicioViewModel extends ViewModel {
     public LiveData<List<Cuenta>> getCuentas() {
         return cuentas;
     }
+
 }

@@ -34,7 +34,7 @@ public class InicioViewModel extends ViewModel {
         //transaccionRepository = TransaccionRepository.getInstance(RepositoryFactory.getInstance().getTransaccionRepository());
 
 
-        welcomeText.setValue("Hola, " + loginRepository.getUser().getNombre());
+        welcomeText.setValue("Hola, " + loginRepository.getLoggedUser().getNombre());
         numDineroTotal.setValue("69.42€");
         numTotalGastado.setValue("123.45€");
 

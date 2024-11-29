@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,131 +9,135 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/gradient_background">
+        android:layout_height="wrap_content">
 
         <!-- Título -->
-        <TextView
-            android:id="@+id/tvTitulo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Crear Presupuesto"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#FFF"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+        <ImageView
+            android:id="@+id/budgetIcon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/round_shape"
+            android:backgroundTint="@color/main_purple"
+            android:contentDescription="@string/icono_de_categorias"
+            android:scaleType="center"
+            android:src="@drawable/ic_budget"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="24dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Input Nombre -->
         <EditText
             android:id="@+id/etNombre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Nombre del presupuesto"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_edit_text"
+            android:hint="@string/nombre_del_presupuesto"
+            android:inputType="textPersonName"
             android:padding="16dp"
             android:textColor="#000"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitulo"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="32dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/budgetIcon" />
 
         <!-- Input Categoría -->
         <Spinner
             android:id="@+id/spCategoria"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_edit_text"
             android:padding="8dp"
-            android:entries="@array/categorias_array"
-            app:layout_constraintTop_toBottomOf="@+id/etNombre"
-            app:layout_constraintStart_toStartOf="parent"
+            android:drawableEnd="@drawable/ic_arrow_drop_down"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="32dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etNombre" />
+
 
         <!-- Input Cantidad -->
         <EditText
             android:id="@+id/etCantidad"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Cantidad"
-            android:inputType="numberDecimal"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_edit_text"
+            android:hint="@string/cantidad"
+            android:inputType="numberDecimal"
             android:padding="16dp"
             android:textColor="#000"
-            app:layout_constraintTop_toBottomOf="@+id/spCategoria"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="32dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spCategoria" />
 
         <!-- Input Fecha de Inicio -->
         <EditText
             android:id="@+id/etFechaInicio"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Fecha de inicio (YYYY-MM-DD)"
-            android:focusable="false"
-            android:clickable="true"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_edit_text"
+            android:drawableEnd="@drawable/ic_calendar"
+            android:focusableInTouchMode="false"
+            android:hint="@string/fecha_dd_mm_yyyy_ini"
+            android:inputType="none"
             android:padding="16dp"
             android:textColor="#000"
-            app:layout_constraintTop_toBottomOf="@+id/etCantidad"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="32dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etCantidad" />
 
         <!-- Input Fecha de Fin -->
         <EditText
             android:id="@+id/etFechaFin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Fecha de fin (YYYY-MM-DD)"
-            android:focusable="false"
-            android:clickable="true"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_edit_text"
+            android:drawableEnd="@drawable/ic_calendar"
+            android:focusableInTouchMode="false"
+            android:hint="@string/fecha_dd_mm_yyyy_fin"
+            android:inputType="none"
             android:padding="16dp"
             android:textColor="#000"
-            app:layout_constraintTop_toBottomOf="@+id/etFechaInicio"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="32dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etFechaInicio" />
 
         <!-- Botones -->
         <LinearLayout
             android:id="@+id/buttonContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/etFechaFin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="32dp"
             android:layout_marginTop="24dp"
-            android:layout_marginHorizontal="32dp">
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etFechaFin">
 
             <Button
                 android:id="@+id/btnCancelar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="Cancelar"
-                android:backgroundTint="@color/error_red"
-                android:textColor="#FFF"
-                android:layout_marginEnd="8dp" />
+                android:backgroundTint="@color/secondary_purple"
+                android:text="@string/cancelar"
+                android:textColor="#FFF" />
 
             <Button
                 android:id="@+id/btnCrear"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Crear"
-                android:backgroundTint="@color/success_green"
+                android:backgroundTint="@color/main_purple"
+                android:text="@string/crear"
                 android:textColor="#FFF" />
         </LinearLayout>
 

@@ -11,11 +11,15 @@ import java.util.concurrent.Executors;
 
 import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
 import es.ucm.fdi.keeperly.data.local.database.dao.CategoriaDAO;
+import es.ucm.fdi.keeperly.data.local.database.dao.PresupuestoDAO;
+import es.ucm.fdi.keeperly.data.local.database.dao.TransaccionDAO;
 import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
 
 public class CategoriaRepository {
 
     private final MutableLiveData<Integer> operationStatus = new MutableLiveData<>();
+    private final MutableLiveData<Integer> deleteStatus = new MutableLiveData<>();
+    private final MutableLiveData<Integer> updateStatus = new MutableLiveData<>();
 
 
     private final CategoriaDAO categoriaDao;
@@ -53,11 +57,45 @@ public class CategoriaRepository {
     }
 
     public void update(Categoria categoria) {
-        executorService.execute(() -> categoriaDao.update(categoria));
+        if (categoria.getNombre().isEmpty()) {
+            updateStatus.postValue(-2);
+
+        } else {
+            try {
+                Categoria existeCategoria = categoriaDao.getCategoriaByNombre(categoria.getNombre());
+                if(existeCategoria == null || (existeCategoria != null && existeCategoria.getId() == categoria.getId())){
+                    executorService.execute(() -> categoriaDao.update(categoria));
+                    updateStatus.postValue(1);
+                }else{
+                    updateStatus.postValue(-3);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                updateStatus.postValue(-1);
+            }
+        }
     }
 
     public void delete(Categoria categoria) {
-        executorService.execute(() -> categoriaDao.delete(categoria));
+        PresupuestoDAO presupuestoDAO = KeeperlyDB.getInstance().presupuestoDao();
+        TransaccionDAO transaccionDAO = KeeperlyDB.getInstance().transaccionDao();
+        deleteStatus.postValue(-1);
+        try {
+            if (!presupuestoDAO.getPresupuestosPorCategoria(categoria.getId()).isEmpty()) {
+                deleteStatus.postValue(-2);
+            } else {
+                if(transaccionDAO.getTransaccionesPorCategoria(categoria.getId()).isEmpty()) {
+                    executorService.execute(() -> categoriaDao.delete(categoria));
+                    deleteStatus.postValue(1);
+                }else{
+                    deleteStatus.postValue(-3);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            deleteStatus.postValue(-1);
+        }
+
     }
 
     public LiveData<List<Categoria>> getAllCategorias() {
@@ -74,5 +112,13 @@ public class CategoriaRepository {
 
     public LiveData<Integer> getOperationStatus() {
         return operationStatus;
+    }
+
+    public LiveData<Integer> getDeleteStatus() {
+        return deleteStatus;
+    }
+
+    public LiveData<Integer> getUpdateStatus() {
+        return updateStatus;
     }
 }

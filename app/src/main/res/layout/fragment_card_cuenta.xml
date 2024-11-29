@@ -1,34 +1,34 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="8dp">
-
+        android:padding="8dp"
+        android:gravity="center_vertical">
 
         <!-- Icono circular con la inicial -->
         <TextView
-            android:id="@+id/iconoCategoria"
+            android:id="@+id/iconoCuenta"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/circle_background"
             android:gravity="center"
+            android:background="@drawable/circle_background"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <!-- Nombre de la categoría -->
         <TextView
-            android:id="@+id/textViewCategoriaNombre"
+            android:id="@+id/nombreCuenta"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -37,22 +37,21 @@
 
         <!-- Botón editar -->
         <ImageButton
-            android:id="@+id/btnEditarCategoria"
+            android:id="@+id/editarCuenta"
             android:layout_width="48dp"
             android:layout_height="50dp"
-            android:background="@drawable/rounded_edit_button_icon"
             android:contentDescription="@string/editar"
-            android:src="@drawable/ic_edit" />
+            android:src="@drawable/ic_edit"
+            />
 
         <!-- Botón eliminar -->
         <ImageButton
-            android:id="@+id/btnEliminarCategoria"
+            android:id="@+id/eliminarCuenta"
             android:layout_width="48dp"
             android:layout_height="50dp"
-            android:layout_marginStart="3dp"
-            android:background="@drawable/rounded_delete_button_icon"
             android:contentDescription="@string/eliminar"
-            android:src="@drawable/ic_delete" />
+            android:src="@drawable/ic_delete"
+            />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

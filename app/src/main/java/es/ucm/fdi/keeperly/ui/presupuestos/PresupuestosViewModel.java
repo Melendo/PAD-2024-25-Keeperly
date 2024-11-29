@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.sql.Date;
+import java.util.Date;
 
 import es.ucm.fdi.keeperly.repository.PresupuestoRepository;
 import es.ucm.fdi.keeperly.repository.RepositoryFactory;

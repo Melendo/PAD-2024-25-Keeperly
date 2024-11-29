@@ -20,8 +20,10 @@ public class CuentasViewModel extends ViewModel {
         mText = new MutableLiveData<>();
         mText.setValue("This is accounts fragment");
         this.cuentaRepository = RepositoryFactory.getInstance().getCuentaRepository();
-        int user_id = LoginRepository.getInstance(RepositoryFactory.getInstance().getUsuarioRepository()).getLoggedUser().getId();
-        this.cuentas = cuentaRepository.getAllCuentas(user_id);
+        // Obtiene el ID del usuario logueado
+        int idUsuario = LoginRepository.getInstance(RepositoryFactory.getInstance().getUsuarioRepository()).getLoggedUser().getId();
+        // Recupera las cuentas para ese usuario
+        this.cuentas = cuentaRepository.getAllCuentas(idUsuario);
     }
 
     public LiveData<String> getText() {
@@ -38,5 +40,9 @@ public class CuentasViewModel extends ViewModel {
 
     public LiveData<Integer> getOperationStatus() {
         return cuentaRepository.getOperationStatus();
+    }
+
+    public LiveData<List<Cuenta>> getCuentas() {
+        return cuentas;
     }
 }

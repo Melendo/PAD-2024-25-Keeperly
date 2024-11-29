@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <!-- HOME -->
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="es.ucm.fdi.keeperly.ui.inicio.InicioFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_inicio" />
+
+    <!-- CUENTAS -->
+
+    <fragment
+        android:id="@+id/nav_cuentas"
+        android:name="es.ucm.fdi.keeperly.ui.cuenta.CuentasFragment"
+        android:label="@string/menu_accounts"
+        tools:layout="@layout/fragment_cuentas" />
+
+    <action
+        android:id="@+id/action_cuentasFragment_to_crearCuentaFragment"
+        app:destination="@id/crearCuentaFragment" />
+
+    <fragment
+        android:id="@+id/crearCuentaFragment"
+        android:name="es.ucm.fdi.keeperly.ui.cuenta.CrearCuentaFragment"
+        android:label="@string/menu_create_accounts"
+        tools:layout="@layout/fragment_crear_cuenta" />
+    <!-- PRESUPUETOS -->
+    <fragment
+        android:id="@+id/nav_presupuestos"
+        android:name="es.ucm.fdi.keeperly.ui.presupuestos.PresupuestosFragment"
+        android:label="@string/menu_budgets"
+        tools:layout="@layout/fragment_presupuestos" />
+
+    <fragment
+        android:id="@+id/nav_transaccion"
+        android:name="es.ucm.fdi.keeperly.ui.transaccion.TransaccionFragment"
+        android:label="@string/transacciones"
+        tools:layout="@layout/fragment_transaccion">
+
+        <action
+            android:id="@+id/action_nav_transaccion_to_createTransaccionFragment"
+            app:destination="@id/createTransaccionFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/crearPresupuestoFragment"
+        android:name="es.ucm.fdi.keeperly.ui.presupuestos.CrearPresupuestoFragment"
+        android:label="Crear Presupuesto"
+        tools:layout="@layout/fragment_crear_presupuesto" />
+
+    <!-- CATEGORIAS -->
+    <fragment
+        android:id="@+id/nav_categorias"
+        android:name="es.ucm.fdi.keeperly.ui.categorias.CategoriasFragment"
+        android:label="@string/menu_categories"
+        tools:layout="@layout/fragment_categorias" />
+    <action
+        android:id="@+id/action_categoriasFragment_to_crearCategoriaFragment"
+        app:destination="@id/crearCategoriaFragment" />
+    <fragment
+        android:id="@+id/crearCategoriaFragment"
+        android:name="es.ucm.fdi.keeperly.ui.categorias.CrearCategoriaFragment"
+        android:label="Crear Categoria"
+        tools:layout="@layout/fragment_crear_categoria" />
+
+
+    <fragment
+        android:id="@+id/createTransaccionFragment"
+        android:name="es.ucm.fdi.keeperly.ui.transaccion.CreateTransaccionFragment"
+        android:label="Crear Transaccion"
+        tools:layout="@layout/fragment_create_transaccion"/>
+
+    <action
+        android:id="@+id/action_budgetsFragment_to_crearPresupuestoFragment"
+        app:destination="@id/crearPresupuestoFragment" />
+
+</navigation>

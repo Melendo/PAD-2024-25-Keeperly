@@ -1,0 +1,32 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo del círculo -->
+    <item>
+        <shape
+            android:shape="ring">
+            <size
+                android:width="150dp"
+                android:height="150dp" />
+            <solid
+                android:color="#e0e0e0"/> <!-- Color del fondo del círculo -->
+            <corners
+                android:radius="75dp"/> <!-- Hacerlo completamente circular -->
+        </shape>
+    </item>
+
+    <!-- Progreso del círculo -->
+    <item android:id="@android:id/progress">
+        <shape
+            android:shape="ring">
+            <size
+                android:width="150dp"
+                android:height="150dp" />
+            <solid
+                android:color="@android:color/holo_blue_light" /> <!-- Color del progreso -->
+            <corners
+                android:radius="75dp"/> <!-- Asegurarse de que el progreso sea circular -->
+            <rotate
+                android:fromDegrees="270"
+                android:toDegrees="630"/>
+        </shape>
+    </item>
+</layer-list>

@@ -15,7 +15,7 @@
 
         <!-- Icono -->
         <TextView
-            android:id="@+id/initialCircle"
+            android:id="@+id/iconoCuentaInicio"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/circle_background"

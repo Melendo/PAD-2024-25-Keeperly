@@ -53,6 +53,8 @@ public class InicioViewModel extends ViewModel {
             }
         });
 
+
+
         //Construccion de los campos
         numDineroTotal = new MutableLiveData<>();
 

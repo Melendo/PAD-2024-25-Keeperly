@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,10 +34,20 @@ public class PresupuestosInicioAdapter extends RecyclerView.Adapter<Presupuestos
 
         holder.nombreTextView.setText(presupuesto.getNombre());
         holder.dineroGastadoTextView.setText(String.valueOf(presupuesto.getGastado()));
+        holder.dineroGastadoTextView.setText(String.format("%.2f€", presupuesto.getGastado()) + "/" + String.format("%.2f€", presupuesto.getCantidad()));
 
         //Icono circular con la primera letra
         String initial = presupuesto.getNombre().substring(0, 1).toUpperCase();
         holder.iconoTextView.setText(initial);
+
+        //Sacar el valor android:progress de la barra de progreso en base a (dinero gastado/dinero total) * 100 o 100 si es mayor
+        int progress = (int) ((presupuesto.getGastado() / presupuesto.getCantidad()) * 100);
+        if (progress > 100) {
+            progress = 100;
+        }
+        holder.progressBar.setProgress(progress);
+
+
 
     }
 
@@ -50,12 +61,15 @@ public class PresupuestosInicioAdapter extends RecyclerView.Adapter<Presupuestos
         private final TextView nombreTextView;
         private final TextView dineroGastadoTextView;
         private final TextView iconoTextView;
+        private final ProgressBar progressBar;
 
         public PresupuestoInicioViewHolder(@NonNull View itemView) {
             super(itemView);
             nombreTextView = itemView.findViewById(R.id.textViewPresupuestoMainNombre);
             dineroGastadoTextView = itemView.findViewById(R.id.textViewDineroGastadoPresupuestoMain);
             iconoTextView = itemView.findViewById(R.id.iconoPresupuestoInicioMain);
+            progressBar = itemView.findViewById(R.id.progressBarPresupuestoMain);
+
         }
     }
 

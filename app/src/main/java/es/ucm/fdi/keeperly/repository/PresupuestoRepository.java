@@ -58,7 +58,7 @@ public class PresupuestoRepository {
         executorService.execute(() -> presupuestoDao.delete(presupuesto));
     }
 
-    public List<Presupuesto> getAllPresupuestos(int id_usuario) {
+    public LiveData<List<Presupuesto>> getAllPresupuestos(int id_usuario) {
         return presupuestoDao.getPresupuestosByUsuario(id_usuario);
     }
 

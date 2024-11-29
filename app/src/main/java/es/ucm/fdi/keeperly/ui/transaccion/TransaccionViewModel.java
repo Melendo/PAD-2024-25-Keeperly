@@ -65,7 +65,7 @@ public class TransaccionViewModel extends ViewModel {
     }
 
     private boolean isCantidadValid (double cantidad) {
-        return cantidad > 0;
+        return cantidad > 0 || cantidad < 0;
     }
 
     private boolean isDateValid (Date fecha) {

@@ -1,7 +1,5 @@
 package es.ucm.fdi.keeperly.repository;
 
-import android.content.Context;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -36,10 +34,8 @@ public class CategoriaRepository {
 
         } else {
             try {
-                Categoria categoriaExiste = categoriaDao.getCategoriaByNombre(categoria.getNombre());
-                if (categoriaExiste != null) {
-                    operationStatus.postValue(-3);
-                } else {
+                Categoria categoriaExiste = categoriaDao.getCategoriaDeUsuarioPorNombre(categoria.getId_usuario(), categoria.getNombre());
+                if (categoriaExiste == null || categoriaExiste.getId_usuario() != categoria.getId_usuario()) {
                     executorService.execute(() -> {
                         try {
                             categoriaDao.insert(categoria);
@@ -49,6 +45,8 @@ public class CategoriaRepository {
                             operationStatus.postValue(-1);
                         }
                     });
+                } else {
+                    operationStatus.postValue(-3);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -62,14 +60,14 @@ public class CategoriaRepository {
 
         } else {
             try {
-                Categoria existeCategoria = categoriaDao.getCategoriaByNombre(categoria.getNombre());
-                if(existeCategoria == null || (existeCategoria != null && existeCategoria.getId() == categoria.getId())){
+                Categoria existeCategoria = categoriaDao.getCategoriaDeUsuarioPorNombre(categoria.getId_usuario(), categoria.getNombre());
+                if (existeCategoria == null || existeCategoria.getId() == categoria.getId()) {
                     executorService.execute(() -> categoriaDao.update(categoria));
                     updateStatus.postValue(1);
-                }else{
+                } else {
                     updateStatus.postValue(-3);
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 updateStatus.postValue(-1);
             }
@@ -81,13 +79,13 @@ public class CategoriaRepository {
         TransaccionDAO transaccionDAO = KeeperlyDB.getInstance().transaccionDao();
         deleteStatus.postValue(-1);
         try {
-            if (!presupuestoDAO.getPresupuestosPorCategoria(categoria.getId()).isEmpty()) {
+            if (!presupuestoDAO.getPresupuestosPorCategoria(categoria.getId(), categoria.getId_usuario()).isEmpty()) {
                 deleteStatus.postValue(-2);
             } else {
-                if(transaccionDAO.getTransaccionesPorCategoria(categoria.getId()).isEmpty()) {
+                if (transaccionDAO.getTransaccionesPorCategoria(categoria.getId()).isEmpty()) {
                     executorService.execute(() -> categoriaDao.delete(categoria));
                     deleteStatus.postValue(1);
-                }else{
+                } else {
                     deleteStatus.postValue(-3);
                 }
             }
@@ -98,8 +96,8 @@ public class CategoriaRepository {
 
     }
 
-    public LiveData<List<Categoria>> getAllCategorias() {
-        return categoriaDao.getAllCategorias();
+    public LiveData<List<Categoria>> getAllCategoriasDeUsuario(int id_usu) {
+        return categoriaDao.getAllCategoriasDeUsuario(id_usu);
     }
 
     public Categoria getCategoriaById(int id) {

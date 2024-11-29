@@ -17,10 +17,12 @@ import es.ucm.fdi.keeperly.ui.categorias.CategoriasViewModel;
 public class PresupuestoDetalladoFragment extends Fragment {
 
     private CategoriasViewModel categoriasViewModel;
+    private PresupuestosViewModel presupuestosViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         categoriasViewModel = new ViewModelProvider(this).get(CategoriasViewModel.class);
+        presupuestosViewModel = new ViewModelProvider(this).get(PresupuestosViewModel.class);
         return inflater.inflate(R.layout.fragment_presupuesto_detallado, container, false);
     }
 
@@ -35,7 +37,7 @@ public class PresupuestoDetalladoFragment extends Fragment {
         TextView gastadoTextView = view.findViewById(R.id.textViewGastadoValor);
         TextView fechaInicioTextView = view.findViewById(R.id.textViewFechaInicioValor);
         TextView fechaFinTextView = view.findViewById(R.id.textViewFechaFinValor);
-        //TextView categoriaTextView = view.findViewById(R.id.textViewCategoriaValor);
+        TextView categoriaTextView = view.findViewById(R.id.textViewCategoriaValor);
 
         //Falta agregar categoria
 
@@ -48,7 +50,7 @@ public class PresupuestoDetalladoFragment extends Fragment {
             gastadoTextView.setText(args.getString("gastado", "N/A"));
             fechaInicioTextView.setText(args.getString("fechaInicio", "N/A"));
             fechaFinTextView.setText(args.getString("fechaFin", "N/A"));
-            //categoriaTextView.setText(args.getString("categoria", "N/A"));
+            categoriaTextView.setText(args.getString("categoria", "N/A"));
         }
     }
 }

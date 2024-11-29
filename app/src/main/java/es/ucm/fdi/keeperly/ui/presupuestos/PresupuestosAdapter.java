@@ -23,17 +23,14 @@ import es.ucm.fdi.keeperly.data.local.database.entities.Presupuesto;
 public class PresupuestosAdapter extends RecyclerView.Adapter<PresupuestosAdapter.PresupuestosViewHolder> {
     private List<Presupuesto> presupuestos = new ArrayList<>();
     private OnPresupuestoClickListener listener;
+    private PresupuestosViewModel presupuestosViewModel;
 
-    /**
-     * Interfaz para manejar clics en los elementos de la lista.
-     */
+
     public interface OnPresupuestoClickListener {
         void onPresupuestoClick(Presupuesto presupuesto);
     }
 
-    /**
-     * Método para asignar un listener a los clics.
-     */
+
     public void setOnPresupuestoClickListener(OnPresupuestoClickListener listener) {
         this.listener = listener;
     }
@@ -51,13 +48,19 @@ public class PresupuestosAdapter extends RecyclerView.Adapter<PresupuestosAdapte
         Presupuesto presupuesto = presupuestos.get(position);
         holder.nombreTextView.setText(presupuesto.getNombre());
         holder.iconoTextView.setText(presupuesto.getNombre().substring(0, 1).toUpperCase());
-// Crear un formateador para las fechas
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
         // Formatear las fechas
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String fechaInicio = dateFormat.format(presupuesto.getFechaInicio());
         String fechaFin = dateFormat.format(presupuesto.getFechaFin());
 
+        /*Aqui se calculara el gastado
+
+            double gastado = presupuestoRepository.calcularGastado(fechaInicio, fechaFin);
+
+        */
+        PresupuestosViewModel presupuestosViewModel = new PresupuestosViewModel();
+        String nombreCategoria = presupuestosViewModel.getNombreCategoria(presupuesto.getIdCategoria());
 
         // Configurar el click listener
         holder.itemView.setOnClickListener(v -> {
@@ -65,11 +68,11 @@ public class PresupuestosAdapter extends RecyclerView.Adapter<PresupuestosAdapte
             Bundle args = new Bundle();
 
             args.putString("nombre", presupuesto.getNombre());
-            args.putString("cantidad", String.valueOf(presupuesto.getCantidad()));
-            args.putString("gastado", String.valueOf(presupuesto.getGastado()));
+            args.putString("cantidad", String.valueOf(presupuesto.getCantidad()) + "€");
+            args.putString("gastado", String.valueOf(presupuesto.getGastado()) + "€");
             args.putString("fechaInicio", fechaInicio);
             args.putString("fechaFin", fechaFin);
-
+            args.putString("categoria", nombreCategoria);
             NavController navController = Navigation.findNavController(v);
             navController.navigate(R.id.presupuestoDetalladoFragment, args);
         });

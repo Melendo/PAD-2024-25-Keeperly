@@ -9,6 +9,7 @@ import java.util.List;
 
 import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
 import es.ucm.fdi.keeperly.data.local.database.entities.Presupuesto;
+import es.ucm.fdi.keeperly.repository.CategoriaRepository;
 import es.ucm.fdi.keeperly.repository.LoginRepository;
 import es.ucm.fdi.keeperly.repository.PresupuestoRepository;
 import es.ucm.fdi.keeperly.repository.RepositoryFactory;
@@ -17,6 +18,7 @@ public class PresupuestosViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
     private final PresupuestoRepository presupuestoRepository;
+    private final CategoriaRepository categoriaRepository;
     private final LoginRepository loginRepository;
     private final LiveData<List<Presupuesto>> presupuestos;
 
@@ -26,6 +28,7 @@ public class PresupuestosViewModel extends ViewModel {
         this.loginRepository = LoginRepository.getInstance(RepositoryFactory.getInstance().getUsuarioRepository());
         this.presupuestoRepository = RepositoryFactory.getInstance().getPresupuestoRepository();
         this.presupuestos = presupuestoRepository.getAllPresupuestos(loginRepository.getLoggedUser().getId());
+        this.categoriaRepository = RepositoryFactory.getInstance().getCategoriaRepository();
     }
 
     public LiveData<String> getText() {
@@ -35,6 +38,7 @@ public class PresupuestosViewModel extends ViewModel {
     public LiveData<Integer> getOperationStatus() {
         return presupuestoRepository.getOperationStatus();
     }
+
     public LiveData<List<Presupuesto>> getPresupuestos() {
         return presupuestos;
     }
@@ -43,7 +47,23 @@ public class PresupuestosViewModel extends ViewModel {
     // Método para crear un nuevo presupuesto
     public void crearPresupuesto(String nombre, int categoria, double cantidad, Date fechaInicio, Date fechaFin) {
         LoginRepository loginRepository = LoginRepository.getInstance(RepositoryFactory.getInstance().getUsuarioRepository());
+        Presupuesto presupuesto = new Presupuesto();
+        presupuesto.setNombre(nombre);
+        presupuesto.setIdUsuario(loginRepository.getLoggedUser().getId());
+        presupuesto.setIdCategoria(categoria);
+        presupuesto.setCantidad(cantidad);
+        presupuesto.setFechaInicio(fechaInicio);
+        presupuesto.setFechaFin(fechaFin);
+        presupuesto.setGastado(0.0);
 
-        presupuestoRepository.insert(presupuestoRepository.construirPresupuesto(nombre, loginRepository.getLoggedUser().getId() , categoria, cantidad, fechaInicio, fechaFin)); // Insertamos el presupuesto en la base de datos
+        presupuestoRepository.insert(presupuesto);
+    }
+
+    public String getNombreCategoria(int id_categoria) {
+        return categoriaRepository.getCategoriaById(id_categoria).getNombre();
+    }
+
+    public double getTotalGastadoEnPresupuesto(Presupuesto presupuesto){
+        return presupuestoRepository.getTotalGastado(presupuesto);
     }
 }

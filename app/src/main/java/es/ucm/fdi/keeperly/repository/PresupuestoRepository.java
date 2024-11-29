@@ -1,16 +1,25 @@
 package es.ucm.fdi.keeperly.repository;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
 import es.ucm.fdi.keeperly.data.local.database.dao.PresupuestoDAO;
+import es.ucm.fdi.keeperly.data.local.database.dao.TransaccionDAO;
 import es.ucm.fdi.keeperly.data.local.database.entities.Presupuesto;
+import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 
 public class PresupuestoRepository {
 
@@ -66,17 +75,16 @@ public class PresupuestoRepository {
         return presupuestoDao.getPresupuestoById(id);
     }
 
-    public Presupuesto construirPresupuesto(String nombre, int usuario, int categoria, double cantidad, Date fechaInicio, Date fechaFin) {
-        // Aquí puedes procesar los datos y pasarlos al repositorio para que se guarden en la base de datos
-        Presupuesto presupuesto = new Presupuesto();
-        presupuesto.setNombre(nombre);
-        presupuesto.setIdUsuario(usuario);
-        presupuesto.setIdCategoria(categoria);
-        presupuesto.setCantidad(cantidad);
-        presupuesto.setFechaInicio(fechaInicio);
-        presupuesto.setFechaFin(fechaFin);
-        presupuesto.setGastado(0.0);
+    public double getTotalGastado(Presupuesto presupuesto) {
+        double totalGastado = 0.0;
+        TransaccionDAO transaccionDAO = KeeperlyDB.getInstance().transaccionDao();
+        List<Transaccion> transacciones = new ArrayList<>();
+        //transacciones = transaccionDAO.getTransaccionesEntreDosFechas(presupuesto.getFechaInicio(), presupuesto.getFechaFin());
 
-        return presupuesto;
+        for(Transaccion transaccion : transacciones) {
+            totalGastado += transaccion.getCantidad();
+        }
+
+        return totalGastado;
     }
 }

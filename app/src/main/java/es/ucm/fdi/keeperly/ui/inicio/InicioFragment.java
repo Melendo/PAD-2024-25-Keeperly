@@ -16,10 +16,12 @@ import es.ucm.fdi.keeperly.databinding.FragmentInicioBinding;
 
 public class InicioFragment extends Fragment {
 
+    private InicioViewModel inicioViewModel;
     private FragmentInicioBinding binding;
+    private CuentasInicioAdapter cuentasAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        InicioViewModel inicioViewModel = new ViewModelProvider(this).get(InicioViewModel.class);
+        inicioViewModel = new ViewModelProvider(this).get(InicioViewModel.class);
 
         binding = FragmentInicioBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

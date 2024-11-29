@@ -1,5 +1,6 @@
 package es.ucm.fdi.keeperly.ui.inicio;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,22 +39,27 @@ public class CuentasInicioAdapter extends RecyclerView.Adapter<CuentasInicioAdap
 
     }
 
-
     @Override
     public int getItemCount() {
         return cuentas.size();
     }
 
     static class CuentaInicioViewHolder extends RecyclerView.ViewHolder {
-    private final TextView nombreTextView;
-    private final TextView saldoTextView;
-    private final TextView iconoTextView;
+        private final TextView nombreTextView;
+        private final TextView saldoTextView;
+        private final TextView iconoTextView;
 
-    public CuentaInicioViewHolder(@NonNull View itemView) {
-        super(itemView);
-        nombreTextView = itemView.findViewById(R.id.textViewCuentaNombre);
-        saldoTextView = itemView.findViewById(R.id.textViewSaldoCuenta);
-        iconoTextView = itemView.findViewById(R.id.iconoCuentaInicio);
+        public CuentaInicioViewHolder(@NonNull View itemView) {
+            super(itemView);
+            nombreTextView = itemView.findViewById(R.id.textViewCuentaNombre);
+            saldoTextView = itemView.findViewById(R.id.textViewSaldoCuenta);
+            iconoTextView = itemView.findViewById(R.id.iconoCuentaInicio);
+        }
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setCuentas(List<Cuenta> cuentas) {
+        this.cuentas = cuentas;
+        notifyDataSetChanged();
     }
 }

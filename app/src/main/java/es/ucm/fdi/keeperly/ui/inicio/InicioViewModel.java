@@ -16,7 +16,7 @@ public class InicioViewModel extends ViewModel {
     private final MutableLiveData<String> welcomeText;
     private final MutableLiveData<String> numDineroTotal;
     private final MutableLiveData<String> numTotalGastado;
-    //private final LiveData<List<Cuenta>> cuentas;
+    private final LiveData<List<Cuenta>> cuentas;
 
     private final LoginRepository loginRepository;
     private final CuentaRepository cuentaRepository;
@@ -26,7 +26,7 @@ public class InicioViewModel extends ViewModel {
         this.loginRepository = LoginRepository.getInstance(RepositoryFactory.getInstance().getUsuarioRepository());
         this.cuentaRepository = RepositoryFactory.getInstance().getCuentaRepository();
 
-        //this.cuentas = cuentaRepository.getAllCuentas(loginRepository.getLoggedUser().getId());
+        this.cuentas = cuentaRepository.getAllCuentas(loginRepository.getLoggedUser().getId());
 
 
         welcomeText = new MutableLiveData<>();
@@ -50,5 +50,9 @@ public class InicioViewModel extends ViewModel {
 
     public LiveData<String> getPriceLastMonth() {
         return numTotalGastado;
+    }
+
+    public LiveData<List<Cuenta>> getCuentas() {
+        return cuentas;
     }
 }

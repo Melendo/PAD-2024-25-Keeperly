@@ -37,7 +37,7 @@ public class CategoriasFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        CategoriasViewModel categoriasViewModel =
+        categoriaViewModel =
                 new ViewModelProvider(this).get(CategoriasViewModel.class);
 
         binding = FragmentCategoriasBinding.inflate(inflater, container, false);
@@ -58,7 +58,7 @@ public class CategoriasFragment extends Fragment {
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_menu);
             navController.navigate(R.id.action_categoriasFragment_to_crearCategoriaFragment);
         });
-        categoriaViewModel = new CategoriasViewModel();
+
         categoriaViewModel.getCategorias().observe(getViewLifecycleOwner(), categoriaAdapter::setCategorias);
 
         categoriaAdapter.setOnCategoriaClickListener(new CategoriasAdapter.OnCategoriaClickListener() {

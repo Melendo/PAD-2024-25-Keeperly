@@ -8,6 +8,7 @@ import java.util.Collection;
 public class Categoria {
     @PrimaryKey(autoGenerate = true)
     private int id;
+    private int id_usuario;
     private String nombre;
 
     // Getters y Setters
@@ -18,6 +19,14 @@ public class Categoria {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
     }
 
     public String getNombre() {

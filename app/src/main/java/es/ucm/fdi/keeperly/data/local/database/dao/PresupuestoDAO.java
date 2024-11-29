@@ -25,6 +25,6 @@ public interface PresupuestoDAO {
     @Query("SELECT * FROM presupuestos WHERE id = :id")
     Presupuesto getPresupuestoById(int id);
 
-    @Query("SELECT * FROM presupuestos WHERE idCategoria = :id")
-    List<Categoria> getPresupuestosPorCategoria(int id);
+    @Query("SELECT * FROM presupuestos WHERE idCategoria = :id AND idUsuario = :id_usu")
+    List<Presupuesto> getPresupuestosPorCategoria(int id, int id_usu);
 }

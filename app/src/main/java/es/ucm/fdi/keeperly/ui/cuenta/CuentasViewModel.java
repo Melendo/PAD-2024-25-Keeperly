@@ -38,4 +38,7 @@ public class CuentasViewModel extends ViewModel {
         return cuentaRepository.getOperationStatus();
     }
 
+    public LiveData<List<Cuenta>> getCuentas() {
+        return cuentas;
+    }
 }

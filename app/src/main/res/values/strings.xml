@@ -80,4 +80,6 @@
     <string name="fecha_de_inicio">Fecha de Inicio:</string>
     <string name="fecha_de_fin">Fecha de Fin:</string>
     <string name="categoria_presupuesto">Categoría:</string>
+    <string name="guardar">Modificar</string>
+    <string name="editar_presupuesto">Editar Presupuesto</string>
 </resources>

@@ -42,6 +42,11 @@ public class PresupuestosViewModel extends ViewModel {
     public LiveData<Boolean> getDeleteStatus() {
         return presupuestoRepository.getDeleteStatus();
     }
+
+    public LiveData<Integer> getUpdateStatus() {
+        return presupuestoRepository.getUpdateStatus();
+    }
+
     public LiveData<List<Presupuesto>> getPresupuestos() {
         return presupuestos;
     }
@@ -49,7 +54,6 @@ public class PresupuestosViewModel extends ViewModel {
 
     // Método para crear un nuevo presupuesto
     public void crearPresupuesto(String nombre, int categoria, double cantidad, Date fechaInicio, Date fechaFin) {
-        LoginRepository loginRepository = LoginRepository.getInstance(RepositoryFactory.getInstance().getUsuarioRepository());
         Presupuesto presupuesto = new Presupuesto();
         presupuesto.setNombre(nombre);
         presupuesto.setIdUsuario(loginRepository.getLoggedUser().getId());
@@ -66,11 +70,16 @@ public class PresupuestosViewModel extends ViewModel {
         return categoriaRepository.getCategoriaById(id_categoria).getNombre();
     }
 
-    public double getTotalGastadoEnPresupuesto(Presupuesto presupuesto){
+    public double getTotalGastadoEnPresupuesto(Presupuesto presupuesto) {
         return presupuestoRepository.getTotalGastado(presupuesto);
     }
 
     public void eliminarPresupuesto(Presupuesto presupuesto) {
         presupuestoRepository.delete(presupuesto);
+    }
+
+    public void update(Presupuesto presupuesto) {
+        presupuesto.setIdUsuario(loginRepository.getLoggedUser().getId());
+        presupuestoRepository.update(presupuesto);
     }
 }

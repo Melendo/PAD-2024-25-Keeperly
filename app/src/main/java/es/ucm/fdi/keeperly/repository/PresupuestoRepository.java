@@ -62,14 +62,32 @@ public class PresupuestoRepository {
     }
 
     public void update(Presupuesto presupuesto) {
-        executorService.execute(() -> presupuestoDao.update(presupuesto));
+        if (presupuesto.getCantidad() > 0) {
+            if (presupuesto.getFechaInicio().before(presupuesto.getFechaFin())) {
+                executorService.execute(() -> {
+                    try {
+                        executorService.execute(() -> presupuestoDao.update(presupuesto));
+                        updateStatus.postValue(1);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        updateStatus.postValue(-1);
+                    }
+                });
+            } else {
+                updateStatus.postValue(-3);
+            }
+
+        } else {
+            updateStatus.postValue(-2);
+        }
+
     }
 
     public void delete(Presupuesto presupuesto) {
-        try{
+        try {
             executorService.execute(() -> presupuestoDao.delete(presupuesto));
             deleteStatus.postValue(true);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             deleteStatus.postValue(false);
         }
@@ -89,7 +107,7 @@ public class PresupuestoRepository {
         List<Transaccion> transacciones = new ArrayList<>();
         //transacciones = transaccionDAO.getTransaccionesEntreDosFechas(presupuesto.getFechaInicio(), presupuesto.getFechaFin());
 
-        for(Transaccion transaccion : transacciones) {
+        for (Transaccion transaccion : transacciones) {
             totalGastado += transaccion.getCantidad();
         }
 
@@ -99,6 +117,7 @@ public class PresupuestoRepository {
     public LiveData<Boolean> getDeleteStatus() {
         return deleteStatus;
     }
+
     public LiveData<Integer> getUpdateStatus() {
         return updateStatus;
     }

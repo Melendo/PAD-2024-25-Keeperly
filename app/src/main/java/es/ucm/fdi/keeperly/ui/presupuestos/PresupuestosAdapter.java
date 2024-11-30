@@ -50,7 +50,7 @@ public class PresupuestosAdapter extends RecyclerView.Adapter<PresupuestosAdapte
         holder.iconoTextView.setText(presupuesto.getNombre().substring(0, 1).toUpperCase());
 
         // Formatear las fechas
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String fechaInicio = dateFormat.format(presupuesto.getFechaInicio());
         String fechaFin = dateFormat.format(presupuesto.getFechaFin());
 
@@ -69,8 +69,8 @@ public class PresupuestosAdapter extends RecyclerView.Adapter<PresupuestosAdapte
 
             args.putInt("id", presupuesto.getId());
             args.putString("nombre", presupuesto.getNombre());
-            args.putString("cantidad", String.valueOf(presupuesto.getCantidad()) + "€");
-            args.putString("gastado", String.valueOf(presupuesto.getGastado()) + "€");
+            args.putString("cantidad", String.valueOf(presupuesto.getCantidad()));
+            args.putString("gastado", String.valueOf(presupuesto.getGastado()));
             args.putString("fechaInicio", fechaInicio);
             args.putString("fechaFin", fechaFin);
             args.putString("categoria", nombreCategoria);

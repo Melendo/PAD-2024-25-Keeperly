@@ -33,7 +33,6 @@ public class CrearPresupuestoFragment extends Fragment {
 
     private PresupuestosViewModel presupuestosViewModel;
     private CategoriasViewModel categoriaViewModel;
-    private LoginViewModel loginViewModel;
 
     private EditText etNombre, etCantidad, etFechaInicio, etFechaFin;
     private Spinner spCategoria;

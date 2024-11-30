@@ -68,9 +68,7 @@ public class Presupuesto {
         this.cantidad = cantidad;
     }
 
-    public double getGastado() {
-        return gastado;
-    }
+    public double getGastado() {return gastado;}
 
     public void setGastado(double gastado) {
         this.gastado = gastado;

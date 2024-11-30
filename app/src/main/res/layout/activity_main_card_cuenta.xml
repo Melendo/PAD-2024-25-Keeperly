@@ -10,19 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp"
+        android:padding="8dp"
         android:gravity="center_vertical">
 
         <!-- Icono -->
         <TextView
-            android:id="@+id/initialCircle"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/iconoPresupuestoInicioMain"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@drawable/circle_background"
             android:gravity="center"
             android:text="C"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="28sp"
             android:textStyle="bold" />
 
         <!-- Container de textos -->
@@ -35,23 +35,23 @@
 
             <!-- NombreCuenta -->
             <TextView
-                android:id="@+id/cardTitle"
+                android:id="@+id/textViewCuentaMainNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cuenta Personal"
+                android:text="Cuenta de ejemplo"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <!-- Dinero de la cuenta -->
             <TextView
-                android:id="@+id/cardSubtitle"
+                android:id="@+id/textViewSaldoCuentaMain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="0,00€"
-                android:textColor="#000000"
-                android:textSize="14sp" />
+                android:text="0.0€"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
         </LinearLayout>
 
     </LinearLayout>

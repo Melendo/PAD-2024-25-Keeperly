@@ -34,7 +34,7 @@ public class PresupuestosInicioAdapter extends RecyclerView.Adapter<Presupuestos
 
         holder.nombreTextView.setText(presupuesto.getNombre());
         holder.dineroGastadoTextView.setText(String.valueOf(presupuesto.getGastado()));
-        holder.dineroGastadoTextView.setText(String.format("%.2f€", presupuesto.getGastado()) + "/" + String.format("%.2f€", presupuesto.getCantidad()));
+        holder.dineroGastadoTextView.setText(String.format("%.2f€", presupuesto.getGastado()) + " / " + String.format("%.2f€", presupuesto.getCantidad()));
 
         //Icono circular con la primera letra
         String initial = presupuesto.getNombre().substring(0, 1).toUpperCase();

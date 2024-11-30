@@ -16,10 +16,14 @@
     <color name="error_red">#E46962</color>
     <color name="bright_pink">#F72585</color>
     <color name="purplish_pink">#B5179E</color>
+    <color name="money_red">#FFB50410</color>
 
     <!-- Blacks -->
     <color name="black">#000000</color>
 
     <!-- Greens -->
     <color name="success_green">#29AF0C</color>
+    <color name="money_green"> #FF04B51C </color>
+
+
 </resources>

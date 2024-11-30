@@ -27,8 +27,8 @@
     <TextView
         android:id="@+id/textViewTotal"
         android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="sans-serif-medium"
         android:text="Total Cuentas:"
@@ -40,9 +40,9 @@
     <TextView
         android:id="@+id/textViewGastado"
         android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-medium"
         android:text="Total Gastado:"
         android:textSize="22sp"
@@ -89,10 +89,11 @@
     <TextView
         android:id="@+id/numDineroTotal"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-medium"
+        android:textColor="@color/money_green"
         android:textSize="26sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTotal" />
@@ -100,10 +101,11 @@
     <TextView
         android:id="@+id/numGastadoTotal"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-medium"
+        android:textColor="@color/money_red"
         android:textSize="26sp"
         app:layout_constraintStart_toEndOf="@+id/divider2"
         app:layout_constraintTop_toBottomOf="@+id/textViewGastado" />
@@ -136,7 +138,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCuentas"
         android:layout_width="373dp"
-        android:layout_height="130dp"
+        android:layout_height="140dp"
         android:layout_marginTop="57dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

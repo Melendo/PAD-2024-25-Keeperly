@@ -16,6 +16,7 @@ import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
 
 public class CuentaRepository {
     private final MutableLiveData<Integer> operStatus = new MutableLiveData<>();
+    private final MutableLiveData<Integer> deleteStatus = new MutableLiveData<>();
 
     private final CuentaDAO cuentaDao;
     private final ExecutorService executorService;
@@ -54,7 +55,19 @@ public class CuentaRepository {
     }
 
     public void delete(Cuenta cuenta) {
-        executorService.execute(() -> cuentaDao.delete(cuenta));
+        executorService.execute(() -> {
+            int cont_cuentas = cuentaDao.getCountCuentasByUsuario(cuenta.getIdUsuario());
+            if (cont_cuentas == 1) {
+                deleteStatus.postValue(-1);
+            }
+            else {
+                //Elimina todas las transacciones vinculadas a la cuenta
+                KeeperlyDB.getInstance().transaccionDao().deleteTransaccionesByCuenta(cuenta.getId());
+                //Elimina la cuenta
+                cuentaDao.delete(cuenta);
+                deleteStatus.postValue(1);
+            }
+        });
     }
 
     public LiveData<List<Cuenta>> getAllCuentas(int id_usuario) {
@@ -75,5 +88,13 @@ public class CuentaRepository {
 
     public LiveData<Integer> getOperationStatus() {
         return operStatus;
+    }
+
+    public LiveData<Integer> getDeleteStatus() {
+        return deleteStatus;
+    }
+
+    public void resetDeleteStatus() {
+        deleteStatus.postValue(null);
     }
 }

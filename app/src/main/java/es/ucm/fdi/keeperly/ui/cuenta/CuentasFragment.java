@@ -61,16 +61,28 @@ public class CuentasFragment extends Fragment {
             @Override
             public void onDeleteClick(Cuenta cuenta) {
                 // Lógica para eliminar una cuenta
-                /*new AlertDialog.Builder(getContext())
+                new AlertDialog.Builder(getContext())
                         .setTitle("Eliminar Cuenta")
                         .setMessage("¿Seguro que deseas eliminar la cuenta " + cuenta.getNombre() + "?")
-                        .setPositiveButton("Eliminar", (dialog, which) -> {
-                            cuentaViewModel.delete(cuenta);
-                            Toast.makeText(getContext(), "Cuenta " + cuenta.getNombre() + " eliminada", Toast.LENGTH_SHORT).show();
-                            cuentaViewModel.getCuentas().observe(getViewLifecycleOwner(), cuentasAdapter::setCuentas);
-                        })
+                        .setPositiveButton("Eliminar", (dialog, which) -> cuentasViewModel.delete(cuenta)) // Solo invoca delete
                         .setNegativeButton("Cancelar", null)
-                        .show();*/
+                        .show();
+            }
+        });
+        cuentasViewModel.getDeleteStatus().observe(getViewLifecycleOwner(), status -> {
+            if (status != null) {
+                switch (status) {
+                    case 1:
+                        Toast.makeText(getContext(), "Cuenta eliminada con éxito", Toast.LENGTH_SHORT).show();
+                        break;
+                    case -1: // Error de base de datos
+                        Toast.makeText(getContext(), "No se puede eliminar, es la única cuenta", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        Toast.makeText(getContext(), "Error desconocido", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                cuentasViewModel.resetDeleStatus();
             }
         });
         return root;

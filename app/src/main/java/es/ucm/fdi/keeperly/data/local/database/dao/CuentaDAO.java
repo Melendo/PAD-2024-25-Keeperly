@@ -24,4 +24,8 @@ public interface CuentaDAO {
 
     @Query("SELECT * FROM cuentas WHERE idUsuario = :id")
     Cuenta getCuentaById(int id);
+
+    @Query("SELECT COUNT(*) FROM cuentas WHERE idUsuario = :idUsuario")
+    int getCountCuentasByUsuario(int idUsuario);
+
 }

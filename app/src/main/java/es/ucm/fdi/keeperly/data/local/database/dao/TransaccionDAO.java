@@ -26,4 +26,7 @@ public interface TransaccionDAO {
 
     @Query("SELECT * FROM transacciones WHERE idCategoria = :id")
     List<Categoria> getTransaccionesPorCategoria(int id);
+
+    @Query("DELETE FROM transacciones WHERE idCuenta = :idCuenta")
+    void deleteTransaccionesByCuenta(int idCuenta);
 }

@@ -51,6 +51,11 @@ public class CuentasAdapter extends RecyclerView.Adapter<CuentasAdapter.CuentaVi
         //Boton editar
 
         //Boton eliminar
+        holder.eliminarButton.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onDeleteClick(cuenta);
+            }
+        });
     }
 
     @Override

@@ -74,4 +74,12 @@
     <string name="crear_transaccion_fallado">La creación de la transacción ha fallado</string>
     <string name="crear_transaccion_datos_invalidos">Los datos de esta transacción no son válidos</string>
     <string name="crear">Crear</string>
+    <string name="nombre_presupuesto">Nombre:</string>
+    <string name="cantidad_presupuesto">Cantidad:</string>
+    <string name="gastado_presupuesto">Gastado:</string>
+    <string name="fecha_de_inicio">Fecha de Inicio:</string>
+    <string name="fecha_de_fin">Fecha de Fin:</string>
+    <string name="categoria_presupuesto">Categoría:</string>
+    <string name="guardar">Modificar</string>
+    <string name="editar_presupuesto">Editar Presupuesto</string>
 </resources>

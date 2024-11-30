@@ -57,7 +57,7 @@ public class CuentaRepository {
         executorService.execute(() -> cuentaDao.delete(cuenta));
     }
 
-    public List<Cuenta> getAllCuentas(int id_usuario) {
+    public LiveData<List<Cuenta>> getAllCuentas(int id_usuario) {
         return cuentaDao.getCuentasByUsuario(id_usuario);
     }
 

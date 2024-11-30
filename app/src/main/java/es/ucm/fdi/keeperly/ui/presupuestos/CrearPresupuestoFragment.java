@@ -26,6 +26,7 @@ import java.util.Locale;
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
 import es.ucm.fdi.keeperly.ui.categorias.CategoriasViewModel;
+import es.ucm.fdi.keeperly.ui.login.LoginViewModel;
 
 
 public class CrearPresupuestoFragment extends Fragment {
@@ -97,14 +98,12 @@ public class CrearPresupuestoFragment extends Fragment {
         etFechaInicio.setOnClickListener(v -> showDatePickerDialog(etFechaInicio));
         etFechaFin.setOnClickListener(v -> showDatePickerDialog(etFechaFin));
 
-
         // Configurar el botón de crear presupuesto
         btnCrear = rootView.findViewById(R.id.btnCrear);
         btnCrear.setOnClickListener(v -> {
             if (validarCampos()) {
                 // Obtenemos los datos del formulario
                 String nombre = etNombre.getText().toString();
-                int usuario = 1;
                 double cantidad = Double.parseDouble(etCantidad.getText().toString());
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                 Date fechaInicio, fechaFin;
@@ -119,7 +118,7 @@ public class CrearPresupuestoFragment extends Fragment {
 
                 // Llamamos al método del ViewModel para crear el presupuesto
                 int idCat = categoriaViewModel.getCategoriaByNombre(categoriaSeleccionada).getId();
-                presupuestosViewModel.crearPresupuesto(nombre, usuario, idCat, cantidad, fechaInicio, fechaFin);
+                presupuestosViewModel.crearPresupuesto(nombre, idCat, cantidad, fechaInicio, fechaFin);
             }
         });
 

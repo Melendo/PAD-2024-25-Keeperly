@@ -55,6 +55,34 @@
         android:label="Crear Presupuesto"
         tools:layout="@layout/fragment_crear_presupuesto" />
 
+    <action
+        android:id="@+id/action_presupuestosFragment_to_presupuestoDetalladoFragment"
+        app:destination="@id/presupuestoDetalladoFragment" />
+
+    <fragment
+        android:id="@+id/presupuestoDetalladoFragment"
+        android:name="es.ucm.fdi.keeperly.ui.presupuestos.PresupuestoDetalladoFragment"
+        android:label="Detalles del Presupuesto">
+        <argument
+            android:name="nombre"
+            app:argType="string" />
+        <argument
+            android:name="cantidad"
+            app:argType="string" />
+        <argument
+            android:name="gastado"
+            app:argType="string" />
+        <argument
+            android:name="fechaInicio"
+            app:argType="string" />
+        <argument
+            android:name="fechaFin"
+            app:argType="string" />
+        <argument
+            android:name="Categoria"
+            app:argType="string" />
+    </fragment>
+
     <!-- CATEGORIAS -->
     <fragment
         android:id="@+id/nav_categorias"
@@ -75,7 +103,7 @@
         android:id="@+id/createTransaccionFragment"
         android:name="es.ucm.fdi.keeperly.ui.transaccion.CreateTransaccionFragment"
         android:label="Crear Transaccion"
-        tools:layout="@layout/fragment_create_transaccion"/>
+        tools:layout="@layout/fragment_create_transaccion" />
 
     <action
         android:id="@+id/action_budgetsFragment_to_crearPresupuestoFragment"

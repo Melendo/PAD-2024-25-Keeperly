@@ -30,15 +30,23 @@ import java.util.Objects;
 
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
+import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
 import es.ucm.fdi.keeperly.databinding.FragmentCreateTransaccionBinding;
 import es.ucm.fdi.keeperly.ui.categorias.CategoriasViewModel;
+import es.ucm.fdi.keeperly.ui.cuenta.CuentaSpinnerAdapter;
+import es.ucm.fdi.keeperly.ui.cuenta.CuentasViewModelFactory;
+import es.ucm.fdi.keeperly.ui.cuenta.CuentasViewModel;
 
 public class CreateTransaccionFragment extends Fragment {
 
     private TransaccionViewModel transaccionViewModel;
     private CategoriasViewModel categoriasViewModel;
+    private CuentasViewModel cuentasViewModel;
 
     private String categoriaSeleccionada;
+    private int cuentaSeleccionadaID;
+
+    private List<Cuenta> cuentasLista = new ArrayList<>();
 
     public CreateTransaccionFragment() {
         // Required empty public constructor
@@ -104,6 +112,48 @@ public class CreateTransaccionFragment extends Fragment {
         });
 
         // Configurar el ViewModel de Cuentas
+        cuentasViewModel = new ViewModelProvider(this, new CuentasViewModelFactory())
+                .get(CuentasViewModel.class);
+        cuentasViewModel.getCuentas().observe(getViewLifecycleOwner(), cuentas -> {
+            // Crea una lista de nombre de cuentas
+            Cuenta aux = new Cuenta();
+            aux.setBalance(0.0);
+            aux.setNombre("Selecciona una cuenta");
+            aux.setIdUsuario(-1);
+
+            cuentasLista.add(0, aux);
+            cuentasLista.addAll(cuentas);
+
+            //Configurar el adaptador
+            CuentaSpinnerAdapter adapter = new CuentaSpinnerAdapter(requireContext(), android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            adapter.setData(cuentasLista);
+            cuentaSpinner.setAdapter(adapter);
+        });
+
+        cuentaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectedCuentaName = adapterView.getItemAtPosition(i).toString();
+                Cuenta selectedCuenta = null;
+                for (Cuenta cuenta : cuentasLista) {
+                    if (cuenta.getNombre().equals(selectedCuentaName)) {
+                        selectedCuenta = cuenta;
+                        break;
+                    }
+                }
+
+                if (selectedCuenta != null && selectedCuenta.getId() != -1)
+                    cuentaSeleccionadaID = selectedCuenta.getId();
+                else
+                    cuentaSeleccionadaID = -1;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                //ignore
+            }
+        });
 
         // Fecha
         fechaField.setOnClickListener(v -> showDatePickerDialog(fechaField));
@@ -120,11 +170,9 @@ public class CreateTransaccionFragment extends Fragment {
                 // Obtener los datos del formulario
                 String concepto = conceptoEditText.getText().toString();
                 double cantidad = Double.parseDouble(cantidadEditText.getText().toString());
-                String cuenta = cuentaSpinner.getSelectedItem().toString();
-                String categoria = categoriaSpinner.getSelectedItem().toString();
 
                 int idcategoria = categoriasViewModel.getCategoriaByNombre(categoriaSeleccionada).getId();
-                int idcuenta = 1;
+                int idcuenta = cuentaSeleccionadaID;
 
                 try {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
@@ -147,10 +195,12 @@ public class CreateTransaccionFragment extends Fragment {
         });
 
         // Observar el estado del formulario
-        transaccionViewModel.getCreateTransaccionFormState().observe(this, createTransaccionFormState -> {
+        transaccionViewModel.getCreateTransaccionFormState().observe(getViewLifecycleOwner(), createTransaccionFormState -> {
            if (createTransaccionFormState == null)
                return;
            crearButton.setEnabled(createTransaccionFormState.isDataValid());
+           if(createTransaccionFormState.isDataValid())
+               fechaField.setError(null);
            if (createTransaccionFormState.getConceptoError() != null) {
                conceptoEditText.setError(getString(createTransaccionFormState.getConceptoError()));
            }
@@ -162,7 +212,7 @@ public class CreateTransaccionFragment extends Fragment {
            }
         });
 
-        transaccionViewModel.getCreateTransaccionResult().observe(this, createTransaccionResult -> {
+        transaccionViewModel.getCreateTransaccionResult().observe(getViewLifecycleOwner(), createTransaccionResult -> {
             if (createTransaccionResult == null) {
                 return;
             }
@@ -193,7 +243,7 @@ public class CreateTransaccionFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                int idCuenta = 1; //TODO
+                int idCuenta = cuentaSeleccionadaID;
                 int idCategoria;
                 if (!Objects.equals(categoriaSeleccionada, ""))
                     idCategoria = categoriasViewModel.getCategoriaByNombre(categoriaSeleccionada).getId();
@@ -201,7 +251,7 @@ public class CreateTransaccionFragment extends Fragment {
                     idCategoria = -1;
 
                 double cantidad;
-                if (cantidadEditText.getText().toString().isEmpty())
+                if (cantidadEditText.getText().toString().isEmpty() || cantidadEditText.getText().toString().equals("-"))
                     cantidad = -1;
                 else
                     cantidad = Double.parseDouble(cantidadEditText.getText().toString());
@@ -217,6 +267,7 @@ public class CreateTransaccionFragment extends Fragment {
                         throw new RuntimeException(e);
                     }
                 }
+
                 transaccionViewModel.createTransaccionDataChanged(conceptoEditText.getText().toString(),
                         cantidad,
                         idCuenta,

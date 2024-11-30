@@ -15,7 +15,6 @@
         android:layout_height="64dp"
         android:fontFamily="sans-serif-black"
         android:text="Hola, "
-        android:textColor="@color/black"
         android:textSize="48sp"
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -26,6 +26,8 @@ public class PresupuestoRepository {
     private final PresupuestoDAO presupuestoDao;
     private final ExecutorService executorService;
     private final MutableLiveData<Integer> operationStatus = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> deleteStatus = new MutableLiveData<>();
+    private final MutableLiveData<Integer> updateStatus = new MutableLiveData<>();
 
     public LiveData<Integer> getOperationStatus() {
         return operationStatus;
@@ -64,7 +66,13 @@ public class PresupuestoRepository {
     }
 
     public void delete(Presupuesto presupuesto) {
-        executorService.execute(() -> presupuestoDao.delete(presupuesto));
+        try{
+            executorService.execute(() -> presupuestoDao.delete(presupuesto));
+            deleteStatus.postValue(true);
+        }catch (Exception e){
+            e.printStackTrace();
+            deleteStatus.postValue(false);
+        }
     }
 
     public LiveData<List<Presupuesto>> getAllPresupuestos(int id_usuario) {
@@ -86,5 +94,12 @@ public class PresupuestoRepository {
         }
 
         return totalGastado;
+    }
+
+    public LiveData<Boolean> getDeleteStatus() {
+        return deleteStatus;
+    }
+    public LiveData<Integer> getUpdateStatus() {
+        return updateStatus;
     }
 }

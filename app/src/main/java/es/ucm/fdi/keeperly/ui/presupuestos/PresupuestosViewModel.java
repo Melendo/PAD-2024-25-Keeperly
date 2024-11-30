@@ -39,6 +39,9 @@ public class PresupuestosViewModel extends ViewModel {
         return presupuestoRepository.getOperationStatus();
     }
 
+    public LiveData<Boolean> getDeleteStatus() {
+        return presupuestoRepository.getDeleteStatus();
+    }
     public LiveData<List<Presupuesto>> getPresupuestos() {
         return presupuestos;
     }
@@ -65,5 +68,9 @@ public class PresupuestosViewModel extends ViewModel {
 
     public double getTotalGastadoEnPresupuesto(Presupuesto presupuesto){
         return presupuestoRepository.getTotalGastado(presupuesto);
+    }
+
+    public void eliminarPresupuesto(Presupuesto presupuesto) {
+        presupuestoRepository.delete(presupuesto);
     }
 }

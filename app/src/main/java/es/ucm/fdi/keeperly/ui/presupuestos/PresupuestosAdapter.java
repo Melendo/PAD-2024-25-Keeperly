@@ -67,6 +67,7 @@ public class PresupuestosAdapter extends RecyclerView.Adapter<PresupuestosAdapte
 
             Bundle args = new Bundle();
 
+            args.putInt("id", presupuesto.getId());
             args.putString("nombre", presupuesto.getNombre());
             args.putString("cantidad", String.valueOf(presupuesto.getCantidad()) + "€");
             args.putString("gastado", String.valueOf(presupuesto.getGastado()) + "€");
@@ -83,18 +84,14 @@ public class PresupuestosAdapter extends RecyclerView.Adapter<PresupuestosAdapte
         return presupuestos.size();
     }
 
-    /**
-     * Método para actualizar los datos del adaptador.
-     */
+
     @SuppressLint("NotifyDataSetChanged")
     public void setPresupuestos(List<Presupuesto> presupuestos) {
         this.presupuestos = presupuestos;
         notifyDataSetChanged();
     }
 
-    /**
-     * ViewHolder para los elementos de la lista.
-     */
+
     static class PresupuestosViewHolder extends RecyclerView.ViewHolder {
         private final TextView nombreTextView;
         private final TextView iconoTextView;

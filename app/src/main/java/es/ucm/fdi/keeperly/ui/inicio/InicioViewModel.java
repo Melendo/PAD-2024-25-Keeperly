@@ -71,7 +71,7 @@ public class InicioViewModel extends ViewModel {
     }
 
     public LiveData<String> getPriceThisMonth() {
-        return numDineroTotal;
+        return numDineroTotal ;
     }
 
     public LiveData<String> getPriceLastMonth() {

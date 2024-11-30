@@ -30,7 +30,7 @@ public class CuentasInicioAdapter extends RecyclerView.Adapter<CuentasInicioAdap
         Cuenta cuenta = cuentas.get(position);
 
         holder.nombreTextView.setText(cuenta.getNombre());
-        holder.saldoTextView.setText(String.valueOf(cuenta.getBalance()));
+        holder.saldoTextView.setText(String.valueOf(String.format("%.2f€", cuenta.getBalance())));
 
         // Icono circular con la primera letra
         String initial = cuenta.getNombre().substring(0, 1).toUpperCase();

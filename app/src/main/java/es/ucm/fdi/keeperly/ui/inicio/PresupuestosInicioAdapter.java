@@ -41,9 +41,12 @@ public class PresupuestosInicioAdapter extends RecyclerView.Adapter<Presupuestos
         holder.iconoTextView.setText(initial);
 
         //Sacar el valor android:progress de la barra de progreso en base a (dinero gastado/dinero total) * 100 o 100 si es mayor
-        int progress = (int) ((presupuesto.getGastado() / presupuesto.getCantidad()) * 100);
-        if (progress > 100) {
-            progress = 100;
+        int progress = 0; // Initialize to 0
+        if (presupuesto.getCantidad() != 0) {
+            progress = (int) ((presupuesto.getGastado() / presupuesto.getCantidad()) * 100);
+            if (progress > 100) {
+                progress = 100;
+            }
         }
         holder.progressBar.setProgress(progress);
 

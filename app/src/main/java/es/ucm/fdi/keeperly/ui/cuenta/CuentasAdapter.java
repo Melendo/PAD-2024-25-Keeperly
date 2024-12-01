@@ -49,8 +49,17 @@ public class CuentasAdapter extends RecyclerView.Adapter<CuentasAdapter.CuentaVi
         String letra = cuenta.getNombre().substring(0, 1).toUpperCase(); //Convierte la inicial a mayuscula
         holder.iconoTextView.setText(letra);
         //Boton editar
-
+        holder.editarButton.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onEditClick(cuenta);
+            }
+        });
         //Boton eliminar
+        holder.eliminarButton.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onDeleteClick(cuenta);
+            }
+        });
     }
 
     @Override

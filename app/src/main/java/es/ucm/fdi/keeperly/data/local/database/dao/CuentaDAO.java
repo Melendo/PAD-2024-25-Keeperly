@@ -21,6 +21,10 @@ public interface CuentaDAO {
     @Query("SELECT * FROM cuentas WHERE idUsuario = :userId")
     LiveData<List<Cuenta>> getCuentasByUsuario(int userId);
 
-    @Query("SELECT * FROM cuentas WHERE idUsuario = :id")
+    @Query("SELECT * FROM cuentas WHERE id = :id")
     Cuenta getCuentaById(int id);
+
+    @Query("SELECT COUNT(*) FROM cuentas WHERE idUsuario = :idUsuario")
+    int getCountCuentasByUsuario(int idUsuario);
+
 }

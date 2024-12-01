@@ -26,7 +26,10 @@ public interface TransaccionDAO {
     Transaccion getTransaccionById(int id);
 
     @Query("SELECT * FROM transacciones WHERE idCategoria = :id")
-    List<Transaccion> getTransaccionesPorCategoria(int id);
+    List<Categoria> getTransaccionesPorCategoria(int id);
+
+    @Query("DELETE FROM transacciones WHERE idCuenta = :idCuenta")
+    void deleteTransaccionesByCuenta(int idCuenta);
 
     @Query("SELECT * FROM transacciones WHERE fecha BETWEEN :fechaInicio AND :fechaFin")
     List<Transaccion> obtenerTransaccionesEntreFechas(Date fechaInicio, Date fechaFin);

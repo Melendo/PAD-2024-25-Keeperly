@@ -34,6 +34,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appLogo" />
 
+    <!-- Button Login -->
+
     <ImageView
         android:id="@+id/appLogo"
         android:layout_width="120dp"
@@ -41,14 +43,12 @@
         android:layout_marginTop="64dp"
         android:background="@drawable/round_shape"
         android:contentDescription="@string/logo_de_keeperly"
-        android:scaleType="center"
+        android:scaleType="fitCenter"
         android:src="@mipmap/ic_launcher_round"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Button Login -->
 
     <EditText
         android:id="@+id/nameEditText"

@@ -47,7 +47,7 @@ public class TransaccionAdapter extends RecyclerView.Adapter<TransaccionAdapter.
         TransaccionconCategoria transaccion = transacciones.get(position);
         holder.nombreTextView.setText(transaccion.getTransaccion().getConcepto());
         holder.cantidadTextView.setText(String.valueOf(transaccion.getTransaccion().getCantidad()) + R.string.euro);
-        holder.fechaTextView.setText(transaccion.getTransaccion().getFecha().);
+        holder.fechaTextView.setText(transaccion.getTransaccion().getFecha().toString());
         holder.categoriaTextView.setText(R.string.categor_a + ": " + transaccion.getCategoria());
         // Configuracion del icono
         String letra = transaccion.getCategoria().substring(0, 1).toUpperCase();

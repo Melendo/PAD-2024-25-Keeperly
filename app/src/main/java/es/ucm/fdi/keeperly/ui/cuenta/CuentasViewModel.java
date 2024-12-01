@@ -46,11 +46,23 @@ public class CuentasViewModel extends ViewModel {
         cuentaRepository.delete(cuenta);
     }
 
+    public void update(Cuenta cuenta) {
+        cuentaRepository.update(cuenta);
+    }
+
     public LiveData<Integer> getDeleteStatus() {
         return cuentaRepository.getDeleteStatus();
     }
 
-    public void resetDeleStatus() {
+    public void resetDeleteStatus() {
         cuentaRepository.resetDeleteStatus();
+    }
+
+    public LiveData<Integer> getUpdateStatus() {
+        return cuentaRepository.getUpdateStatus();
+    }
+
+    public  void resetUpdateStatus() {
+        cuentaRepository.resetUpdateStatus();
     }
 }

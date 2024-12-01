@@ -2,14 +2,17 @@ package es.ucm.fdi.keeperly.ui.transaccion;
 
 import android.text.TextUtils;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.Result;
+import es.ucm.fdi.keeperly.repository.LoginRepository;
 import es.ucm.fdi.keeperly.repository.RepositoryFactory;
 import es.ucm.fdi.keeperly.repository.TransaccionRepository;
 import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
@@ -20,8 +23,12 @@ public class TransaccionViewModel extends ViewModel {
     private MutableLiveData<CreateTransaccionResult> createTransaccionResult = new MutableLiveData<>();
     private TransaccionRepository transaccionRepository;
 
+    private LiveData<List<TransaccionAdapter.TransaccionconCategoria>> transacciones;
+
     TransaccionViewModel() {
         this.transaccionRepository = RepositoryFactory.getInstance().getTransactionRepository();
+        int idUsuario = LoginRepository.getInstance(RepositoryFactory.getInstance().getUsuarioRepository()).getLoggedUser().getId();
+        List<Transaccion> aux = transaccionRepository.getAllTransacciones();
     }
 
     public MutableLiveData<CreateTransaccionFormState> getCreateTransaccionFormState() {

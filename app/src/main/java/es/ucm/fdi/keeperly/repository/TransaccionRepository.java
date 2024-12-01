@@ -2,6 +2,9 @@ package es.ucm.fdi.keeperly.repository;
 
 import android.content.Context;
 
+import androidx.lifecycle.LiveData;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -46,6 +49,17 @@ public class TransaccionRepository {
 
     public Transaccion getTransaccionById(int id) {
         return transaccionDao.getTransaccionById(id);
+    }
+
+    public List<Transaccion> getAllTransacciones() {
+        return transaccionDao.getAllTransacciones();
+    }
+
+    public List<Transaccion> getAllTransaccionesLoggedIn() {
+        int idUsuario = LoginRepository.getInstance(RepositoryFactory.getInstance().getUsuarioRepository()).getLoggedUser().getId();
+        LiveData<List<Cuenta>> cuentaslivedata = cuentaDao.getCuentasByUsuario(idUsuario);
+        List<Cuenta> cuentas = cuentaslivedata.getValue();
+        List<Transaccion> transacciones = new ArrayList<>();
     }
 
     public Result<Boolean> createTransaccion(String concepto, double cantidad, int cuenta, int categoria, Date fecha) {

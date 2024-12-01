@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +18,13 @@ import android.view.ViewGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import es.ucm.fdi.keeperly.R;
+import es.ucm.fdi.keeperly.databinding.FragmentTransaccionBinding;
 
 public class TransaccionFragment extends Fragment {
 
-    private TransaccionViewModel mViewModel;
-
-    public static TransaccionFragment newInstance() {
-        return new TransaccionFragment();
-    }
+    private TransaccionViewModel transaccionViewModel;
+    private FragmentTransaccionBinding binding;
+    private TransaccionAdapter transaccionAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -35,13 +36,24 @@ public class TransaccionFragment extends Fragment {
             NavHostFragment.findNavController(this).navigate(R.id.action_nav_transaccion_to_createTransaccionFragment);
         });
 
+        transaccionViewModel =  new ViewModelProvider(this, new TransaccionViewModelFactory()).get(TransaccionViewModel.class);
+
+        binding = FragmentTransaccionBinding.inflate(inflater, container, false);
+
+        RecyclerView recyclerView = binding.recyclerViewTransacciones;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+
+        transaccionAdapter = new TransaccionAdapter();
+        recyclerView.setAdapter(transaccionAdapter);
+
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(TransaccionViewModel.class);
+        transaccionViewModel = new ViewModelProvider(this).get(TransaccionViewModel.class);
         // TODO: Use the ViewModel
     }
 

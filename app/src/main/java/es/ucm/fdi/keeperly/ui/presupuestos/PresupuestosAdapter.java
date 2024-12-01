@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,7 +40,7 @@ public class PresupuestosAdapter extends RecyclerView.Adapter<PresupuestosAdapte
     @Override
     public PresupuestosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_card_presupuestos, parent, false);
+                .inflate(R.layout.activity_main_card_presupuesto, parent, false);
         return new PresupuestosViewHolder(itemView);
     }
 
@@ -48,18 +49,22 @@ public class PresupuestosAdapter extends RecyclerView.Adapter<PresupuestosAdapte
         Presupuesto presupuesto = presupuestos.get(position);
         holder.nombreTextView.setText(presupuesto.getNombre());
         holder.iconoTextView.setText(presupuesto.getNombre().substring(0, 1).toUpperCase());
-
+        holder.dineroTextView.setText(String.format("%.2f€", presupuesto.getGastado()) + " / " + String.format("%.2f€", presupuesto.getCantidad()));
+        //Sacar el valor android:progress de la barra de progreso en base a (dinero gastado/dinero total) * 100 o 100 si es mayor
+        int progress = 0; // Initialize to 0
+        if (presupuesto.getCantidad() != 0) {
+            progress = (int) ((presupuesto.getGastado() / presupuesto.getCantidad()) * 100);
+            if (progress > 100) {
+                progress = 100;
+            }
+        }
+        holder.progressBar.setProgress(progress);
         // Formatear las fechas
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String fechaInicio = dateFormat.format(presupuesto.getFechaInicio());
         String fechaFin = dateFormat.format(presupuesto.getFechaFin());
 
-        /*Aqui se calculara el gastado
-
-            double gastado = presupuestoRepository.calcularGastado(fechaInicio, fechaFin);
-
-        */
-        PresupuestosViewModel presupuestosViewModel = new PresupuestosViewModel();
+        presupuestosViewModel = new PresupuestosViewModel();
         String nombreCategoria = presupuestosViewModel.getNombreCategoria(presupuesto.getIdCategoria());
 
         // Configurar el click listener
@@ -95,11 +100,15 @@ public class PresupuestosAdapter extends RecyclerView.Adapter<PresupuestosAdapte
     static class PresupuestosViewHolder extends RecyclerView.ViewHolder {
         private final TextView nombreTextView;
         private final TextView iconoTextView;
+        private final TextView dineroTextView;
+        private final ProgressBar progressBar;
 
         public PresupuestosViewHolder(@NonNull View itemView) {
             super(itemView);
-            nombreTextView = itemView.findViewById(R.id.textViewPresupuestoNombre);
-            iconoTextView = itemView.findViewById(R.id.iconoPresupuesto);
+            nombreTextView = itemView.findViewById(R.id.textViewPresupuestoMainNombre);
+            iconoTextView = itemView.findViewById(R.id.iconoPresupuestoInicioMain);
+            dineroTextView = itemView.findViewById(R.id.textViewDineroGastadoPresupuestoMain);
+            progressBar = itemView.findViewById(R.id.progressBarPresupuestoMain);
         }
     }
 }

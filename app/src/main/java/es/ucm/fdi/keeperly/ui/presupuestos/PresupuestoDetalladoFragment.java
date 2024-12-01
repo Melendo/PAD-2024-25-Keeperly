@@ -86,8 +86,8 @@ public class PresupuestoDetalladoFragment extends Fragment {
 
             //Settear datos del presupuesto
             nombreTextView.setText(presupuesto.getNombre());
-            cantidadTextView.setText(presupuesto.getCantidad() + " €");
-            gastadoTextView.setText(presupuesto.getGastado() + " €");
+            cantidadTextView.setText(presupuesto.getCantidad() + "%.2f€");
+            gastadoTextView.setText(presupuesto.getGastado() + "%.2f€");
             fechaInicioTextView.setText(dateFormat.format(presupuesto.getFechaInicio()));
             fechaFinTextView.setText(dateFormat.format(presupuesto.getFechaFin()));
             categoriaTextView.setText(args.getString("categoria", "N/A"));

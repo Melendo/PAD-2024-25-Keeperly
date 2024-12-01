@@ -83,4 +83,5 @@
     <string name="guardar">Modificar</string>
     <string name="editar_presupuesto">Editar Presupuesto</string>
     <string name="editar_cuenta">Editar Cuenta</string>
+    <string name="euro">€</string>
 </resources>

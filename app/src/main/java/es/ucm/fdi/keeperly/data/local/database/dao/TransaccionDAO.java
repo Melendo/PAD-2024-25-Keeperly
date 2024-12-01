@@ -1,8 +1,8 @@
 package es.ucm.fdi.keeperly.data.local.database.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
-import java.util.Date;
 import java.util.List;
 
 import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
@@ -20,7 +20,10 @@ public interface TransaccionDAO {
     void delete(Transaccion transaccion);
 
     @Query("SELECT * FROM transacciones WHERE idCuenta = :cuentaId")
-    List<Transaccion> getTransaccionesByCuenta(int cuentaId);
+    LiveData<List<Transaccion>> getTransaccionesByCuenta(int cuentaId);
+
+    @Query("SELECT * FROM transacciones WHERE idCuenta IN (:accountIds)")
+    LiveData<List<Transaccion>> getTransaccionesByCuentas(List<Integer> accountIds);
 
     @Query("SELECT * FROM transacciones WHERE id = :id")
     Transaccion getTransaccionById(int id);
@@ -34,4 +37,7 @@ public interface TransaccionDAO {
     @Query("SELECT * FROM transacciones WHERE fecha BETWEEN :fechaInicio AND :fechaFin")
     List<Transaccion> obtenerTransaccionesEntreFechas(Date fechaInicio, Date fechaFin);
 
+
+    @Query("SELECT * FROM transacciones")
+    List<Transaccion> getAllTransacciones();
 }

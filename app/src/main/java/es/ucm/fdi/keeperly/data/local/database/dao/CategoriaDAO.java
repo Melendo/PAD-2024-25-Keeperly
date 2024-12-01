@@ -32,4 +32,7 @@ public interface CategoriaDAO {
 
     @Query ("SELECT * FROM categorias WHERE nombre =:nombre")
     Categoria getCategoriaByNombre(String nombre);
+
+    @Query("SELECT categorias.nombre FROM categorias JOIN transacciones ON categorias.id = transacciones.idCategoria WHERE transacciones.id = :idTransaccion")
+    String getCategoriadeTransaccion(int idTransaccion);
 }

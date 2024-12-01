@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+
+        <!-- Icono circular con la inicial -->
+        <TextView
+            android:id="@+id/iconoTransaccion"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/circle_background"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <!-- Nombre de la transaccion -->
+            <TextView
+                android:id="@+id/textViewTransaccionNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- Cantidad de la transaccion -->
+            <TextView
+                android:id="@+id/textViewTransaccionCantidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+            <!-- Fecha de la transaccion -->
+            <TextView
+                android:id="@+id/textViewTransaccionFecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp" />
+
+            <!-- Categoria de la transaccion -->
+            <TextView
+                android:id="@+id/textViewTransaccionCategoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <!-- Botón editar -->
+        <ImageButton
+            android:id="@+id/editarTransaccion"
+            android:layout_width="48dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/editar"
+            android:src="@drawable/ic_edit"
+            />
+
+        <!-- Botón eliminar -->
+        <ImageButton
+            android:id="@+id/eliminarTransaccion"
+            android:layout_width="48dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/eliminar"
+            android:src="@drawable/ic_delete"
+            />
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

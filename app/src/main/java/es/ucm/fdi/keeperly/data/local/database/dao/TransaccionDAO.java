@@ -39,9 +39,11 @@ public interface TransaccionDAO {
     List<Transaccion> getTransaccionesPorCategoria(int id);
 
 
-    @Query("SELECT * FROM transacciones WHERE fecha BETWEEN :fechaInicio AND :fechaFin")
-    List<Transaccion> obtenerTransaccionesEntreFechas(Date fechaInicio, Date fechaFin);
+    @Query("SELECT * FROM transacciones WHERE fecha BETWEEN :fechaInicio AND :fechaFin AND idCategoria = :categoria")
+    LiveData<List<Transaccion>> obtenerTransaccionesEntreFechas(Date fechaInicio, Date fechaFin, int categoria);
 
+    @Query("SELECT * FROM transacciones WHERE fecha BETWEEN :fechaInicio AND :fechaFin AND idCategoria = :categoria")
+    List<Transaccion> obtenerTransaccionesEntreFechasDirect(Date fechaInicio, Date fechaFin, int categoria);
 
 
 }

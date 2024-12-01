@@ -23,17 +23,10 @@ import es.ucm.fdi.keeperly.data.local.database.entities.Presupuesto;
 
 public class PresupuestosAdapter extends RecyclerView.Adapter<PresupuestosAdapter.PresupuestosViewHolder> {
     private List<Presupuesto> presupuestos = new ArrayList<>();
-    private OnPresupuestoClickListener listener;
     private PresupuestosViewModel presupuestosViewModel;
 
-
-    public interface OnPresupuestoClickListener {
-        void onPresupuestoClick(Presupuesto presupuesto);
-    }
-
-
-    public void setOnPresupuestoClickListener(OnPresupuestoClickListener listener) {
-        this.listener = listener;
+    PresupuestosAdapter(PresupuestosViewModel presupuestosViewModel) {
+        this.presupuestosViewModel = presupuestosViewModel;
     }
 
     @NonNull
@@ -47,12 +40,11 @@ public class PresupuestosAdapter extends RecyclerView.Adapter<PresupuestosAdapte
     @Override
     public void onBindViewHolder(@NonNull PresupuestosViewHolder holder, int position) {
         Presupuesto presupuesto = presupuestos.get(position);
-        presupuestosViewModel  = new PresupuestosViewModel();
         double gastado = presupuestosViewModel.getTotalGastadoEnPresupuesto(presupuesto);
         holder.nombreTextView.setText(presupuesto.getNombre());
         holder.iconoTextView.setText(presupuesto.getNombre().substring(0, 1).toUpperCase());
         holder.dineroTextView.setText(String.format("%.2f€",gastado) + " / " + String.format("%.2f€", presupuesto.getCantidad()));
-        //Sacar el valor android:progress de la barra de progreso en base a (dinero gastado/dinero total) * 100 o 100 si es mayor
+
         int progress = 0; // Initialize to 0
         if (presupuesto.getCantidad() != 0) {
             progress = (int) ((gastado / presupuesto.getCantidad()) * 100);

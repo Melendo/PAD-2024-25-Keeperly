@@ -3,30 +3,41 @@ package es.ucm.fdi.keeperly.repository;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import es.ucm.fdi.keeperly.data.Result;
 import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
+import es.ucm.fdi.keeperly.data.local.database.dao.CategoriaDAO;
 import es.ucm.fdi.keeperly.data.local.database.dao.CuentaDAO;
 import es.ucm.fdi.keeperly.data.local.database.dao.TransaccionDAO;
 import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
 import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
+import es.ucm.fdi.keeperly.ui.transaccion.TransaccionAdapter;
 
 public class TransaccionRepository {
 
 
     private final TransaccionDAO transaccionDao;
     private final CuentaDAO cuentaDao;
+    private final CategoriaDAO categoriaDAO;
     private final ExecutorService executorService;
+
+    public List<TransaccionAdapter.TransaccionconCategoria> transacciones;
 
     public TransaccionRepository() {
         transaccionDao = KeeperlyDB.getInstance().transaccionDao();
         cuentaDao = KeeperlyDB.getInstance().cuentaDao();
+        categoriaDAO = KeeperlyDB.getInstance().categoriaDao();
         executorService = Executors.newSingleThreadExecutor();
     }
 
@@ -43,7 +54,7 @@ public class TransaccionRepository {
         executorService.execute(() -> transaccionDao.delete(transaccion));
     }
 
-    public List<Transaccion> getTransaccionesByCuenta(int id_cuenta) {
+    public LiveData<List<Transaccion>> getTransaccionesByCuenta(int id_cuenta) {
         return transaccionDao.getTransaccionesByCuenta(id_cuenta);
     }
 
@@ -55,11 +66,35 @@ public class TransaccionRepository {
         return transaccionDao.getAllTransacciones();
     }
 
-    public List<Transaccion> getAllTransaccionesLoggedIn() {
+    public LiveData<List<TransaccionAdapter.TransaccionconCategoria>> getAllTransaccionesLoggedIn() {
         int idUsuario = LoginRepository.getInstance(RepositoryFactory.getInstance().getUsuarioRepository()).getLoggedUser().getId();
         LiveData<List<Cuenta>> cuentaslivedata = cuentaDao.getCuentasByUsuario(idUsuario);
-        List<Cuenta> cuentas = cuentaslivedata.getValue();
-        List<Transaccion> transacciones = new ArrayList<>();
+
+        return Transformations.switchMap(cuentaslivedata, cuentas -> {
+            if (cuentas == null || cuentas.isEmpty()) {
+                return new MutableLiveData<>(Collections.emptyList());
+            }
+
+            List<Integer> cuentasIds = cuentas.stream()
+                                                .map(Cuenta::getId)
+                                                .collect(Collectors.toList());
+
+            LiveData<List<Transaccion>> transaccionesLiveData = transaccionDao.getTransaccionesByCuentas(cuentasIds);
+
+            return Transformations.map(transaccionesLiveData, transacciones -> {
+                if (transacciones == null || transacciones.isEmpty()) {
+                    return Collections.emptyList();
+                }
+
+                List<TransaccionAdapter.TransaccionconCategoria> result = new ArrayList<>();
+
+                for (Transaccion t : transacciones) {
+                    String categoria = categoriaDAO.getCategoriadeTransaccion(t.getId());
+                    result.add(new TransaccionAdapter.TransaccionconCategoria(t, categoria));
+                }
+                return result;
+            });
+        });
     }
 
     public Result<Boolean> createTransaccion(String concepto, double cantidad, int cuenta, int categoria, Date fecha) {

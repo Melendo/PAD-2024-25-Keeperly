@@ -1,5 +1,6 @@
 package es.ucm.fdi.keeperly.data.local.database.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
 import java.util.List;
@@ -19,7 +20,10 @@ public interface TransaccionDAO {
     void delete(Transaccion transaccion);
 
     @Query("SELECT * FROM transacciones WHERE idCuenta = :cuentaId")
-    List<Transaccion> getTransaccionesByCuenta(int cuentaId);
+    LiveData<List<Transaccion>> getTransaccionesByCuenta(int cuentaId);
+
+    @Query("SELECT * FROM transacciones WHERE idCuenta IN (:accountIds)")
+    LiveData<List<Transaccion>> getTransaccionesByCuentas(List<Integer> accountIds);
 
     @Query("SELECT * FROM transacciones WHERE id = :id")
     Transaccion getTransaccionById(int id);

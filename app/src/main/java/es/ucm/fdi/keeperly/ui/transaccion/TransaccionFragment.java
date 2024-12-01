@@ -29,32 +29,34 @@ public class TransaccionFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_transaccion, container, false);
+        transaccionViewModel =  new ViewModelProvider(this, new TransaccionViewModelFactory()).get(TransaccionViewModel.class);
 
-        FloatingActionButton fabCreateTransaccion = view.findViewById(R.id.fab_add_transaction);
+        binding = FragmentTransaccionBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        FloatingActionButton fabCreateTransaccion = root.findViewById(R.id.fab_add_transaction);
         fabCreateTransaccion.setOnClickListener(v -> {
             NavHostFragment.findNavController(this).navigate(R.id.action_nav_transaccion_to_createTransaccionFragment);
         });
 
-        transaccionViewModel =  new ViewModelProvider(this, new TransaccionViewModelFactory()).get(TransaccionViewModel.class);
-
-        binding = FragmentTransaccionBinding.inflate(inflater, container, false);
-
         RecyclerView recyclerView = binding.recyclerViewTransacciones;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
 
-        transaccionAdapter = new TransaccionAdapter();
+        if (transaccionAdapter == null) { // Prevent re-initialization
+            transaccionAdapter = new TransaccionAdapter();
+        }
         recyclerView.setAdapter(transaccionAdapter);
 
-        return view;
+        transaccionViewModel.getTransacciones().observe(getViewLifecycleOwner(), transaccionAdapter::setTransacciones);
+        //On Click Listeners
+
+        return root;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        transaccionViewModel = new ViewModelProvider(this).get(TransaccionViewModel.class);
-        // TODO: Use the ViewModel
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
 }

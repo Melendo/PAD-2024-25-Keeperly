@@ -27,8 +27,7 @@ public class TransaccionViewModel extends ViewModel {
 
     TransaccionViewModel() {
         this.transaccionRepository = RepositoryFactory.getInstance().getTransactionRepository();
-        int idUsuario = LoginRepository.getInstance(RepositoryFactory.getInstance().getUsuarioRepository()).getLoggedUser().getId();
-        List<Transaccion> aux = transaccionRepository.getAllTransacciones();
+        transacciones = transaccionRepository.getAllTransaccionesLoggedIn();
     }
 
     public MutableLiveData<CreateTransaccionFormState> getCreateTransaccionFormState() {
@@ -65,6 +64,10 @@ public class TransaccionViewModel extends ViewModel {
         } else {
             createTransaccionFormState.setValue(new CreateTransaccionFormState(true));
         }
+    }
+
+    public LiveData<List<TransaccionAdapter.TransaccionconCategoria>> getTransacciones() {
+        return transacciones;
     }
 
     private boolean isConceptoValid (String concepto) {

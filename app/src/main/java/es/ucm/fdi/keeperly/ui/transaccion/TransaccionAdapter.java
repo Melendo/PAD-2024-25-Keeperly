@@ -46,10 +46,9 @@ public class TransaccionAdapter extends RecyclerView.Adapter<TransaccionAdapter.
         // Configuracion de los campos
         TransaccionconCategoria transaccion = transacciones.get(position);
         holder.nombreTextView.setText(transaccion.getTransaccion().getConcepto());
-        holder.cantidadTextView.setText(String.valueOf(transaccion.getTransaccion().getCantidad()));
-        holder.iconoTextView.setText(transaccion.getTransaccion().getConcepto().substring(0, 1).toUpperCase());
-        holder.fechaTextView.setText(transaccion.getTransaccion().getFecha().toString());
-        holder.categoriaTextView.setText(transaccion.getCategoria());
+        holder.cantidadTextView.setText(String.valueOf(transaccion.getTransaccion().getCantidad()) + R.string.euro);
+        holder.fechaTextView.setText(transaccion.getTransaccion().getFecha().);
+        holder.categoriaTextView.setText(R.string.categor_a + ": " + transaccion.getCategoria());
         // Configuracion del icono
         String letra = transaccion.getCategoria().substring(0, 1).toUpperCase();
         holder.iconoTextView.setText(letra);
@@ -60,10 +59,10 @@ public class TransaccionAdapter extends RecyclerView.Adapter<TransaccionAdapter.
 
     @Override
     public int getItemCount() {
-        return 0;
+        return transacciones == null ? 0 : transacciones.size();
     }
 
-    public class TransaccionconCategoria {
+    public static class TransaccionconCategoria {
         private Transaccion transaccion;
         private String categoria;
 

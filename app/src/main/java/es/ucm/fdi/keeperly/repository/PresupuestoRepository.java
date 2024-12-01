@@ -111,7 +111,13 @@ public class PresupuestoRepository {
             totalGastado += transaccion.getCantidad();
         }
 
-        return totalGastado;
+        Presupuesto presupuesto1 = presupuestoDao.getPresupuestoById(presupuesto.getId());
+        if(presupuesto1.getGastado() != totalGastado){
+            presupuesto1.setGastado(totalGastado);
+            presupuestoDao.update(presupuesto1);
+        }
+
+        return totalGastado * (-1);
     }
 
     public LiveData<Boolean> getDeleteStatus() {

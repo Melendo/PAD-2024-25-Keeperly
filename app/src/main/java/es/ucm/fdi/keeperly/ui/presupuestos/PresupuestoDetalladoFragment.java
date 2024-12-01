@@ -81,13 +81,14 @@ public class PresupuestoDetalladoFragment extends Fragment {
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-            presupuesto.setGastado(presupuestosViewModel.getTotalGastadoEnPresupuesto(presupuesto) * (-1));
+            double gastado = presupuestosViewModel.getTotalGastadoEnPresupuesto(presupuesto);
+            presupuesto.setGastado(gastado * (-1));
             nombre_categoria = args.getString("categoria", "N/A");
 
             //Settear datos del presupuesto
             nombreTextView.setText(presupuesto.getNombre());
-            cantidadTextView.setText(presupuesto.getCantidad() + "%.2f€");
-            gastadoTextView.setText(presupuesto.getGastado() + "%.2f€");
+            cantidadTextView.setText(String.format("%.2f€", presupuesto.getCantidad()));
+            gastadoTextView.setText(String.format("%.2f€",gastado));
             fechaInicioTextView.setText(dateFormat.format(presupuesto.getFechaInicio()));
             fechaFinTextView.setText(dateFormat.format(presupuesto.getFechaFin()));
             categoriaTextView.setText(args.getString("categoria", "N/A"));

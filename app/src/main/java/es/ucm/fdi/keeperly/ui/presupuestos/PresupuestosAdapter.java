@@ -47,13 +47,15 @@ public class PresupuestosAdapter extends RecyclerView.Adapter<PresupuestosAdapte
     @Override
     public void onBindViewHolder(@NonNull PresupuestosViewHolder holder, int position) {
         Presupuesto presupuesto = presupuestos.get(position);
+        presupuestosViewModel  = new PresupuestosViewModel();
+        double gastado = presupuestosViewModel.getTotalGastadoEnPresupuesto(presupuesto);
         holder.nombreTextView.setText(presupuesto.getNombre());
         holder.iconoTextView.setText(presupuesto.getNombre().substring(0, 1).toUpperCase());
-        holder.dineroTextView.setText(String.format("%.2f€", presupuesto.getGastado()) + " / " + String.format("%.2f€", presupuesto.getCantidad()));
+        holder.dineroTextView.setText(String.format("%.2f€",gastado) + " / " + String.format("%.2f€", presupuesto.getCantidad()));
         //Sacar el valor android:progress de la barra de progreso en base a (dinero gastado/dinero total) * 100 o 100 si es mayor
         int progress = 0; // Initialize to 0
         if (presupuesto.getCantidad() != 0) {
-            progress = (int) ((presupuesto.getGastado() / presupuesto.getCantidad()) * 100);
+            progress = (int) ((gastado / presupuesto.getCantidad()) * 100);
             if (progress > 100) {
                 progress = 100;
             }
@@ -63,7 +65,6 @@ public class PresupuestosAdapter extends RecyclerView.Adapter<PresupuestosAdapte
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String fechaInicio = dateFormat.format(presupuesto.getFechaInicio());
         String fechaFin = dateFormat.format(presupuesto.getFechaFin());
-
         presupuestosViewModel = new PresupuestosViewModel();
         String nombreCategoria = presupuestosViewModel.getNombreCategoria(presupuesto.getIdCategoria());
 
@@ -75,7 +76,7 @@ public class PresupuestosAdapter extends RecyclerView.Adapter<PresupuestosAdapte
             args.putInt("id", presupuesto.getId());
             args.putString("nombre", presupuesto.getNombre());
             args.putString("cantidad", String.valueOf(presupuesto.getCantidad()));
-            args.putString("gastado", String.valueOf(presupuesto.getGastado()));
+            args.putString("gastado", String.valueOf(gastado));
             args.putString("fechaInicio", fechaInicio);
             args.putString("fechaFin", fechaFin);
             args.putString("categoria", nombreCategoria);

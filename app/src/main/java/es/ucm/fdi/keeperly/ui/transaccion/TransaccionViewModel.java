@@ -121,4 +121,8 @@ public class TransaccionViewModel extends ViewModel {
             }
         }
     }
+
+    public void delete(Transaccion transaccion) {
+        transaccionRepository.delete(transaccion);
+    }
 }

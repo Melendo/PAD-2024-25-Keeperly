@@ -1,5 +1,6 @@
 package es.ucm.fdi.keeperly.data.local.database.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
 import java.util.Date;

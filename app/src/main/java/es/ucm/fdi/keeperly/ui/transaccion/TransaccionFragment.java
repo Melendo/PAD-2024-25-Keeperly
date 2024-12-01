@@ -94,7 +94,12 @@ public class TransaccionFragment extends Fragment {
 
             @Override
             public void onDeleteClick(TransaccionAdapter.TransaccionconCategoria transaccion) {
-
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Eliminar Transacción")
+                        .setMessage("¿Seguro que deseas eliminar la transacción?")
+                        .setPositiveButton("Eliminar", (dialog, which) -> transaccionViewModel.delete(transaccion.getTransaccion()))
+                        .setNegativeButton("Cancelar", null)
+                        .show();
             }
 
         });
@@ -236,8 +241,19 @@ public class TransaccionFragment extends Fragment {
                 String concepto = editTextConcepto.getText().toString();
                 double cantidad = Double.parseDouble(editTextCantidad.getText().toString());
 
-                int idcategoria = categoriasViewModel.getCategoriaByNombre(categoriaSeleccionada).getId();
-                int idcuenta = cuentaSeleccionadaID;
+                int idcategoria;
+                if (categoriaSeleccionada.isEmpty() || spinnerCategoria.getSelectedItemPosition() == 0) {
+                    idcategoria = transaccion.getIdCategoria();
+                } else {
+                    idcategoria = categoriasViewModel.getCategoriaByNombre(categoriaSeleccionada).getId();
+                }
+
+                int idcuenta;
+                if (cuentaSeleccionadaID == -1 || spinnerCuenta.getSelectedItemPosition() == 0) {
+                    idcuenta = transaccion.getIdCuenta();
+                } else {
+                    idcuenta = cuentaSeleccionadaID;
+                }
 
                 try {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());

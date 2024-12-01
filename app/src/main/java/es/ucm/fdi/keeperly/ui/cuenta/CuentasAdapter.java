@@ -1,5 +1,6 @@
 package es.ucm.fdi.keeperly.ui.cuenta;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -18,6 +21,7 @@ import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
 public class CuentasAdapter extends RecyclerView.Adapter<CuentasAdapter.CuentaViewHolder> {
     private List<Cuenta> cuentas = new ArrayList<>();
     private OnCuentaClickListener listener;
+    CuentasViewModel cuentasViewModel;
 
     public void setCuentas(List<Cuenta> cuentas) {
         this.cuentas = cuentas;
@@ -27,6 +31,7 @@ public class CuentasAdapter extends RecyclerView.Adapter<CuentasAdapter.CuentaVi
     public interface OnCuentaClickListener {
         void onEditClick(Cuenta cuenta);
         void onDeleteClick(Cuenta cuenta);
+        //void onCuentaClick(Cuenta cuenta);
     }
 
     public void setOnCuentaClickListener(OnCuentaClickListener listener) {
@@ -60,6 +65,18 @@ public class CuentasAdapter extends RecyclerView.Adapter<CuentasAdapter.CuentaVi
                 listener.onDeleteClick(cuenta);
             }
         });
+        //Calculo gastado
+        /*double gastado = cuentasViewModel.getGastoTotal(cuenta);
+        //Cuenta detallada
+        holder.itemView.setOnClickListener(v -> {
+            Bundle args = new Bundle();
+            args.putInt("cuentaId", cuenta.getId());
+            args.putString("nombreC", cuenta.getNombre());
+            args.putString("balanceC", String.valueOf(cuenta.getBalance()));
+            args.putString("gastadoC", String.valueOf(gastado));
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.cuentaDetalladaFragment, args);
+        });*/
     }
 
     @Override

@@ -1,5 +1,6 @@
 package es.ucm.fdi.keeperly.ui.presupuestos;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
@@ -18,23 +19,25 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
 import es.ucm.fdi.keeperly.data.local.database.entities.Presupuesto;
+import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 import es.ucm.fdi.keeperly.ui.categorias.CategoriasViewModel;
-import es.ucm.fdi.keeperly.ui.login.LoginViewModel;
+import es.ucm.fdi.keeperly.ui.transaccion.TransaccionViewModel;
 
 public class PresupuestoDetalladoFragment extends Fragment {
 
-    private CategoriasViewModel categoriasViewModel;
+
     private PresupuestosViewModel presupuestosViewModel;
     private CategoriasViewModel categoriaViewModel;
 
@@ -46,12 +49,13 @@ public class PresupuestoDetalladoFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        categoriasViewModel = new ViewModelProvider(this).get(CategoriasViewModel.class);
+        categoriaViewModel = new ViewModelProvider(this).get(CategoriasViewModel.class);
         presupuestosViewModel = new ViewModelProvider(this).get(PresupuestosViewModel.class);
 
         return inflater.inflate(R.layout.fragment_presupuesto_detallado, container, false);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -84,11 +88,12 @@ public class PresupuestoDetalladoFragment extends Fragment {
             double gastado = presupuestosViewModel.getTotalGastadoEnPresupuesto(presupuesto);
             presupuesto.setGastado(gastado * (-1));
             nombre_categoria = args.getString("categoria", "N/A");
+            presupuesto.setIdCategoria(categoriaViewModel.getCategoriaByNombre(nombre_categoria).getId());
 
             //Settear datos del presupuesto
             nombreTextView.setText(presupuesto.getNombre());
             cantidadTextView.setText(String.format("%.2f€", presupuesto.getCantidad()));
-            gastadoTextView.setText(String.format("%.2f€",gastado));
+            gastadoTextView.setText(String.format("%.2f€", gastado));
             fechaInicioTextView.setText(dateFormat.format(presupuesto.getFechaInicio()));
             fechaFinTextView.setText(dateFormat.format(presupuesto.getFechaFin()));
             categoriaTextView.setText(args.getString("categoria", "N/A"));
@@ -100,6 +105,17 @@ public class PresupuestoDetalladoFragment extends Fragment {
         Button buttonEditar = view.findViewById(R.id.buttonEditar);
         String finalNombre_categoria = nombre_categoria;
         buttonEditar.setOnClickListener(v -> mostrarDialogoEditarPresupuesto(presupuesto, finalNombre_categoria));
+
+        RecyclerView recyclerViewTransacciones = view.findViewById(R.id.recyclerViewTransacciones);
+
+        // Configurar el RecyclerView
+        recyclerViewTransacciones.setLayoutManager(new LinearLayoutManager(getContext()));
+        List<Transaccion> transacciones = new ArrayList<>(); // Aquí cargamos la lista con datos
+        PresupuestoDetalladoAdapter presupuestoDetalladoAdapter = new PresupuestoDetalladoAdapter(transacciones);
+        recyclerViewTransacciones.setAdapter(presupuestoDetalladoAdapter);
+
+        presupuestosViewModel.getTransaccionesDePresupuesto(presupuesto).observe(getViewLifecycleOwner(), presupuestoDetalladoAdapter::setTransacciones);
+
     }
 
     void eliminarPresupuesto(Presupuesto presupuesto) {
@@ -137,7 +153,6 @@ public class PresupuestoDetalladoFragment extends Fragment {
         etFechaInicio = dialogView.findViewById(R.id.etFechaInicio);
         etFechaFin = dialogView.findViewById(R.id.etFechaFin);
 
-        categoriaViewModel = new ViewModelProvider(this).get(CategoriasViewModel.class);
         categoriaViewModel.getCategorias().observe(getViewLifecycleOwner(), categorias -> {
             if (categorias != null) {
                 // Crea una lista de nombres de categorías
@@ -220,6 +235,8 @@ public class PresupuestoDetalladoFragment extends Fragment {
                 }
             }
         });
+
+
     }
 
     private void showDatePickerDialog(EditText editText) {
@@ -268,4 +285,5 @@ public class PresupuestoDetalladoFragment extends Fragment {
 
         return true;
     }
+
 }

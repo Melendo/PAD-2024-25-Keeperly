@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import es.ucm.fdi.keeperly.data.local.database.entities.Presupuesto;
+import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 import es.ucm.fdi.keeperly.repository.CategoriaRepository;
 import es.ucm.fdi.keeperly.repository.LoginRepository;
 import es.ucm.fdi.keeperly.repository.PresupuestoRepository;
@@ -53,6 +54,7 @@ public class PresupuestosViewModel extends ViewModel {
     public double calcularGastado(Presupuesto presupuesto) {
         return presupuestoRepository.getTotalGastado(presupuesto);
     }
+
     // Método para crear un nuevo presupuesto
     public void crearPresupuesto(String nombre, int categoria, double cantidad, Date fechaInicio, Date fechaFin) {
         Presupuesto presupuesto = new Presupuesto();
@@ -82,5 +84,9 @@ public class PresupuestosViewModel extends ViewModel {
     public void update(Presupuesto presupuesto) {
         presupuesto.setIdUsuario(loginRepository.getLoggedUser().getId());
         presupuestoRepository.update(presupuesto);
+    }
+
+    public LiveData<List<Transaccion>> getTransaccionesDePresupuesto(Presupuesto presupuesto) {
+        return presupuestoRepository.getTransaccionesDePresupuesto(presupuesto);
     }
 }

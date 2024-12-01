@@ -24,6 +24,8 @@ import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 public class PresupuestoRepository {
 
     private final PresupuestoDAO presupuestoDao;
+    private final TransaccionDAO transaccionDAO;
+
     private final ExecutorService executorService;
     private final MutableLiveData<Integer> operationStatus = new MutableLiveData<>();
     private final MutableLiveData<Boolean> deleteStatus = new MutableLiveData<>();
@@ -35,6 +37,8 @@ public class PresupuestoRepository {
 
     public PresupuestoRepository() {
         presupuestoDao = KeeperlyDB.getInstance().presupuestoDao();
+        transaccionDAO = KeeperlyDB.getInstance().transaccionDao();
+
         executorService = Executors.newSingleThreadExecutor();
     }
 
@@ -104,8 +108,7 @@ public class PresupuestoRepository {
     public double getTotalGastado(Presupuesto presupuesto) {
         double totalGastado = 0.0;
 
-        TransaccionDAO transaccionDAO = KeeperlyDB.getInstance().transaccionDao();
-        List<Transaccion> transacciones = transaccionDAO.obtenerTransaccionesEntreFechas(presupuesto.getFechaInicio(), presupuesto.getFechaFin());
+        List<Transaccion> transacciones = transaccionDAO.obtenerTransaccionesEntreFechasDirect(presupuesto.getFechaInicio(), presupuesto.getFechaFin(), presupuesto.getIdCategoria());
 
         for (Transaccion transaccion : transacciones) {
             totalGastado += transaccion.getCantidad();
@@ -118,6 +121,10 @@ public class PresupuestoRepository {
         }
 
         return totalGastado != 0 ? totalGastado * (-1) : totalGastado;
+    }
+
+    public LiveData<List<Transaccion>> getTransaccionesDePresupuesto(Presupuesto presupuesto) {
+        return transaccionDAO.obtenerTransaccionesEntreFechas(presupuesto.getFechaInicio(), presupuesto.getFechaFin(), presupuesto.getIdCategoria());
     }
 
     public LiveData<Boolean> getDeleteStatus() {

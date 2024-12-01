@@ -40,7 +40,7 @@ public class PresupuestosFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        presupuestoAdapter = new PresupuestosAdapter();
+        presupuestoAdapter = new PresupuestosAdapter(presupuestosViewModel);
         recyclerView.setAdapter(presupuestoAdapter);
 
         FloatingActionButton fabCrearPresupuesto = root.findViewById(R.id.fab_crear_presupuesto);

@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:singleLine="true"
-            android:textSize="22sp"
             android:textAlignment="textEnd"
+            android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@id/textViewNombre"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/textViewNombre"
@@ -154,18 +154,17 @@
             android:layout_marginTop="16dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:textSize="20sp"
             android:textAlignment="textEnd"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/view5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/textViewCategoria"
-            app:layout_constraintTop_toBottomOf="@+id/textViewFechaFinValor"
-            app:layout_constraintBottom_toTopOf="@+id/view5"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/textViewFechaFinValor" />
 
         <!-- Divider Line -->
         <View
-        android:id="@+id/view5"
+            android:id="@+id/view5"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
@@ -181,8 +180,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/editar"
             android:drawableEnd="@drawable/ic_edit"
+            android:text="@string/editar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view5" />
 
@@ -191,8 +190,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/eliminar"
             android:drawableEnd="@drawable/ic_delete"
+            android:text="@string/eliminar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view5" />
 
@@ -220,5 +219,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view6" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewTransacciones"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewTransacciones" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

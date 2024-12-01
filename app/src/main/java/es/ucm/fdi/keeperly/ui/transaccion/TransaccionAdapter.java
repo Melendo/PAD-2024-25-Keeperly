@@ -3,6 +3,7 @@ package es.ucm.fdi.keeperly.ui.transaccion;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -65,8 +66,19 @@ public class TransaccionAdapter extends RecyclerView.Adapter<TransaccionAdapter.
         String letra = transaccion.getCategoria().substring(0, 1).toUpperCase();
         holder.iconoTextView.setText(letra);
         // Configuracion del boton editar
-
+        ImageButton editarButton = holder.editarButton;
+        editarButton.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onEditClick(transaccion);
+            }
+        });
         // Configuracion del boton eliminar
+        ImageButton eliminarButton = holder.eliminarButton;
+        eliminarButton.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onDeleteClick(transaccion);
+            }
+        });
     }
 
     @Override

@@ -3,6 +3,7 @@ package es.ucm.fdi.keeperly.data.local.database.dao;
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
+import java.util.Date;
 import java.util.List;
 
 import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;

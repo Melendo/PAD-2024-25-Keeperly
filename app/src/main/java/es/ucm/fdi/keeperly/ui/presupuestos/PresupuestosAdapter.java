@@ -40,7 +40,7 @@ public class PresupuestosAdapter extends RecyclerView.Adapter<PresupuestosAdapte
     @Override
     public PresupuestosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_main_card_presupuesto, parent, false);
+                .inflate(R.layout.card_presupuestos_inicio, parent, false);
         return new PresupuestosViewHolder(itemView);
     }
 

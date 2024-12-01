@@ -21,7 +21,7 @@ public class CuentasInicioAdapter extends RecyclerView.Adapter<CuentasInicioAdap
     @NonNull
     @Override
     public CuentaInicioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_main_card_cuenta, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_cuenta_inicio, parent, false);
         return new CuentaInicioViewHolder(itemView);
     }
 

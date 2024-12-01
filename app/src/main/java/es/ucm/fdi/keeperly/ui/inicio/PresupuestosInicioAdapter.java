@@ -26,7 +26,7 @@ public class PresupuestosInicioAdapter extends RecyclerView.Adapter<Presupuestos
     @NonNull
     @Override
     public PresupuestosInicioAdapter.PresupuestoInicioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {// Inflar cada elemento del RecyclerView y devolver un ViewHolder
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_main_card_presupuesto, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_presupuestos_inicio, parent, false);
         presupuestosViewModel = new PresupuestosViewModel();
         return new PresupuestoInicioViewHolder(itemView);
     }

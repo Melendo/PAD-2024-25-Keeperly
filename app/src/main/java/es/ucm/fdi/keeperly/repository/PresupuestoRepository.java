@@ -103,9 +103,9 @@ public class PresupuestoRepository {
 
     public double getTotalGastado(Presupuesto presupuesto) {
         double totalGastado = 0.0;
+
         TransaccionDAO transaccionDAO = KeeperlyDB.getInstance().transaccionDao();
-        List<Transaccion> transacciones = new ArrayList<>();
-        transacciones = transaccionDAO.obtenerTransaccionesEntreFechas(presupuesto.getFechaInicio(), presupuesto.getFechaFin());
+        List<Transaccion> transacciones = transaccionDAO.obtenerTransaccionesEntreFechas(presupuesto.getFechaInicio(), presupuesto.getFechaFin());
 
         for (Transaccion transaccion : transacciones) {
             totalGastado += transaccion.getCantidad();

@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 import java.util.Date;
 import java.util.List;
 
-import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
 import es.ucm.fdi.keeperly.data.local.database.entities.Presupuesto;
 import es.ucm.fdi.keeperly.repository.CategoriaRepository;
 import es.ucm.fdi.keeperly.repository.LoginRepository;
@@ -51,7 +50,9 @@ public class PresupuestosViewModel extends ViewModel {
         return presupuestos;
     }
 
-
+    public double calcularGastado(Presupuesto presupuesto) {
+        return presupuestoRepository.getTotalGastado(presupuesto);
+    }
     // Método para crear un nuevo presupuesto
     public void crearPresupuesto(String nombre, int categoria, double cantidad, Date fechaInicio, Date fechaFin) {
         Presupuesto presupuesto = new Presupuesto();

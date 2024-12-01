@@ -74,7 +74,6 @@ public class PresupuestoDetalladoFragment extends Fragment {
             presupuesto.setId(args.getInt("id", 0));
             presupuesto.setNombre(args.getString("nombre", "N/A"));
             presupuesto.setCantidad(Double.parseDouble(args.getString("cantidad", "0.0")));
-            presupuesto.setGastado(Double.parseDouble(args.getString("gastado", "0.0")));
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
             try {
                 presupuesto.setFechaInicio(dateFormat.parse(args.getString("fechaInicio", "N/A")));
@@ -82,6 +81,7 @@ public class PresupuestoDetalladoFragment extends Fragment {
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
+            presupuesto.setGastado(presupuestosViewModel.getTotalGastadoEnPresupuesto(presupuesto) * (-1));
             nombre_categoria = args.getString("categoria", "N/A");
 
             //Settear datos del presupuesto

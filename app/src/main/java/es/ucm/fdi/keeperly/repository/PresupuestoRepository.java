@@ -103,15 +103,21 @@ public class PresupuestoRepository {
 
     public double getTotalGastado(Presupuesto presupuesto) {
         double totalGastado = 0.0;
+
         TransaccionDAO transaccionDAO = KeeperlyDB.getInstance().transaccionDao();
-        List<Transaccion> transacciones = new ArrayList<>();
-        //transacciones = transaccionDAO.getTransaccionesEntreDosFechas(presupuesto.getFechaInicio(), presupuesto.getFechaFin());
+        List<Transaccion> transacciones = transaccionDAO.obtenerTransaccionesEntreFechas(presupuesto.getFechaInicio(), presupuesto.getFechaFin());
 
         for (Transaccion transaccion : transacciones) {
             totalGastado += transaccion.getCantidad();
         }
 
-        return totalGastado;
+        Presupuesto presupuesto1 = presupuestoDao.getPresupuestoById(presupuesto.getId());
+        if(presupuesto1.getGastado() != totalGastado){
+            presupuesto1.setGastado(totalGastado);
+            presupuestoDao.update(presupuesto1);
+        }
+
+        return totalGastado * (-1);
     }
 
     public LiveData<Boolean> getDeleteStatus() {

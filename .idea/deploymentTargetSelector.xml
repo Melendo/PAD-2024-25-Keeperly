@@ -4,7 +4,7 @@
     <selectionStates>
       <SelectionState runConfigName="Keeperly">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-11-30T09:06:01.436890441Z">
+        <DropdownSelection timestamp="2024-12-01T12:18:33.523958335Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=/home/melendo/.android/avd/Pixel_8_API_35.avd" />

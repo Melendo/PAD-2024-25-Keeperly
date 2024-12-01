@@ -9,6 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import es.ucm.fdi.keeperly.R;
@@ -44,11 +47,20 @@ public class TransaccionAdapter extends RecyclerView.Adapter<TransaccionAdapter.
     @Override
     public void onBindViewHolder(@NonNull TransaccionViewHolder holder, int position) {
         // Configuracion de los campos
+
         TransaccionconCategoria transaccion = transacciones.get(position);
+
         holder.nombreTextView.setText(transaccion.getTransaccion().getConcepto());
-        holder.cantidadTextView.setText(String.valueOf(transaccion.getTransaccion().getCantidad()) + R.string.euro);
-        holder.fechaTextView.setText(transaccion.getTransaccion().getFecha().);
-        holder.categoriaTextView.setText(R.string.categor_a + ": " + transaccion.getCategoria());
+
+        String cantidad = String.valueOf(transaccion.getTransaccion().getCantidad()) + "€";
+        holder.cantidadTextView.setText(cantidad);
+
+        LocalDate fecha = transaccion.getTransaccion().getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = fecha.format(formatter);
+        holder.fechaTextView.setText(formattedDate);
+
+        holder.categoriaTextView.setText("Categoria" + ": " + transaccion.getCategoria());
         // Configuracion del icono
         String letra = transaccion.getCategoria().substring(0, 1).toUpperCase();
         holder.iconoTextView.setText(letra);

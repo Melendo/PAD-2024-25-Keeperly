@@ -2,6 +2,7 @@ package es.ucm.fdi.keeperly.data.local.database.dao;
 
 import androidx.room.*;
 
+import java.util.Date;
 import java.util.List;
 
 import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
@@ -26,5 +27,8 @@ public interface TransaccionDAO {
 
     @Query("SELECT * FROM transacciones WHERE idCategoria = :id")
     List<Transaccion> getTransaccionesPorCategoria(int id);
+
+    @Query("SELECT * FROM transacciones WHERE fecha BETWEEN :fechaInicio AND :fechaFin")
+    List<Transaccion> obtenerTransaccionesEntreFechas(Date fechaInicio, Date fechaFin);
 
 }

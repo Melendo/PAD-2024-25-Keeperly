@@ -117,7 +117,7 @@ public class PresupuestoRepository {
             presupuestoDao.update(presupuesto1);
         }
 
-        return totalGastado * (-1);
+        return totalGastado != 0 ? totalGastado * (-1) : totalGastado;
     }
 
     public LiveData<Boolean> getDeleteStatus() {

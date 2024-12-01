@@ -6,21 +6,22 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.Result;
-import es.ucm.fdi.keeperly.repository.LoginRepository;
+import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 import es.ucm.fdi.keeperly.repository.RepositoryFactory;
 import es.ucm.fdi.keeperly.repository.TransaccionRepository;
-import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
-import es.ucm.fdi.keeperly.ui.register.RegisterFormState;
 
 public class TransaccionViewModel extends ViewModel {
-    private MutableLiveData<CreateTransaccionFormState>  createTransaccionFormState = new MutableLiveData<>();
-    private MutableLiveData<CreateTransaccionResult> createTransaccionResult = new MutableLiveData<>();
+    private MutableLiveData<TransaccionFormState>  createTransaccionFormState = new MutableLiveData<>();
+    private MutableLiveData<TransaccionResult> createTransaccionResult = new MutableLiveData<>();
+
+    private MutableLiveData<TransaccionFormState> editTransaccionFormState = new MutableLiveData<>();
+    private MutableLiveData<TransaccionResult> editTransaccionResult = new MutableLiveData<>();
+
     private TransaccionRepository transaccionRepository;
 
     private LiveData<List<TransaccionAdapter.TransaccionconCategoria>> transacciones;
@@ -30,12 +31,20 @@ public class TransaccionViewModel extends ViewModel {
         transacciones = transaccionRepository.getAllTransaccionesLoggedIn();
     }
 
-    public MutableLiveData<CreateTransaccionFormState> getCreateTransaccionFormState() {
+    public MutableLiveData<TransaccionFormState> getCreateTransaccionFormState() {
         return createTransaccionFormState;
     }
 
-    public MutableLiveData<CreateTransaccionResult> getCreateTransaccionResult() {
+    public MutableLiveData<TransaccionResult> getCreateTransaccionResult() {
         return createTransaccionResult;
+    }
+
+    public MutableLiveData<TransaccionFormState> getEditTransaccionFormState() {
+        return editTransaccionFormState;
+    }
+
+    public MutableLiveData<TransaccionResult> getEditTransaccionResult() {
+        return editTransaccionResult;
     }
 
     public void createTransaccion(String concepto, double cantidad, int cuenta, int categoria, Date fecha) {
@@ -44,25 +53,37 @@ public class TransaccionViewModel extends ViewModel {
 
             if(result instanceof Result.Success) {
                 Boolean data = ((Result.Success<Boolean>) result).getData();
-                createTransaccionResult.setValue(new CreateTransaccionResult(true));
+                createTransaccionResult.setValue(new TransaccionResult(true));
             } else {
-                createTransaccionResult.setValue(new CreateTransaccionResult(R.string.crear_transaccion_fallado));
+                createTransaccionResult.setValue(new TransaccionResult(R.string.crear_transaccion_fallado));
             }
         } else {
-            createTransaccionResult.setValue(new CreateTransaccionResult(R.string.crear_transaccion_datos_invalidos));
+            createTransaccionResult.setValue(new TransaccionResult(R.string.crear_transaccion_datos_invalidos));
         }
-        createTransaccionFormState.setValue(new CreateTransaccionFormState(false));
+        createTransaccionFormState.setValue(new TransaccionFormState(false));
     }
 
     public void createTransaccionDataChanged(String concepto, double cantidad, int cuenta, int categoria, Date fecha) {
         if(!isConceptoValid(concepto)) {
-            createTransaccionFormState.setValue(new CreateTransaccionFormState(R.string.concepto_invalido, null, null, null, null));
+            createTransaccionFormState.setValue(new TransaccionFormState(R.string.concepto_invalido, null, null, null, null));
         } else if (!isCantidadValid(cantidad)) {
-            createTransaccionFormState.setValue(new CreateTransaccionFormState(null, R.string.cantidad_invalida, null, null, null));
+            createTransaccionFormState.setValue(new TransaccionFormState(null, R.string.cantidad_invalida, null, null, null));
         } else if (!isDateValid(fecha)) {
-            createTransaccionFormState.setValue(new CreateTransaccionFormState(null, null, null, null, R.string.fecha_invalida));
+            createTransaccionFormState.setValue(new TransaccionFormState(null, null, null, null, R.string.fecha_invalida));
         } else {
-            createTransaccionFormState.setValue(new CreateTransaccionFormState(true));
+            createTransaccionFormState.setValue(new TransaccionFormState(true));
+        }
+    }
+
+    public void editTransaccionDataChanged(String concepto, double cantidad, int cuenta, int categoria, Date fecha) {
+        if(!isConceptoValid(concepto)) {
+            editTransaccionFormState.setValue(new TransaccionFormState(R.string.concepto_invalido, null, null, null, null));
+        } else if (!isCantidadValid(cantidad)) {
+            editTransaccionFormState.setValue(new TransaccionFormState(null, R.string.cantidad_invalida, null, null, null));
+        } else if (!isDateValid(fecha)) {
+            editTransaccionFormState.setValue(new TransaccionFormState(null, null, null, null, R.string.fecha_invalida));
+        } else {
+            editTransaccionFormState.setValue(new TransaccionFormState(true));
         }
     }
 
@@ -80,5 +101,24 @@ public class TransaccionViewModel extends ViewModel {
 
     private boolean isDateValid (Date fecha) {
         return fecha != null && !fecha.after(new Date());
+    }
+
+    public void editTransaccion(int id, String concepto, double cantidad, int idcuenta, int idcategoria, Date fecha) {
+        if (isConceptoValid(concepto) && isCantidadValid(cantidad) && isDateValid(fecha)) {
+            Transaccion transaccion = new Transaccion();
+            transaccion.setId(id);
+            transaccion.setConcepto(concepto);
+            transaccion.setCantidad(cantidad);
+            transaccion.setFecha(fecha);
+            transaccion.setIdCuenta(idcuenta);
+            transaccion.setIdCategoria(idcategoria);
+            Result<Boolean> result = transaccionRepository.updateTransaccion(transaccion);
+            if (result instanceof Result.Success) {
+                Boolean data = ((Result.Success<Boolean>) result).getData();
+                editTransaccionResult.setValue(new TransaccionResult(true));
+            } else {
+                editTransaccionResult.setValue(new TransaccionResult(R.string.error_editar_transaccion));
+            }
+        }
     }
 }

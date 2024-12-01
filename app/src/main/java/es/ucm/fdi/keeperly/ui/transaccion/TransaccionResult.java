@@ -2,15 +2,15 @@ package es.ucm.fdi.keeperly.ui.transaccion;
 
 import androidx.annotation.Nullable;
 
-public class CreateTransaccionResult {
+public class TransaccionResult {
     @Nullable
     private Boolean success;
     @Nullable
     private Integer error;
 
-    CreateTransaccionResult(@Nullable Integer error) { this.error = error; }
+    TransaccionResult(@Nullable Integer error) { this.error = error; }
 
-    CreateTransaccionResult(@Nullable Boolean success) { this.success = success; }
+    TransaccionResult(@Nullable Boolean success) { this.success = success; }
 
     @Nullable
     Boolean getSuccess() { return success; }

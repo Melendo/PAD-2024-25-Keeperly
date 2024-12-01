@@ -116,4 +116,9 @@ public class TransaccionRepository {
         return new Result.Success<Boolean>(true);
 
     }
+
+    public Result<Boolean> updateTransaccion(Transaccion transaccion) {
+        transaccionDao.update(transaccion);
+        return new Result.Success<Boolean>(true);
+    }
 }

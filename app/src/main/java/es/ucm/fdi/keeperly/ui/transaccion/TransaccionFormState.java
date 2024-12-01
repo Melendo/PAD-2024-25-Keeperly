@@ -2,7 +2,7 @@ package es.ucm.fdi.keeperly.ui.transaccion;
 
 import androidx.annotation.Nullable;
 
-public class CreateTransaccionFormState {
+public class TransaccionFormState {
     @Nullable
     private Integer conceptoError;
     @Nullable
@@ -15,7 +15,7 @@ public class CreateTransaccionFormState {
     private Integer fechaError;
     private boolean isDataValid;
 
-    CreateTransaccionFormState(@Nullable Integer conceptoError, @Nullable Integer cantidadError, @Nullable Integer cuentaError, @Nullable Integer categoriaError, @Nullable Integer fechaError) {
+    TransaccionFormState(@Nullable Integer conceptoError, @Nullable Integer cantidadError, @Nullable Integer cuentaError, @Nullable Integer categoriaError, @Nullable Integer fechaError) {
         this.conceptoError = conceptoError;
         this.cantidadError = cantidadError;
         this.cuentaError = cuentaError;
@@ -24,7 +24,7 @@ public class CreateTransaccionFormState {
         this.isDataValid = false;
     }
 
-    CreateTransaccionFormState(boolean isDataValid) {
+    TransaccionFormState(boolean isDataValid) {
         this.conceptoError = null;
         this.cantidadError = null;
         this.cuentaError = null;

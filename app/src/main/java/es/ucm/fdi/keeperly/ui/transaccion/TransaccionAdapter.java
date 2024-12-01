@@ -3,12 +3,16 @@ package es.ucm.fdi.keeperly.ui.transaccion;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import es.ucm.fdi.keeperly.R;
@@ -44,17 +48,37 @@ public class TransaccionAdapter extends RecyclerView.Adapter<TransaccionAdapter.
     @Override
     public void onBindViewHolder(@NonNull TransaccionViewHolder holder, int position) {
         // Configuracion de los campos
+
         TransaccionconCategoria transaccion = transacciones.get(position);
+
         holder.nombreTextView.setText(transaccion.getTransaccion().getConcepto());
-        holder.cantidadTextView.setText(String.valueOf(transaccion.getTransaccion().getCantidad()) + R.string.euro);
-        holder.fechaTextView.setText(transaccion.getTransaccion().getFecha().toString());
-        holder.categoriaTextView.setText(R.string.categor_a + ": " + transaccion.getCategoria());
+
+        String cantidad = String.valueOf(transaccion.getTransaccion().getCantidad()) + "€";
+        holder.cantidadTextView.setText(cantidad);
+
+        LocalDate fecha = transaccion.getTransaccion().getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = fecha.format(formatter);
+        holder.fechaTextView.setText(formattedDate);
+
+        holder.categoriaTextView.setText("Categoria" + ": " + transaccion.getCategoria());
         // Configuracion del icono
         String letra = transaccion.getCategoria().substring(0, 1).toUpperCase();
         holder.iconoTextView.setText(letra);
         // Configuracion del boton editar
-
+        ImageButton editarButton = holder.editarButton;
+        editarButton.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onEditClick(transaccion);
+            }
+        });
         // Configuracion del boton eliminar
+        ImageButton eliminarButton = holder.eliminarButton;
+        eliminarButton.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onDeleteClick(transaccion);
+            }
+        });
     }
 
     @Override

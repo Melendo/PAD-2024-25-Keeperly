@@ -15,23 +15,26 @@ import java.util.List;
 
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.entities.Presupuesto;
+import es.ucm.fdi.keeperly.ui.presupuestos.PresupuestosViewModel;
 
-public class PresupuestosInicioAdapter extends RecyclerView.Adapter<PresupuestosInicioAdapter.PresupuestoInicioViewHolder>{
+public class PresupuestosInicioAdapter extends RecyclerView.Adapter<PresupuestosInicioAdapter.PresupuestoInicioViewHolder> {
 
     // Lista de presupuestos
     private List<Presupuesto> presupuestos = new ArrayList<>();
+    private PresupuestosViewModel presupuestosViewModel;
 
     @NonNull
     @Override
     public PresupuestosInicioAdapter.PresupuestoInicioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {// Inflar cada elemento del RecyclerView y devolver un ViewHolder
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_main_card_presupuesto, parent, false);
+        presupuestosViewModel = new PresupuestosViewModel();
         return new PresupuestoInicioViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PresupuestosInicioAdapter.PresupuestoInicioViewHolder holder, int position) {// Configurar los datos de cada elemento del RecyclerView
         Presupuesto presupuesto = presupuestos.get(position);
-
+        presupuesto.setGastado(presupuestosViewModel.calcularGastado(presupuesto));
         holder.nombreTextView.setText(presupuesto.getNombre());
         holder.dineroGastadoTextView.setText(String.valueOf(presupuesto.getGastado()));
         holder.dineroGastadoTextView.setText(String.format("%.2f€", presupuesto.getGastado()) + " / " + String.format("%.2f€", presupuesto.getCantidad()));
@@ -43,13 +46,12 @@ public class PresupuestosInicioAdapter extends RecyclerView.Adapter<Presupuestos
         //Sacar el valor android:progress de la barra de progreso en base a (dinero gastado/dinero total) * 100 o 100 si es mayor
         int progress = 0; // Initialize to 0
         if (presupuesto.getCantidad() != 0) {
-            progress = (int) ((presupuesto.getGastado() / presupuesto.getCantidad()) * 100);
+            progress = (int) (((presupuesto.getGastado()) / presupuesto.getCantidad()) * 100);
             if (progress > 100) {
                 progress = 100;
             }
         }
         holder.progressBar.setProgress(progress);
-
 
 
     }

@@ -82,5 +82,6 @@
     <string name="categoria_presupuesto">Categoría:</string>
     <string name="guardar">Modificar</string>
     <string name="editar_presupuesto">Editar Presupuesto</string>
+    <string name="euro">€</string>
     <string name="editar_cuenta">Editar Cuenta</string>
 </resources>

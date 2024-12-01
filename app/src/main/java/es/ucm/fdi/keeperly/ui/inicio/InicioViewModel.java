@@ -13,7 +13,6 @@ import es.ucm.fdi.keeperly.repository.CuentaRepository;
 import es.ucm.fdi.keeperly.repository.LoginRepository;
 import es.ucm.fdi.keeperly.repository.PresupuestoRepository;
 import es.ucm.fdi.keeperly.repository.RepositoryFactory;
-import es.ucm.fdi.keeperly.repository.TransaccionRepository;
 
 public class InicioViewModel extends ViewModel {
     //Declaraciones de campos del fragment
@@ -53,16 +52,29 @@ public class InicioViewModel extends ViewModel {
             }
         });
 
+        presupuestos.observeForever(new Observer<List<Presupuesto>>() {
+            @Override
+            public void onChanged(List<Presupuesto> presupuestos) {
+                double sumaTotal = 0;
+                for (Presupuesto presupuesto : presupuestos) {
+                    sumaTotal += presupuesto.getGastado();
+                }
+                numTotalGastado.postValue(String.format("%.2f€", sumaTotal));
+            }
+
+        });
+
 
 
         //Construccion de los campos
         numDineroTotal = new MutableLiveData<>();
 
+        numTotalGastado = new MutableLiveData<>();
+
         welcomeText = new MutableLiveData<>();
         welcomeText.setValue("Hola, " + loginRepository.getLoggedUser().getNombre());
 
-        numTotalGastado = new MutableLiveData<>();
-        numTotalGastado.setValue("123.45€");
+
 
     }
 
@@ -70,11 +82,11 @@ public class InicioViewModel extends ViewModel {
         return welcomeText;
     }
 
-    public LiveData<String> getPriceThisMonth() {
+    public LiveData<String> getNumDineroTotal() {
         return numDineroTotal ;
     }
 
-    public LiveData<String> getPriceLastMonth() {
+    public LiveData<String> getNumTotalGastado() {
         return numTotalGastado;
     }
 

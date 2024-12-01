@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -59,10 +58,10 @@ public class InicioFragment extends Fragment {
         inicioViewModel.getWelcomeText().observe(getViewLifecycleOwner(), welcomeText::setText);
 
         final TextView priceThisMonth = binding.numDineroTotal;
-        inicioViewModel.getPriceThisMonth().observe(getViewLifecycleOwner(), priceThisMonth::setText);
+        inicioViewModel.getNumDineroTotal().observe(getViewLifecycleOwner(), priceThisMonth::setText);
 
         final TextView priceLastMonth = binding.numGastadoTotal;
-        inicioViewModel.getPriceLastMonth().observe(getViewLifecycleOwner(), priceLastMonth::setText);
+        inicioViewModel.getNumTotalGastado().observe(getViewLifecycleOwner(), priceLastMonth::setText);
 
         return root;
     }

@@ -8,127 +8,118 @@
     android:background="@drawable/gradient_background"
     tools:context=".ui.register.RegisterActivity">
 
+    <!-- App Logo -->
 
-    <TextView
-        android:id="@+id/tituloKeeperly"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="KEEPERLY"
-        android:textColor="#FFFFFF"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.098"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appLogo" />
+    <!-- EditText Nombre -->
 
-    <!-- Button Login -->
+    <!-- EditText Correo -->
 
     <ImageView
         android:id="@+id/appLogo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="64dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:background="@drawable/round_shape"
         android:contentDescription="@string/logo_de_keeperly"
         android:scaleType="fitCenter"
         android:src="@mipmap/ic_launcher_round"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.33" />
 
     <EditText
         android:id="@+id/nameEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/rounded_edit_text"
         android:hint="@string/nombre"
         android:inputType="textPersonName"
-        android:padding="16dp"
+        android:padding="20dp"
         android:textColor="#000"
-        android:layout_marginHorizontal="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/divider6"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tituloKeeperly" />
 
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounded_edit_text"
         android:hint="@string/correo"
         android:inputType="textEmailAddress"
-        android:padding="16dp"
+        android:padding="20dp"
         android:textColor="#000"
-        android:layout_marginHorizontal="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/divider6"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
 
+    <!-- EditText Contrasenia -->
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounded_edit_text"
         android:hint="@string/contrase_a"
         android:inputType="textPassword"
-        android:padding="16dp"
+        android:padding="20dp"
         android:textColor="#000"
-        android:layout_marginHorizontal="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/divider6"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
 
+    <!-- EditText Repetir Contrasenia -->
     <EditText
         android:id="@+id/repeatPasswordEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounded_edit_text"
         android:hint="@string/repita_la_contrase_a"
         android:inputType="textPassword"
-        android:padding="16dp"
+        android:padding="20dp"
         android:textColor="#000"
-        android:layout_marginHorizontal="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/divider6"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
 
+    <!-- Button Registro -->
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="@color/main_purple"
         android:text="@string/registrarse"
         android:textColor="#FFF"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/divider6"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toStartOf="@id/loginButton"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/repeatPasswordEditText" />
 
+    <!-- Button Login -->
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="80dp"
         android:text="@string/inicio_sesi_n"
-        android:textSize="16sp"
+        android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.132"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tituloKeeperly" />
+        app:layout_constraintStart_toEndOf="@id/registerButton"
+        app:layout_constraintTop_toBottomOf="@+id/repeatPasswordEditText" />
 
     <ProgressBar
         android:id="@+id/loading"
@@ -141,28 +132,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone" />
 
-    <View
-        android:id="@+id/divider6"
-        android:layout_width="1dp"
-        android:layout_height="385dp"
-        android:layout_marginStart="100dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/appLogo"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Barrier
+    <TextView
+        android:id="@+id/tituloKeeperly"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:barrierDirection="left" />
-
-    <View
-        android:id="@+id/divider7"
-        android:layout_width="1dp"
-        android:layout_height="385dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="8dp"
+        android:text="KEEPERLY"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appLogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

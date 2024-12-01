@@ -6,26 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:background="@color/background_purple"
     tools:context=".ui.cuenta.CrearCuentaFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/gradient_background">
+        android:layout_height="wrap_content">
 
-        <!--Texto inicial-->
-        <TextView
-            android:id="@+id/tvTitulo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Crear Cuenta"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#FFF"
+        <!-- Título -->
+        <ImageView
+            android:id="@+id/accountIcon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_account"
+            android:background="@drawable/round_shape"
+            android:backgroundTint="@color/main_purple"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="24dp" />
+            android:layout_marginTop="24dp"
+            android:scaleType="center" />
+
         <!--Campo nombre-->
         <EditText
             android:id="@+id/accountNameEditText"
@@ -35,7 +36,7 @@
             android:background="@drawable/rounded_edit_text"
             android:padding="16dp"
             android:textColor="#000"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitulo"
+            app:layout_constraintTop_toBottomOf="@+id/accountIcon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"
@@ -72,8 +73,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cancelar"
-                android:backgroundTint="@color/error_red"
+                android:text="@string/cancelar"
+                android:backgroundTint="@color/main_purple"
                 android:textColor="#FFF"
                 android:layout_marginEnd="8dp" />
 
@@ -83,8 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Crear" />
-                <!--android:backgroundTint="@color/success_green"
-                android:textColor="#FFF" />-->
+
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

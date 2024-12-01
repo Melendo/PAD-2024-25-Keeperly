@@ -11,10 +11,12 @@
 
     <TextView
         android:id="@+id/welcomeText"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="64dp"
         android:layout_marginBottom="4dp"
+        android:ellipsize="end"
         android:fontFamily="sans-serif-black"
+        android:singleLine="true"
         android:text="Hola, "
         android:textSize="48sp"
         android:typeface="sans"

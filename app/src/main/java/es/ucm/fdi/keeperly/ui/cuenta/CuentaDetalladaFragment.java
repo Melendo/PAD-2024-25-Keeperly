@@ -17,58 +17,90 @@ import androidx.lifecycle.ViewModelProvider;
 
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
+import es.ucm.fdi.keeperly.repository.LoginRepository;
+import es.ucm.fdi.keeperly.repository.RepositoryFactory;
 
 public class CuentaDetalladaFragment extends Fragment {
     private CuentasViewModel cuentasViewModel;
     private TextView nombreT, balanceT, gastadoT;
-    private Button cancelarB, editarB;
+    private Button eliminarB, editarB;
+
+    private EditText etNombre, etBalance;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       View view = inflater.inflate(R.layout.fragment_cuenta_detallada, container, false);
-       cuentasViewModel = new ViewModelProvider(this).get(CuentasViewModel.class);
+        View view = inflater.inflate(R.layout.fragment_cuenta_detallada, container, false);
+        cuentasViewModel = new ViewModelProvider(this).get(CuentasViewModel.class);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //Vincula las vistas
+
+        // Vincular las vistas
         nombreT = view.findViewById(R.id.textViewNombreValor);
         balanceT = view.findViewById(R.id.textViewBalanceValor);
-        gastadoT = view.findViewById(R.id.textViewGastadoCValor);
-        cancelarB = view.findViewById(R.id.buttonEliminarC);
+        eliminarB = view.findViewById(R.id.buttonEliminarC);
         editarB = view.findViewById(R.id.buttonEditarC);
-        //Faltaria la lista de transacciones
 
-        //Obtiene los datos
         Cuenta cuenta = new Cuenta();
         Bundle args = getArguments();
         if (args != null) {
-            //Carga los datos
+            String nombre = args.getString("nombre", "N/A");
+            double balance = Double.parseDouble(args.getString("balance", "0.0"));
+
+            nombreT.setText(nombre);
+            balanceT.setText(String.format("%.2f€", balance));
+
+            // Cálculo del gasto
+
             cuenta.setId(args.getInt("id", 0));
-            cuenta.setNombre(args.getString("nombre", "N/A"));
-            cuenta.setBalance(Double.parseDouble(args.getString("balance", "0.0")));
-            double gastado = cuentasViewModel.getGastoTotal(cuenta);
-            cuenta.setGastado(gastado * (-1));
-            //Setters datos
-            nombreT.setText(cuenta.getNombre());
-            balanceT.setText(String.format("%.2f€", cuenta.getBalance()));
-            gastadoT.setText(String.format("%.2f€", gastado));
+            LoginRepository loginRepository = LoginRepository.getInstance(
+                    RepositoryFactory.getInstance().getUsuarioRepository()
+            );
+            int idUsuario = loginRepository.getLoggedUser().getId();
+            cuenta.setIdUsuario(idUsuario);
+            cuenta.setNombre(nombre);
+            cuenta.setBalance(balance);
         }
-        //Funcionalidad botones
-        cancelarB.setOnClickListener(v -> {
-            new AlertDialog.Builder(getContext())
-                    .setTitle("Eliminar Cuenta")
-                    .setMessage("¿Seguro que deseas eliminar la cuenta " + cuenta.getNombre() + "?")
-                    .setPositiveButton("Eliminar", (dialog, which) -> cuentasViewModel.delete(cuenta)) // Solo invoca delete
-                    .setNegativeButton("Cancelar", null)
-                    .show();
-        });
-        editarB.setOnClickListener(v -> {
-            mostrarDialogoEditarCuenta(cuenta);
-        });
+
+        // Funcionalidad de botones
+        eliminarB.setOnClickListener(v -> eliminarCuenta(cuenta));
+
+        editarB.setOnClickListener(v -> mostrarDialogoEditarCuenta(cuenta));
+    }
+
+    private void eliminarCuenta(Cuenta cuenta) {
+        new AlertDialog.Builder(getContext())
+                .setTitle("Eliminar Cuenta")
+                .setMessage("¿Seguro que deseas eliminar la cuenta?")
+                .setPositiveButton("Eliminar", (dialog, which) -> {
+                    cuentasViewModel.delete(cuenta);
+                    cuentasViewModel.getDeleteStatus().observe(getViewLifecycleOwner(), status -> {
+
+                        if (status != null) {
+                            switch (status) {
+                                case 1:
+                                    Toast.makeText(getContext(), "Cuenta eliminada con éxito", Toast.LENGTH_SHORT).show();
+                                    getParentFragmentManager().popBackStack(); // Redirige a la vista anterior
+                                    break;
+                                case -1: // Error de base de datos
+                                    Toast.makeText(getContext(), "No se puede eliminar, es la única cuenta", Toast.LENGTH_SHORT).show();
+                                    break;
+                                default:
+                                    Toast.makeText(getContext(), "Error desconocido", Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+                            cuentasViewModel.resetDeleteStatus();
+                        }
+
+                    });
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+        ;
     }
 
     private void mostrarDialogoEditarCuenta(Cuenta cuenta) {
@@ -77,51 +109,87 @@ public class CuentaDetalladaFragment extends Fragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_editar_cuenta, null);
         builder.setView(dialogView);
+
         //Elementos
-        EditText editTextNombre = dialogView.findViewById(R.id.editTextNombreCuenta);
-        EditText editTextBalance = dialogView.findViewById(R.id.editTextBalanceCuenta);
+        etNombre = dialogView.findViewById(R.id.editTextNombreCuenta);
+        etBalance = dialogView.findViewById(R.id.editTextBalanceCuenta);
         Button btnCancelar = dialogView.findViewById(R.id.btnCancelar);
         Button btnGuardar = dialogView.findViewById(R.id.btnGuardar);
+
         //Rellena los campos con los datos actuales
-        editTextNombre.setText(cuenta.getNombre());
-        editTextBalance.setText(String.valueOf(cuenta.getBalance()));
+        etNombre.setText(cuenta.getNombre());
+        etBalance.setText(String.valueOf(cuenta.getBalance()));
+
         //Crea el objeto del dialogo
         AlertDialog dialog = builder.create();
+        //Muestra el dialogo
+        dialog.show();
         //Cancelar
         btnCancelar.setOnClickListener(v -> dialog.dismiss());
+
         //Guardar
         btnGuardar.setOnClickListener(v -> {
-            String nuevoNombre = editTextNombre.getText().toString().trim();
-            String nuevoBalanceT = editTextBalance.getText().toString().trim();
+            String nuevoNombre = etNombre.getText().toString().trim();
+            String nuevoBalanceT = etBalance.getText().toString().trim();
+
             //Comprueba los datos
-            if (nuevoNombre.trim().isEmpty() || nuevoNombre.trim().length() > 30) {
-                Toast.makeText(getContext(), "Error: el nombre debe tener entre 1 y 30 caracteres", Toast.LENGTH_SHORT).show();
-            }
-            else if (nuevoBalanceT.isEmpty()) {
-                Toast.makeText(getContext(), "Error: el balance no puede estar vacío", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            if (validarCampos()) {
                 try {
                     //Convertir el balance ingresado a double
                     double nuevoBalance = Double.parseDouble(nuevoBalanceT);
-                    if (nuevoBalance <= 0.0) {
-                        Toast.makeText(getContext(), "Error: el balance debe ser positivo", Toast.LENGTH_SHORT).show();
-                    }
-                    else if (!nuevoNombre.equals(cuenta.getNombre()) || nuevoBalance != cuenta.getBalance()) {
+                    if (!nuevoNombre.equals(cuenta.getNombre()) || nuevoBalance != cuenta.getBalance()) {
                         // Actualizar los datos de la cuenta si hay cambios
                         cuenta.setNombre(nuevoNombre);
                         cuenta.setBalance(nuevoBalance);
                         cuentasViewModel.update(cuenta);
-                        dialog.dismiss();
-                    } else {
-                        Toast.makeText(getContext(), "No se realizaron cambios", Toast.LENGTH_SHORT).show();
                     }
                 } catch (NumberFormatException e) {
                     Toast.makeText(getContext(), "El balance debe ser un número válido", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        //Muestra el dialogo
-        dialog.show();
+        // Observa el estado del insert
+        cuentasViewModel.getUpdateStatus().observe(getViewLifecycleOwner(), status -> {
+            if (status != null) {
+                switch (status) {
+                    case 1: // Éxito
+                        Toast.makeText(getContext(), "Cuenta modificado con éxito", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        getParentFragmentManager().popBackStack(); // Redirige a la vista anterior
+                        break;
+                    case -1: // Error de base de datos
+                        Toast.makeText(getContext(), "Error al modificar la cuenta", Toast.LENGTH_SHORT).show();
+                        break;
+                    case -2: // Otro error (opcional)
+                        Toast.makeText(getContext(), "Error: Los campos no pueden estar vacios", Toast.LENGTH_SHORT).show();
+                        break;
+                    case -3: // Otro error (opcional)
+                        Toast.makeText(getContext(), "Error: La cantidad debe ser mayor que 0", Toast.LENGTH_SHORT).show();
+                        break;
+                    case -4: // Otro error (opcional)
+                        Toast.makeText(getContext(), "Error: la cuenta non existe", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        Toast.makeText(getContext(), "Error desconocido", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+    }
+
+
+    private boolean validarCampos() {
+        if (etNombre.getText().toString().isEmpty() || etNombre.getText().toString().length() > 30) {
+            etNombre.setError("El nombre es obligatorio");
+            return false;
+        }
+
+        if (etBalance.getText().toString().isEmpty()) {
+            etBalance.setError("La cantidad es obligatoria");
+            return false;
+        }
+
+
+        return true;
     }
 }

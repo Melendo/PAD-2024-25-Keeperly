@@ -2,6 +2,7 @@
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="32dp">
@@ -63,49 +64,30 @@
             app:layout_constraintTop_toBottomOf="@id/viewDivider1"/>
 
         <TextView
-            android:id="@+id/textViewGastado"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/gastado_presupuesto"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/viewDivider1"/>
-
-        <!-- Valor Balance y Gastado -->
-        <TextView
             android:id="@+id/textViewBalanceValor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewBalance" />
+            app:layout_constraintTop_toBottomOf="@id/viewDivider1" />
 
-        <TextView
-            android:id="@+id/textViewGastadoCValor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewGastado" />
 
         <!-- Línea -->
+
+        <!-- Botones -->
         <View
             android:id="@+id/viewDivider2"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
             android:background="#CCCCCC"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewGastadoCValor" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewBalance" />
 
-        <!-- Botones -->
         <Button
             android:id="@+id/buttonEditarC"
             android:layout_width="wrap_content"
@@ -127,18 +109,20 @@
             app:layout_constraintTop_toBottomOf="@+id/viewDivider2" />
 
         <!-- Línea -->
+
+        <!-- Transacciones -->
+
         <View
             android:id="@+id/viewDivider3"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
             android:background="#CCCCCC"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/buttonEditarC" />
 
-        <!-- Transacciones -->
         <TextView
             android:id="@+id/textViewTransacciones"
             android:layout_width="wrap_content"
@@ -148,7 +132,27 @@
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/viewDivider3" />
+            app:layout_constraintTop_toBottomOf="@+id/divider10" />
+
+        <View
+            android:id="@+id/divider10"
+            android:layout_width="345dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintTop_toBottomOf="@+id/sincPayPal"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <Button
+            android:id="@+id/sincPayPal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Sincronizar PayPal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewDivider3" />
         <!-- Lista de transacciones
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewTransacciones"

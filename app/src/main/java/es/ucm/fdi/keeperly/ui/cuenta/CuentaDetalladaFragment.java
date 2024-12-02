@@ -162,7 +162,7 @@ public class CuentaDetalladaFragment extends Fragment {
 
         //Rellena los campos con los datos actuales
         etNombre.setText(cuenta.getNombre());
-        etBalance.setText(String.valueOf(cuenta.getBalance()));
+        etBalance.setText(String.format("%.2f", cuenta.getBalance()));
 
         //Crea el objeto del dialogo
         AlertDialog dialog = builder.create();

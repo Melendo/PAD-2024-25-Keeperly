@@ -216,7 +216,7 @@ public class TransaccionFragment extends Fragment {
         editTextFecha.setOnClickListener(v -> showDatePickerDialog(editTextFecha));
 
         editTextConcepto.setText(transaccion.getConcepto());
-        editTextCantidad.setText(String.valueOf(transaccion.getCantidad()));
+        editTextCantidad.setText(String.format("%.2f",transaccion.getCantidad()));
 
         LocalDate fechaantigua = transaccion.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");

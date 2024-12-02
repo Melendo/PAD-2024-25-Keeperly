@@ -53,7 +53,7 @@ public class TransaccionAdapter extends RecyclerView.Adapter<TransaccionAdapter.
 
         holder.nombreTextView.setText(transaccion.getTransaccion().getConcepto());
 
-        String cantidad = String.valueOf(transaccion.getTransaccion().getCantidad()) + "€";
+        String cantidad = String.format("%.2f€", transaccion.getTransaccion().getCantidad());
         holder.cantidadTextView.setText(cantidad);
 
         LocalDate fecha = transaccion.getTransaccion().getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();

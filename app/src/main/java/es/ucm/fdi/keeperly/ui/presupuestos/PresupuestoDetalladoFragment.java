@@ -33,7 +33,6 @@ import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
 import es.ucm.fdi.keeperly.data.local.database.entities.Presupuesto;
 import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 import es.ucm.fdi.keeperly.ui.categorias.CategoriasViewModel;
-import es.ucm.fdi.keeperly.ui.transaccion.TransaccionViewModel;
 
 public class PresupuestoDetalladoFragment extends Fragment {
 
@@ -177,7 +176,7 @@ public class PresupuestoDetalladoFragment extends Fragment {
         etFechaFin.setOnClickListener(v -> showDatePickerDialog(etFechaFin));
 
         Button btnCancelar = dialogView.findViewById(R.id.btnCancelar);
-        Button btnGuardar = dialogView.findViewById(R.id.btnGuardar);
+        Button btnGuardar = dialogView.findViewById(R.id.btnSincronizar);
 
         etNombre.setText(presupuesto.getNombre());
         etCantidad.setText(String.valueOf(presupuesto.getCantidad()));

@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -138,7 +137,7 @@ public class CategoriasFragment extends Fragment {
         // Referencias a los elementos del diálogo
         EditText editTextNombre = dialogView.findViewById(R.id.editTextNombreCategoria);
         Button btnCancelar = dialogView.findViewById(R.id.btnCancelar);
-        Button btnGuardar = dialogView.findViewById(R.id.btnGuardar);
+        Button btnGuardar = dialogView.findViewById(R.id.btnSincronizar);
 
         // Prellenar el nombre actual de la categoría
         editTextNombre.setText(categoria.getNombre());

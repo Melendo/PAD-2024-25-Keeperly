@@ -25,14 +25,13 @@ import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
 import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 import es.ucm.fdi.keeperly.repository.LoginRepository;
 import es.ucm.fdi.keeperly.repository.RepositoryFactory;
-import es.ucm.fdi.keeperly.ui.presupuestos.PresupuestoDetalladoAdapter;
 
 public class CuentaDetalladaFragment extends Fragment {
     private CuentasViewModel cuentasViewModel;
     private TextView nombreT, balanceT, gastadoT;
-    private Button eliminarB, editarB;
+    private Button eliminarB, editarB, sincPayPalB;
 
-    private EditText etNombre, etBalance;
+    private EditText etNombre, etBalance, etClientID, etSecret;
 
     @Nullable
     @Override
@@ -51,6 +50,7 @@ public class CuentaDetalladaFragment extends Fragment {
         balanceT = view.findViewById(R.id.textViewBalanceValor);
         eliminarB = view.findViewById(R.id.buttonEliminarC);
         editarB = view.findViewById(R.id.buttonEditarC);
+        sincPayPalB = view.findViewById(R.id.sincPayPal);
 
         Cuenta cuenta = new Cuenta();
         Bundle args = getArguments();
@@ -87,6 +87,33 @@ public class CuentaDetalladaFragment extends Fragment {
         recyclerViewTransacciones.setAdapter(cuentaDetalladaAdapter);
 
         cuentasViewModel.getTransaccionesDeCuenta(cuenta).observe(getViewLifecycleOwner(), cuentaDetalladaAdapter::setTransacciones);
+
+        sincPayPalB.setOnClickListener(v -> mostrarDialogoSyncPayPal());
+    }
+
+    private void mostrarDialogoSyncPayPal() {
+        //Crea el dialogo
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_sincronizar_paypal, null);
+        builder.setView(dialogView);
+
+        //Elementos
+        etClientID = dialogView.findViewById(R.id.editTextClientID);
+        etSecret = dialogView.findViewById(R.id.editTextSecret);
+        Button btnCancelar = dialogView.findViewById(R.id.btnCancelar);
+        Button btnGuardar = dialogView.findViewById(R.id.btnSincronizar);
+
+        //Crea el objeto del dialogo
+        AlertDialog dialog = builder.create();
+        //Muestra el dialogo
+        dialog.show();
+        //Cancelar
+        btnCancelar.setOnClickListener(v -> dialog.dismiss());
+        //Guardar
+        btnGuardar.setOnClickListener(v -> {
+            //Logica Sincronizacion
+        });
     }
 
     private void eliminarCuenta(Cuenta cuenta) {
@@ -131,7 +158,7 @@ public class CuentaDetalladaFragment extends Fragment {
         etNombre = dialogView.findViewById(R.id.editTextNombreCuenta);
         etBalance = dialogView.findViewById(R.id.editTextBalanceCuenta);
         Button btnCancelar = dialogView.findViewById(R.id.btnCancelar);
-        Button btnGuardar = dialogView.findViewById(R.id.btnGuardar);
+        Button btnGuardar = dialogView.findViewById(R.id.btnSincronizar);
 
         //Rellena los campos con los datos actuales
         etNombre.setText(cuenta.getNombre());

@@ -125,7 +125,7 @@ public class TransaccionFragment extends Fragment {
         Spinner spinnerCategoria = dialogView.findViewById(R.id.spCategoria);
         Spinner spinnerCuenta = dialogView.findViewById(R.id.spCuenta);
         EditText editTextFecha = dialogView.findViewById(R.id.etFecha);
-        Button btnGuardar = dialogView.findViewById(R.id.btnGuardar);
+        Button btnGuardar = dialogView.findViewById(R.id.btnSincronizar);
         Button btnCancelar = dialogView.findViewById(R.id.btnCancelar);
 
         // Cargar spinner categorias

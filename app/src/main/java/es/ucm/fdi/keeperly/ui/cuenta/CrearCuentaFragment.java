@@ -35,15 +35,17 @@ public class CrearCuentaFragment extends Fragment {
         //Configurar botones
         crearB = view.findViewById(R.id.createAccountButton);
         crearB.setOnClickListener(v -> {
-            String nombre = nombreT.getText().toString();
-            String input = balanceT.getText().toString();
-            double balance = Double.parseDouble(input);
-            if (!nombre.isEmpty() && nombre.length() <= 30 && balance > 0.0) {
-                LoginRepository loginRepository = LoginRepository.getInstance(
-                        RepositoryFactory.getInstance().getUsuarioRepository()
-                );
-                int idUsuario = loginRepository.getLoggedUser().getId();
-                cuentasViewModel.crearCuenta(nombre, balance, idUsuario);
+
+            if (validarCampos()) {
+                String nombre = nombreT.getText().toString();
+                double input = Double.parseDouble(balanceT.getText().toString());
+                if (nombre.length() <= 30 && input > 0.0) {
+                    LoginRepository loginRepository = LoginRepository.getInstance(
+                            RepositoryFactory.getInstance().getUsuarioRepository()
+                    );
+                    int idUsuario = loginRepository.getLoggedUser().getId();
+                    cuentasViewModel.crearCuenta(nombre, input, idUsuario);
+                }
             }
         });
         cancelarB = view.findViewById(R.id.cancelButton);
@@ -66,9 +68,6 @@ public class CrearCuentaFragment extends Fragment {
                     case -2:
                         Toast.makeText(getContext(), "Error: el nombre debe tener entre 1 y 30 caracteres", Toast.LENGTH_SHORT).show();
                         break;
-                    case -3:
-                        Toast.makeText(getContext(), "Error: el balance debe ser positivo", Toast.LENGTH_SHORT).show();
-                        break;
                     default:
                         Toast.makeText(getContext(), "Error desconocido", Toast.LENGTH_SHORT).show();
                         break;
@@ -76,5 +75,20 @@ public class CrearCuentaFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private boolean validarCampos() {
+        if (nombreT.getText().toString().isEmpty() || nombreT.getText().toString().length() > 30) {
+            nombreT.setError("El nombre es obligatorio y debe tener entre 1 y 30 caracteres");
+            return false;
+        }
+
+        if (balanceT.getText().toString().isEmpty()) {
+            balanceT.setError("La cantidad es obligatoria y debe ser mayor que 0");
+            return false;
+        }
+
+
+        return true;
     }
 }

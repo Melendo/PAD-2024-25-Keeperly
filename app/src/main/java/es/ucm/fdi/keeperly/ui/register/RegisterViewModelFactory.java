@@ -6,9 +6,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import es.ucm.fdi.keeperly.repository.RepositoryFactory;
 
-/**
-* Factoria para el RegisterViewModel
- */
 
 public class RegisterViewModelFactory implements ViewModelProvider.Factory {
 

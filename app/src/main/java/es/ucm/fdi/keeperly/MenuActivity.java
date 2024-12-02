@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -41,6 +42,8 @@ public class MenuActivity extends AppCompatActivity {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
+
+
         // Configurar destinos de nivel superior
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_cuentas, R.id.nav_presupuestos, R.id.nav_categorias, R.id.nav_transaccion)
@@ -73,7 +76,6 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
@@ -96,13 +98,11 @@ public class MenuActivity extends AppCompatActivity {
 
 
     public void onLogout() {
-        // Limpiar datos del usuario (ejemplo con SharedPreferences)
         LoginViewModel loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
         loginViewModel.logout();
         String logout_successfully = getString(R.string.logout_successfully);
-        // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), logout_successfully, Toast.LENGTH_LONG).show();
         // Redirigir al login
         Intent intent = new Intent(this, LoginActivity.class);

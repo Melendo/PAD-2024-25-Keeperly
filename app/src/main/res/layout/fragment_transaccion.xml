@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.transaccion.TransaccionFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewTransacciones"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Transacciones de los últimos 30 días" />
+        android:layout_height="match_parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_transaction"

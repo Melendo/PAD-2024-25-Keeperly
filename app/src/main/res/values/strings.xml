@@ -5,7 +5,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome "</string>
+    <string name="welcome">"Hola "</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
@@ -16,8 +16,8 @@
     <string name="title_activity_menu">MenuActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Memendo Burgerman</string>
-    <string name="nav_header_subtitle">mdemelendo@lazari.com</string>
+    <string name="nav_header_title"></string>
+    <string name="nav_header_subtitle"></string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -58,7 +58,7 @@
     <string name="success_account_creation">New account created</string>
     <string name="menu_create_accounts">Crear Cuenta</string>
     <string name="fecha_dd_mm_yyyy_ini">Fecha Inicio (DD-MM-YYYY)</string>
-    <string name="fecha_dd_mm_yyyy_fin">Fecha Inicio (DD-MM-YYYY)</string>
+    <string name="fecha_dd_mm_yyyy_fin">Fecha Fin (DD-MM-YYYY)</string>
     <string name="nombre_del_presupuesto">Nombre del presupuesto</string>
     <string name="icono_de_categorias">Icono de Categorias</string>
     <string name="cantidad">Cantidad</string>
@@ -74,4 +74,23 @@
     <string name="crear_transaccion_fallado">La creación de la transacción ha fallado</string>
     <string name="crear_transaccion_datos_invalidos">Los datos de esta transacción no son válidos</string>
     <string name="crear">Crear</string>
+    <string name="nombre_presupuesto">Nombre:</string>
+    <string name="cantidad_presupuesto">Cantidad:</string>
+    <string name="gastado_presupuesto">Gastado:</string>
+    <string name="fecha_de_inicio">Fecha de Inicio:</string>
+    <string name="fecha_de_fin">Fecha de Fin:</string>
+    <string name="categoria_presupuesto">Categoría:</string>
+    <string name="guardar">Modificar</string>
+    <string name="editar_presupuesto">Editar Presupuesto</string>
+    <string name="editar_cuenta">Editar Cuenta</string>
+    <string name="editar_transaccion">Editar Transaccion</string>
+    <string name="concepto_de_la_transaccion">Concepto de la transaccion</string>
+    <string name="fecha">Fecha</string>
+    <string name="error_editar_transaccion">Ha habido un error realizando la edicion</string>
+    <string name="balance_actual">"Balance: "</string>
+    <string name="sincronizar_con_paypal">Sincronizar con PayPal</string>
+    <string name="clientid">Client ID</string>
+    <string name="secret">Secret</string>
+    <string name="sincronizar">Sincronizar</string>
+    <string name="fecha_transacci_n">Fecha Transacción</string>
 </resources>

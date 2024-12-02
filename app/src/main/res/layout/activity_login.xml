@@ -10,37 +10,40 @@
     tools:context=".ui.login.LoginActivity">
 
     <!-- App Logo -->
+
+    <!-- EditText Usuario -->
+
+    <!-- EditText Contrasenia -->
+
     <ImageView
         android:id="@+id/appLogo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@mipmap/ic_launcher_round"
+        android:layout_marginTop="40dp"
         android:background="@drawable/round_shape"
-        android:scaleType="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/emailEditText"
         android:contentDescription="@string/logo_de_keeperly"
-        android:layout_marginTop="40dp"/>
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_launcher_round"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- EditText Usuario -->
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/correo"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/rounded_edit_text"
+        android:hint="@string/correo"
+        android:inputType="textEmailAddress"
         android:padding="16dp"
         android:textColor="#000"
-        android:inputType="textEmailAddress"
-        app:layout_constraintTop_toBottomOf="@+id/appLogo"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="32dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tituloKeeperly" />
 
-    <!-- EditText Contrasenia -->
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="0dp"
@@ -94,5 +97,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tituloKeeperly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:text="KEEPERLY"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appLogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,7 +36,7 @@ public class CategoriasFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        CategoriasViewModel categoriasViewModel =
+        categoriaViewModel =
                 new ViewModelProvider(this).get(CategoriasViewModel.class);
 
         binding = FragmentCategoriasBinding.inflate(inflater, container, false);
@@ -54,23 +53,20 @@ public class CategoriasFragment extends Fragment {
         FloatingActionButton fabCrearCategoria = root.findViewById(R.id.fab_crear_categoria);
 
         fabCrearCategoria.setOnClickListener(v -> {
-            // Navegación hacia el formulario de creación de presupuesto
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_menu);
             navController.navigate(R.id.action_categoriasFragment_to_crearCategoriaFragment);
         });
-        categoriaViewModel = new CategoriasViewModel();
+
         categoriaViewModel.getCategorias().observe(getViewLifecycleOwner(), categoriaAdapter::setCategorias);
 
         categoriaAdapter.setOnCategoriaClickListener(new CategoriasAdapter.OnCategoriaClickListener() {
             @Override
             public void onEditClick(Categoria categoria) {
-                // Lógica para editar la categoría
                 mostrarDialogoEditarCategoria(categoria);
             }
 
             @Override
             public void onDeleteClick(Categoria categoria) {
-                // Lógica para eliminar la categoría
                 new AlertDialog.Builder(getContext())
                         .setTitle("Eliminar Categoría")
                         .setMessage("¿Seguro que deseas eliminar la categoría " + categoria.getNombre() + "?")
@@ -111,13 +107,13 @@ public class CategoriasFragment extends Fragment {
                     case 1: // Éxito
                         Toast.makeText(getContext(), "Categoria Editada con éxito", Toast.LENGTH_SHORT).show();
                         break;
-                    case -1: // Error de base de datos
+                    case -1: // Errores
                         Toast.makeText(getContext(), "Error al editar la categoria", Toast.LENGTH_SHORT).show();
                         break;
-                    case -2: // Otro error (opcional)
+                    case -2:
                         Toast.makeText(getContext(), "Error: el nombre no puede ser vacio", Toast.LENGTH_SHORT).show();
                         break;
-                    case -3: // Otro error (opcional)
+                    case -3:
                         Toast.makeText(getContext(), "Error: Ya existe una Categoria con ese nombre", Toast.LENGTH_SHORT).show();
                         break;
                     default:
@@ -135,26 +131,23 @@ public class CategoriasFragment extends Fragment {
         View dialogView = inflater.inflate(R.layout.dialog_editar_categoria, null);
         builder.setView(dialogView);
 
-        // Referencias a los elementos del diálogo
         EditText editTextNombre = dialogView.findViewById(R.id.editTextNombreCategoria);
         Button btnCancelar = dialogView.findViewById(R.id.btnCancelar);
-        Button btnGuardar = dialogView.findViewById(R.id.btnGuardar);
+        Button btnGuardar = dialogView.findViewById(R.id.btnSincronizar);
 
         // Prellenar el nombre actual de la categoría
         editTextNombre.setText(categoria.getNombre());
 
         AlertDialog dialog = builder.create();
 
-        // Botón Cancelar
         btnCancelar.setOnClickListener(v -> dialog.dismiss());
 
-        // Botón Guardar
         btnGuardar.setOnClickListener(v -> {
             String nuevoNombre = editTextNombre.getText().toString().trim();
             if (!nuevoNombre.isEmpty() && !nuevoNombre.equals(categoria.getNombre())) {
                 // Actualiza el nombre de la categoría
                 categoria.setNombre(nuevoNombre);
-                categoriaViewModel.update(categoria); // Llamar al método update del ViewModel
+                categoriaViewModel.update(categoria);
                 dialog.dismiss();
             }
         });

@@ -16,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Button;
-import android.icu.text.DateFormat;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -31,7 +30,6 @@ import java.util.Objects;
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
 import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
-import es.ucm.fdi.keeperly.databinding.FragmentCreateTransaccionBinding;
 import es.ucm.fdi.keeperly.ui.categorias.CategoriasViewModel;
 import es.ucm.fdi.keeperly.ui.cuenta.CuentaSpinnerAdapter;
 import es.ucm.fdi.keeperly.ui.cuenta.CuentasViewModelFactory;
@@ -166,6 +164,10 @@ public class CreateTransaccionFragment extends Fragment {
                 cantidadEditText.setError("La cantidad es obligatoria");
             } else if (fechaField.getText().toString().isEmpty()) {
                 fechaField.setError("La fecha es obligatoria");
+            } else if (categoriaSpinner.getSelectedItemPosition() == 0) {
+                Toast.makeText(requireContext(), "Debes seleccionar una categoría", Toast.LENGTH_SHORT).show();
+            } else if (cuentaSpinner.getSelectedItemPosition() == 0) {
+                Toast.makeText(requireContext(), "Debes seleccionar una cuenta", Toast.LENGTH_SHORT).show();
             } else {
                 // Obtener los datos del formulario
                 String concepto = conceptoEditText.getText().toString();
@@ -251,7 +253,7 @@ public class CreateTransaccionFragment extends Fragment {
                     idCategoria = -1;
 
                 double cantidad;
-                if (cantidadEditText.getText().toString().isEmpty() || cantidadEditText.getText().toString().equals("-"))
+                if (cantidadEditText.getText().toString().isEmpty() || cantidadEditText.getText().toString().equals("-") || cantidadEditText.getText().toString().equals("."))
                     cantidad = -1;
                 else
                     cantidad = Double.parseDouble(cantidadEditText.getText().toString());
@@ -290,19 +292,15 @@ public class CreateTransaccionFragment extends Fragment {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        // Crear el DatePickerDialog
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 requireContext(),
                 (view, year1, month1, dayOfMonth) -> {
-                    // Formatear la fecha seleccionada
                     String fechaSeleccionada = String.format("%02d-%02d-%04d", dayOfMonth, month1 + 1, year1);
                     editText.setText(fechaSeleccionada);
                 },
                 year, month, day
         );
 
-
-        // Mostrar el diálogo
         datePickerDialog.show();
     }
 }

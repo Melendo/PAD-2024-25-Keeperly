@@ -119,7 +119,7 @@ public class CuentaDetalladaFragment extends Fragment {
     private void eliminarCuenta(Cuenta cuenta) {
         new AlertDialog.Builder(getContext())
                 .setTitle("Eliminar Cuenta")
-                .setMessage("¿Seguro que deseas eliminar la cuenta?")
+                .setMessage("¿Seguro que deseas eliminar la cuenta? Todas las Transacciones asociadas a esta cuenta también serán eliminadas.")
                 .setPositiveButton("Eliminar", (dialog, which) -> {
                     cuentasViewModel.delete(cuenta);
                     cuentasViewModel.getDeleteStatus().observe(getViewLifecycleOwner(), status -> {

@@ -92,4 +92,5 @@
     <string name="clientid">Client ID</string>
     <string name="secret">Secret</string>
     <string name="sincronizar">Sincronizar</string>
+    <string name="fecha_transacci_n">Fecha Transacción</string>
 </resources>

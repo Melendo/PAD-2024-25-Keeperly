@@ -57,7 +57,7 @@ public class TransaccionAdapter extends RecyclerView.Adapter<TransaccionAdapter.
 
         holder.nombreTextView.setText(transaccion.getTransaccion().getConcepto());
 
-        String cantidad = String.valueOf(transaccion.getTransaccion().getCantidad()) + "€";
+        String cantidad = String.format("%.2f€", transaccion.getTransaccion().getCantidad());
         holder.cantidadTextView.setText(cantidad);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);

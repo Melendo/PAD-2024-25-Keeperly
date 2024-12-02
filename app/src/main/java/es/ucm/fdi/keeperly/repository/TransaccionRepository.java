@@ -1,12 +1,17 @@
 package es.ucm.fdi.keeperly.repository;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -73,8 +78,8 @@ public class TransaccionRepository {
             }
 
             List<Integer> cuentasIds = cuentas.stream()
-                                                .map(Cuenta::getId)
-                                                .collect(Collectors.toList());
+                    .map(Cuenta::getId)
+                    .collect(Collectors.toList());
 
             LiveData<List<Transaccion>> transaccionesLiveData = transaccionDao.getTransaccionesByCuentas(cuentasIds);
 
@@ -121,5 +126,27 @@ public class TransaccionRepository {
 
     public String getNombreCuenta(Transaccion transaccion) {
         return transaccionDao.getNombreCuenta(transaccion.getId());
+    }
+
+    public double getTransaccionesMesActual(int idUsuario) {
+        double total = 0.0;
+        LocalDate now = LocalDate.now();
+        // Día 1 del mes actual
+        LocalDate inicioMes = now.withDayOfMonth(1);
+
+        // Día 1 del mes siguiente
+        LocalDate inicioMesSiguiente = inicioMes.plusMonths(1);
+
+        // Convertir a `Date` para la consulta
+        Date fechaInicio = Date.from(inicioMes.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date fechaFin = Date.from(inicioMesSiguiente.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        List<Integer> id_cuentas_ususario = cuentaDao.getIdCuentasByUsuario(idUsuario);
+
+        List<Transaccion> transacciones = transaccionDao.obtenerTodasTransaccionesEntreFechas(fechaInicio, fechaFin, id_cuentas_ususario);
+        for (Transaccion t : transacciones) {
+            total += t.getCantidad();
+        }
+        return total;
     }
 }

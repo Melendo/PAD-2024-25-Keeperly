@@ -10,7 +10,6 @@ public class Cuenta {
     private double balance;
     private String nombre;
 
-
 // Getters y Setters
 
     public int getId() {

@@ -192,8 +192,8 @@ public class CrearPresupuestoFragment extends Fragment {
             return false;
         }
 
-        if (etCantidad.getText().toString().isEmpty()) {
-            etCantidad.setError("La cantidad es obligatoria");
+        if (etCantidad.getText().toString().isEmpty() || Double.parseDouble(etCantidad.getText().toString()) <= 0) {
+            etCantidad.setError("La cantidad es obligatoria y debe ser mayor que 0");
             return false;
         }
 

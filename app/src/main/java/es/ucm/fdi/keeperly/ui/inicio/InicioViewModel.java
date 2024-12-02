@@ -53,20 +53,6 @@ public class InicioViewModel extends ViewModel {
         });
 
 
-        presupuestos.observeForever(new Observer<List<Presupuesto>>() {
-            @Override
-            public void onChanged(List<Presupuesto> presupuestos) {
-                double sumaTotal = 0;
-                for (Presupuesto presupuesto : presupuestos) {
-                    sumaTotal += presupuesto.getGastado();
-                }
-                numTotalGastado.postValue(String.format("%.2f€", sumaTotal));
-            }
-
-        });
-
-
-
         //Construccion de los campos
         numDineroTotal = new MutableLiveData<>();
 

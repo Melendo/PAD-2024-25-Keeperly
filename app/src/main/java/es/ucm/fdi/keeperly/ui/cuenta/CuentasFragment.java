@@ -1,5 +1,9 @@
 package es.ucm.fdi.keeperly.ui.cuenta;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +34,8 @@ public class CuentasFragment extends Fragment {
     private FragmentCuentasBinding binding;
     private CuentasViewModel cuentasViewModel;
     private CuentasAdapter cuentasAdapter;
+
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         cuentasViewModel = new ViewModelProvider(this).get(CuentasViewModel.class);
@@ -66,6 +72,8 @@ public class CuentasFragment extends Fragment {
 
         return root;
     }
+
+
 
 
     @Override

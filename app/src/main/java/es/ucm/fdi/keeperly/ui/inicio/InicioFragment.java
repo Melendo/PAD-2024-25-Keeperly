@@ -61,6 +61,7 @@ public class InicioFragment extends Fragment {
         inicioViewModel.getNumDineroTotal().observe(getViewLifecycleOwner(), priceThisMonth::setText);
 
         final TextView priceLastMonth = root.findViewById(R.id.numGastadoTotal);
+
         priceLastMonth.setText(String.format("%.2f€", inicioViewModel.getGastosMesActual()));
 
         return root;

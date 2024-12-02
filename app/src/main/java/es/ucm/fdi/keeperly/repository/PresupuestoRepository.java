@@ -3,11 +3,15 @@ package es.ucm.fdi.keeperly.repository;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
+import es.ucm.fdi.keeperly.data.local.database.dao.CuentaDAO;
 import es.ucm.fdi.keeperly.data.local.database.dao.PresupuestoDAO;
 import es.ucm.fdi.keeperly.data.local.database.dao.TransaccionDAO;
 import es.ucm.fdi.keeperly.data.local.database.entities.Presupuesto;
@@ -17,6 +21,7 @@ public class PresupuestoRepository {
 
     private final PresupuestoDAO presupuestoDao;
     private final TransaccionDAO transaccionDAO;
+    private final CuentaDAO cuentaDAO;
 
     private final ExecutorService executorService;
     private final MutableLiveData<Integer> operationStatus = new MutableLiveData<>();
@@ -30,6 +35,7 @@ public class PresupuestoRepository {
     public PresupuestoRepository() {
         presupuestoDao = KeeperlyDB.getInstance().presupuestoDao();
         transaccionDAO = KeeperlyDB.getInstance().transaccionDao();
+        cuentaDAO = KeeperlyDB.getInstance().cuentaDao();
 
         executorService = Executors.newSingleThreadExecutor();
     }
@@ -107,7 +113,7 @@ public class PresupuestoRepository {
         }
 
         Presupuesto presupuesto1 = presupuestoDao.getPresupuestoById(presupuesto.getId());
-        if(presupuesto1 != null && presupuesto1.getGastado() != totalGastado){
+        if (presupuesto1 != null && presupuesto1.getGastado() != totalGastado) {
             presupuesto1.setGastado(totalGastado);
             presupuestoDao.update(presupuesto1);
         }
@@ -125,5 +131,30 @@ public class PresupuestoRepository {
 
     public LiveData<Integer> getUpdateStatus() {
         return updateStatus;
+    }
+
+    public double getPresupuestosMesActual(int id) {
+
+
+        LocalDate now = LocalDate.now();
+
+        // Día 1 del mes actual
+        LocalDate inicioMes = now.withDayOfMonth(1);
+
+        // Día 1 del mes siguiente
+        LocalDate inicioMesSiguiente = inicioMes.plusMonths(1);
+
+        // Convertir a `Date` para la consulta
+        Date fechaInicio = Date.from(inicioMes.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date fechaFin = Date.from(inicioMesSiguiente.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        List<Integer> categorias = cuentaDAO.getIdCuentasByUsuario(id);
+        List<Transaccion> transacciones = transaccionDAO.obtenerTodasTransaccionesEntreFechas(fechaInicio, fechaFin, categorias);
+
+        double total = 0.0;
+
+        for (Transaccion transaccion : transacciones) {
+            total += transaccion.getCantidad();
+        }
+        return total;
     }
 }

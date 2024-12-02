@@ -84,4 +84,9 @@ public class InicioViewModel extends ViewModel {
     public LiveData<List<Presupuesto>> getPresupuestos() {
         return presupuestos;
     }
+
+    public double getGastosMesActual() {
+        return presupuestoRepository.getPresupuestosMesActual(loginRepository.getLoggedUser().getId());
+
+    }
 }

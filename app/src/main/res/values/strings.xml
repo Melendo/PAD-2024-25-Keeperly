@@ -5,7 +5,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome "</string>
+    <string name="welcome">"Hola "</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
@@ -58,7 +58,7 @@
     <string name="success_account_creation">New account created</string>
     <string name="menu_create_accounts">Crear Cuenta</string>
     <string name="fecha_dd_mm_yyyy_ini">Fecha Inicio (DD-MM-YYYY)</string>
-    <string name="fecha_dd_mm_yyyy_fin">Fecha Inicio (DD-MM-YYYY)</string>
+    <string name="fecha_dd_mm_yyyy_fin">Fecha Fin (DD-MM-YYYY)</string>
     <string name="nombre_del_presupuesto">Nombre del presupuesto</string>
     <string name="icono_de_categorias">Icono de Categorias</string>
     <string name="cantidad">Cantidad</string>
@@ -82,10 +82,15 @@
     <string name="categoria_presupuesto">Categoría:</string>
     <string name="guardar">Modificar</string>
     <string name="editar_presupuesto">Editar Presupuesto</string>
-    <string name="euro">€</string>
     <string name="editar_cuenta">Editar Cuenta</string>
     <string name="editar_transaccion">Editar Transaccion</string>
     <string name="concepto_de_la_transaccion">Concepto de la transaccion</string>
     <string name="fecha">Fecha</string>
     <string name="error_editar_transaccion">Ha habido un error realizando la edicion</string>
+    <string name="balance_actual">"Balance: "</string>
+    <string name="sincronizar_con_paypal">Sincronizar con PayPal</string>
+    <string name="clientid">Client ID</string>
+    <string name="secret">Secret</string>
+    <string name="sincronizar">Sincronizar</string>
+    <string name="fecha_transacci_n">Fecha Transacción</string>
 </resources>

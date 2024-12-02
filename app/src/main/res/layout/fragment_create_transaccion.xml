@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_purple"
+    android:fillViewport="true"
     tools:context=".ui.transaccion.CreateTransaccionFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,124 +19,123 @@
             android:id="@+id/transactionIcon"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/ic_transaccion"
+            android:layout_marginTop="24dp"
             android:background="@drawable/round_shape"
             android:backgroundTint="@color/main_purple"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:scaleType="center"
+            android:src="@drawable/ic_transaccion"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="24dp"
-            android:scaleType="center" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/conceptoEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/concepto"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/rounded_edit_text"
+            android:hint="@string/concepto"
             android:padding="16dp"
             android:textColor="#000"
-            app:layout_constraintTop_toBottomOf="@id/transactionIcon"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="32dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/transactionIcon" />
 
         <EditText
             android:id="@+id/cantidadEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/cantidad"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_edit_text"
+            android:hint="@string/cantidad"
+            android:inputType="numberDecimal|numberSigned"
             android:padding="16dp"
             android:textColor="#000"
-            android:inputType="numberSigned|numberDecimal"
-            app:layout_constraintTop_toBottomOf="@id/conceptoEditText"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="32dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/conceptoEditText" />
 
         <Spinner
             android:id="@+id/cuentaSpinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/cuenta"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_edit_text"
+            android:entries="@array/categorias_array"
+            android:hint="@string/cuenta"
             android:padding="16dp"
             android:textColor="#000"
-            android:entries="@array/categorias_array"
-            app:layout_constraintTop_toBottomOf="@id/cantidadEditText"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="32dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cantidadEditText" />
 
         <Spinner
             android:id="@+id/categoriaSpinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/categor_a"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_edit_text"
+            android:entries="@array/categorias_array"
+            android:hint="@string/categor_a"
             android:padding="16dp"
             android:textColor="#000"
-            android:entries="@array/categorias_array"
-            app:layout_constraintTop_toBottomOf="@id/cuentaSpinner"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="32dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cuentaSpinner" />
 
         <!-- Date Field -->
         <EditText
             android:id="@+id/fechaField"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Fecha"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_edit_text"
+            android:drawableEnd="@drawable/ic_calendar"
+            android:focusable="true"
+            android:focusableInTouchMode="false"
+            android:hint="@string/fecha_transacci_n"
+            android:inputType="none"
             android:padding="16dp"
             android:textColor="#000"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:inputType="date"
-            android:drawableEnd="@drawable/ic_calendar"
-            app:layout_constraintTop_toBottomOf="@id/categoriaSpinner"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="32dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/categoriaSpinner" />
 
         <!-- Save Button -->
         <Button
             android:id="@+id/saveTransactionButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/crear"
-            android:backgroundTint="@color/main_purple"
-            android:textColor="#FFF"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintTop_toBottomOf="@id/fechaField"
+            android:backgroundTint="@color/main_purple"
+            android:text="@string/crear"
+            android:textColor="#FFF"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cancelTransactionButton" />
+            app:layout_constraintStart_toEndOf="@id/cancelTransactionButton"
+            app:layout_constraintTop_toBottomOf="@id/fechaField" />
 
         <!-- Cancel Button -->
         <Button
             android:id="@+id/cancelTransactionButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/cancelar"
-            android:backgroundTint="@color/secondary_purple"
-            android:textColor="#FFF"
-            android:layout_marginTop="24dp"
             android:layout_marginStart="32dp"
-            app:layout_constraintTop_toBottomOf="@id/fechaField"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/secondary_purple"
+            android:text="@string/cancelar"
+            android:textColor="#FFF"
             app:layout_constraintEnd_toStartOf="@id/saveTransactionButton"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fechaField" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-</FrameLayout>
+</androidx.core.widget.NestedScrollView>

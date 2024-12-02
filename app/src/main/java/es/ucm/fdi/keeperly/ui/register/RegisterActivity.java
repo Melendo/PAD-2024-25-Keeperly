@@ -166,7 +166,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void updateUiWithRegister(RegisteredUserView model) {
-        String welcome = "Registro completo, bienvenido " + model.getNombre();
+        String welcome = "Registro completo. Hola " + model.getNombre() + "!";
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 

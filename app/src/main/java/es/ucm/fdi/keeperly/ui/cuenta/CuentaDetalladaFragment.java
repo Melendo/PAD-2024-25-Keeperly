@@ -1,6 +1,12 @@
 package es.ucm.fdi.keeperly.ui.cuenta;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +23,28 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Base64;
 
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
 import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 import es.ucm.fdi.keeperly.repository.LoginRepository;
 import es.ucm.fdi.keeperly.repository.RepositoryFactory;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class CuentaDetalladaFragment extends Fragment {
     private CuentasViewModel cuentasViewModel;
@@ -33,11 +53,19 @@ public class CuentaDetalladaFragment extends Fragment {
 
     private EditText etNombre, etBalance, etClientID, etSecret;
 
+    private ConnectivityManager connectivityManager;
+    private Network network;
+    private NetworkCapabilities networkCapabilities;
+
+    private double paypalBalance;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cuenta_detallada, container, false);
         cuentasViewModel = new ViewModelProvider(this).get(CuentasViewModel.class);
+
+        connectivityManager = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
         return view;
     }
 
@@ -88,10 +116,26 @@ public class CuentaDetalladaFragment extends Fragment {
 
         cuentasViewModel.getTransaccionesDeCuenta(cuenta).observe(getViewLifecycleOwner(), cuentaDetalladaAdapter::setTransacciones);
 
-        sincPayPalB.setOnClickListener(v -> mostrarDialogoSyncPayPal());
+        sincPayPalB.setOnClickListener(v -> mostrarDialogoSyncPayPal(cuenta));
     }
 
-    private void mostrarDialogoSyncPayPal() {
+    @Override
+    public void onResume() {
+        super.onResume();
+        NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .build();
+        connectivityManager.registerNetworkCallback(networkRequest, networkCallback);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        connectivityManager.unregisterNetworkCallback(networkCallback);
+    }
+
+
+    private void mostrarDialogoSyncPayPal(Cuenta cuenta) {
         //Crea el dialogo
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -106,20 +150,100 @@ public class CuentaDetalladaFragment extends Fragment {
 
         //Crea el objeto del dialogo
         AlertDialog dialog = builder.create();
-        //Muestra el dialogo
-        dialog.show();
+
         //Cancelar
         btnCancelar.setOnClickListener(v -> dialog.dismiss());
         //Guardar
         btnGuardar.setOnClickListener(v -> {
-            //Logica Sincronizacion
+            obtenerAccessToken(etClientID.getText().toString(), etSecret.getText().toString(), cuenta);
+            dialog.dismiss();
+            getParentFragmentManager().popBackStack(); // Redirige a la vista anterior
+        });
+
+        //Muestra el dialogo
+        dialog.show();
+    }
+
+    private void obtenerAccessToken(String clientId, String secret, Cuenta cuenta) {
+        String credenciales = clientId + ":" + secret;
+        String encodedCredentials = Base64.getEncoder().encodeToString(credenciales.getBytes());
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody body = RequestBody.create("grant_type=client_credentials", MediaType.parse("application/x-www-form-urlencoded"));
+
+        Request request = new Request.Builder()
+                .url("https://api-m.sandbox.paypal.com/v1/oauth2/token")
+                .post(body)
+                .header("Authorization", "Basic " + encodedCredentials)
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    try {
+                        String body = response.body().string();
+                        JSONObject json = new JSONObject(body);
+                        String accessToken = json.getString("access_token");
+                        Log.d("PAYPAL", accessToken);
+                        sacarBalance(accessToken, cuenta);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    Log.e("PayPal", "Error al obtener el token de acceso: " + response.code());
+                    Log.e("Paypal", response.body().string());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void sacarBalance(String accessToken, Cuenta cuenta) {
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("https://api-m.sandbox.paypal.com/v1/reporting/balances")
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + accessToken)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    try {
+                        JSONObject json = new JSONObject(response.body().string());
+                        paypalBalance = json.getJSONArray("balances")
+                                .getJSONObject(0)
+                                .getJSONObject("total_balance")
+                                .getDouble("value");
+                        cuenta.setBalance(paypalBalance);
+                        cuentasViewModel.update(cuenta);
+                    } catch (JSONException e) {
+                    }
+                } else {
+                    Log.e("BALANCE", "Error al obtener el balance: " + response.code());
+                    Log.e("BALANCE", response.body().string());
+                }
+            }
         });
     }
 
     private void eliminarCuenta(Cuenta cuenta) {
         new AlertDialog.Builder(getContext())
                 .setTitle("Eliminar Cuenta")
-                .setMessage("¿Seguro que deseas eliminar la cuenta?")
+                .setMessage("¿Seguro que deseas eliminar la cuenta? Todas las Transacciones asociadas a esta cuenta también serán eliminadas.")
                 .setPositiveButton("Eliminar", (dialog, which) -> {
                     cuentasViewModel.delete(cuenta);
                     cuentasViewModel.getDeleteStatus().observe(getViewLifecycleOwner(), status -> {
@@ -162,7 +286,7 @@ public class CuentaDetalladaFragment extends Fragment {
 
         //Rellena los campos con los datos actuales
         etNombre.setText(cuenta.getNombre());
-        etBalance.setText(String.valueOf(cuenta.getBalance()));
+        etBalance.setText(String.format("%.2f", cuenta.getBalance()));
 
         //Crea el objeto del dialogo
         AlertDialog dialog = builder.create();
@@ -235,4 +359,28 @@ public class CuentaDetalladaFragment extends Fragment {
 
         return true;
     }
+
+    private ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
+        @Override
+        public void onAvailable(@NonNull Network network) {
+            super.onAvailable(network);
+            // La red está disponible, puedes reintentar la llamada a la API de PayPal si es necesario
+        }
+
+        @Override
+        public void onLost(@NonNull Network network) {super.onLost(network);
+            // La red se ha perdido, muestra un mensaje de error al usuario
+        }
+
+        @Override
+        public void onCapabilitiesChanged(@NonNull Network network,
+                                          @NonNull NetworkCapabilities networkCapabilities)
+        {
+            super.onCapabilitiesChanged(network, networkCapabilities);
+            final boolean unmetered = networkCapabilities.hasCapability
+                    (NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
+        }
+
+
+    };
 }

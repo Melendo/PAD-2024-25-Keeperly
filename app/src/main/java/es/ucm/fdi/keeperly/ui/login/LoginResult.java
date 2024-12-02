@@ -2,9 +2,7 @@ package es.ucm.fdi.keeperly.ui.login;
 
 import androidx.annotation.Nullable;
 
-/**
- * Clase para informar si se ha tenido exito o no en el inicio
- */
+
 class LoginResult {
     @Nullable
     private LoggedInUserView success;

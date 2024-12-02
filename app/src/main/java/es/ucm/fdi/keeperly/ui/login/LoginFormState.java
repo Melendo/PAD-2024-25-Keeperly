@@ -2,9 +2,6 @@ package es.ucm.fdi.keeperly.ui.login;
 
 import androidx.annotation.Nullable;
 
-/**
- * Validacion de los datos del formulario login
- */
 class LoginFormState {
     @Nullable
     private Integer usernameError;

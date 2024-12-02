@@ -7,9 +7,7 @@ import es.ucm.fdi.keeperly.repository.LoginRepository;
 import es.ucm.fdi.keeperly.repository.RepositoryFactory;
 import es.ucm.fdi.keeperly.repository.UsuarioRepository;
 
-/**
- * Factoria para el LoginViewModel
- */
+
 public class LoginViewModelFactory implements ViewModelProvider.Factory {
 
     @NonNull

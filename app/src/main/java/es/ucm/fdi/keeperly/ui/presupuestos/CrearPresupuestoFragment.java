@@ -26,7 +26,7 @@ import java.util.Locale;
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
 import es.ucm.fdi.keeperly.ui.categorias.CategoriasViewModel;
-import es.ucm.fdi.keeperly.ui.login.LoginViewModel;
+
 
 
 public class CrearPresupuestoFragment extends Fragment {
@@ -86,7 +86,7 @@ public class CrearPresupuestoFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Manejar caso donde no se selecciona nada (opcional)
+
             }
         });
 

@@ -66,9 +66,6 @@ public class CrearCuentaFragment extends Fragment {
                     case -2:
                         Toast.makeText(getContext(), "Error: el nombre debe tener entre 1 y 30 caracteres", Toast.LENGTH_SHORT).show();
                         break;
-                    case -3:
-                        Toast.makeText(getContext(), "Error: el balance debe ser positivo", Toast.LENGTH_SHORT).show();
-                        break;
                     default:
                         Toast.makeText(getContext(), "Error desconocido", Toast.LENGTH_SHORT).show();
                         break;

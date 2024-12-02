@@ -16,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Button;
-import android.icu.text.DateFormat;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -31,7 +30,6 @@ import java.util.Objects;
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
 import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
-import es.ucm.fdi.keeperly.databinding.FragmentCreateTransaccionBinding;
 import es.ucm.fdi.keeperly.ui.categorias.CategoriasViewModel;
 import es.ucm.fdi.keeperly.ui.cuenta.CuentaSpinnerAdapter;
 import es.ucm.fdi.keeperly.ui.cuenta.CuentasViewModelFactory;
@@ -294,19 +292,15 @@ public class CreateTransaccionFragment extends Fragment {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        // Crear el DatePickerDialog
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 requireContext(),
                 (view, year1, month1, dayOfMonth) -> {
-                    // Formatear la fecha seleccionada
                     String fechaSeleccionada = String.format("%02d-%02d-%04d", dayOfMonth, month1 + 1, year1);
                     editText.setText(fechaSeleccionada);
                 },
                 year, month, day
         );
 
-
-        // Mostrar el diálogo
         datePickerDialog.show();
     }
 }

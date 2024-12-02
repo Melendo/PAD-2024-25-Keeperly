@@ -76,7 +76,6 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
@@ -99,13 +98,11 @@ public class MenuActivity extends AppCompatActivity {
 
 
     public void onLogout() {
-        // Limpiar datos del usuario (ejemplo con SharedPreferences)
         LoginViewModel loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
         loginViewModel.logout();
         String logout_successfully = getString(R.string.logout_successfully);
-        // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), logout_successfully, Toast.LENGTH_LONG).show();
         // Redirigir al login
         Intent intent = new Intent(this, LoginActivity.class);

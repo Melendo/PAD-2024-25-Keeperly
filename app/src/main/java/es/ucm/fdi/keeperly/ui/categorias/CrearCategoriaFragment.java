@@ -26,13 +26,10 @@ public class CrearCategoriaFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_crear_categoria, container, false);
 
-        // Inicializamos las vistas
         etNombre = rootView.findViewById(R.id.etNombre);
 
-        // Inicializamos el ViewModel
         categoriasViewModel = new ViewModelProvider(this).get(CategoriasViewModel.class);
 
-        // Configurar el botón de crear presupuesto
         btnCrear = rootView.findViewById(R.id.btnCrear);
         btnCrear.setOnClickListener(v -> {
             String nombre = etNombre.getText().toString();
@@ -43,7 +40,6 @@ public class CrearCategoriaFragment extends Fragment {
 
         btnCancelar = rootView.findViewById(R.id.btnCancelar);
         btnCancelar.setOnClickListener(v -> {
-            // Aquí podrías limpiar los campos o cerrar el fragment
             Toast.makeText(requireContext(), "Operación cancelada", Toast.LENGTH_SHORT).show();
             getParentFragmentManager().popBackStack(); // Redirige a la vista anterior
         });
@@ -56,13 +52,13 @@ public class CrearCategoriaFragment extends Fragment {
                         Toast.makeText(getContext(), "Categoria creada con éxito", Toast.LENGTH_SHORT).show();
                         getParentFragmentManager().popBackStack(); // Redirige a la vista anterior
                         break;
-                    case -1: // Error de base de datos
+                    case -1: // Errores
                         Toast.makeText(getContext(), "Error al insertar la categoria", Toast.LENGTH_SHORT).show();
                         break;
-                    case -2: // Otro error (opcional)
+                    case -2:
                         Toast.makeText(getContext(), "Error: el nombre es vacio", Toast.LENGTH_SHORT).show();
                         break;
-                    case -3: // Otro error (opcional)
+                    case -3:
                         Toast.makeText(getContext(), "Error: la Categoria ya existe", Toast.LENGTH_SHORT).show();
                         break;
                     default:

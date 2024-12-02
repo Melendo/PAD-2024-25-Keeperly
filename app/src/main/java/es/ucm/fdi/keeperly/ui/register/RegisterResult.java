@@ -3,9 +3,7 @@ package es.ucm.fdi.keeperly.ui.register;
 
 import androidx.annotation.Nullable;
 
-/*
-* Clase para informar si se ha tenido exito o no en el registro
- */
+
 public class RegisterResult {
     @Nullable
     private RegisteredUserView success;

@@ -42,14 +42,12 @@ public class CategoriasAdapter extends RecyclerView.Adapter<CategoriasAdapter.Ca
         Categoria categoria = categorias.get(position);
         holder.nombreTextView.setText(categoria.getNombre());
 
-        // Icono circular con la primera letra
         String inicial = categoria.getNombre().substring(0, 1).toUpperCase();
         holder.iconoTextView.setText(inicial);
 
-        // Botones editar y eliminar
         holder.editarButton.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onEditClick(categoria); // Llama al listener configurado en el fragmento
+                listener.onEditClick(categoria);
             }
         });
 

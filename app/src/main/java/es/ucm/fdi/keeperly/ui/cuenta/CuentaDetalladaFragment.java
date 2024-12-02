@@ -181,7 +181,7 @@ public class CuentaDetalladaFragment extends Fragment {
                 try {
                     //Convertir el balance ingresado a double
                     double nuevoBalance = Double.parseDouble(nuevoBalanceT);
-                    // Actualizar los datos de la cuenta si hay cambios
+                    // Actualizar los datos de la cuenta
                     cuenta.setNombre(nuevoNombre);
                     cuenta.setBalance(nuevoBalance);
                     cuentasViewModel.update(cuenta);
@@ -191,25 +191,22 @@ public class CuentaDetalladaFragment extends Fragment {
                 }
             }
         });
-        // Observa el estado del insert
+        // Observa el estado del Update
         cuentasViewModel.getUpdateStatus().observe(getViewLifecycleOwner(), status -> {
             if (status != null) {
                 switch (status) {
-                    case 1: // Éxito
+                    case 1://Exito
                         Toast.makeText(getContext(), "Cuenta modificado con éxito", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
-                        getParentFragmentManager().popBackStack(); // Redirige a la vista anterior
+                        getParentFragmentManager().popBackStack();
                         break;
-                    case -1: // Error de base de datos
+                    case -1://Errores
                         Toast.makeText(getContext(), "Error al modificar la cuenta", Toast.LENGTH_SHORT).show();
                         break;
-                    case -2: // Otro error (opcional)
+                    case -2:
                         Toast.makeText(getContext(), "Error: Los campos no pueden estar vacios", Toast.LENGTH_SHORT).show();
                         break;
-                    case -3: // Otro error (opcional)
-                        Toast.makeText(getContext(), "Error: La cantidad debe ser mayor que 0", Toast.LENGTH_SHORT).show();
-                        break;
-                    case -4: // Otro error (opcional)
+                    case -4:
                         Toast.makeText(getContext(), "Error: la cuenta non existe", Toast.LENGTH_SHORT).show();
                         break;
                     default:

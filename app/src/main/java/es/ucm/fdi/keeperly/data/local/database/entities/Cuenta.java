@@ -9,7 +9,7 @@ public class Cuenta {
     private int idUsuario;
     private double balance;
     private String nombre;
-    private double gastado;
+
 
 // Getters y Setters
 
@@ -47,9 +47,4 @@ public class Cuenta {
 
     public String toString() {return nombre;}
 
-    public double getGastado() {return gastado;}
-
-    public void setGastado(double gastado) {
-        this.gastado = gastado;
-    }
 }

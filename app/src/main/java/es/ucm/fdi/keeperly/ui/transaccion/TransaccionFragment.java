@@ -78,14 +78,13 @@ public class TransaccionFragment extends Fragment {
         RecyclerView recyclerView = binding.recyclerViewTransacciones;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        if (transaccionAdapter == null) { // Prevent re-initialization
+        if (transaccionAdapter == null) {
             transaccionAdapter = new TransaccionAdapter(transaccionViewModel);
         }
         recyclerView.setAdapter(transaccionAdapter);
 
         transaccionViewModel.getTransacciones().observe(getViewLifecycleOwner(), transaccionAdapter::setTransacciones);
 
-        //On Click Listeners
         transaccionAdapter.setOnTransaccionClickListener(new TransaccionAdapter.OnTransaccionClickListener() {
             @Override
             public void onEditClick(TransaccionAdapter.TransaccionconCategoria transaccion) {
@@ -364,15 +363,12 @@ public class TransaccionFragment extends Fragment {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 requireContext(),
                 (view, year1, month1, dayOfMonth) -> {
-                    // Formatear la fecha seleccionada
                     String fechaSeleccionada = String.format("%02d-%02d-%04d", dayOfMonth, month1 + 1, year1);
                     editText.setText(fechaSeleccionada);
                 },
                 year, month, day
         );
 
-
-        // Mostrar el diálogo
         datePickerDialog.show();
     }
 }

@@ -60,7 +60,6 @@ public class PresupuestoDetalladoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Obtener referencias a los TextView
-
         TextView nombreTextView = view.findViewById(R.id.textViewNombreValor);
         TextView cantidadTextView = view.findViewById(R.id.textViewCantidadValor);
         TextView gastadoTextView = view.findViewById(R.id.textViewGastadoValor);
@@ -113,7 +112,6 @@ public class PresupuestoDetalladoFragment extends Fragment {
         recyclerViewTransacciones.setAdapter(presupuestoDetalladoAdapter);
 
         presupuestosViewModel.getTransaccionesDePresupuesto(presupuesto).observe(getViewLifecycleOwner(), presupuestoDetalladoAdapter::setTransacciones);
-
     }
 
     void eliminarPresupuesto(Presupuesto presupuesto) {
@@ -189,11 +187,9 @@ public class PresupuestoDetalladoFragment extends Fragment {
         dialog.show();
 
         btnCancelar.setOnClickListener(v -> dialog.dismiss());
-        // Botón Guardar
         btnGuardar.setOnClickListener(v -> {
 
             if (validarCampos()) {
-                // Actualiza el nombre de la categoría
                 Presupuesto presupuestoEditado = new Presupuesto();
                 presupuestoEditado.setId(presupuesto.getId());
                 presupuestoEditado.setNombre(etNombre.getText().toString());
@@ -218,13 +214,13 @@ public class PresupuestoDetalladoFragment extends Fragment {
                         dialog.dismiss();
                         getParentFragmentManager().popBackStack(); // Redirige a la vista anterior
                         break;
-                    case -1: // Error de base de datos
+                    case -1: // Errores
                         Toast.makeText(getContext(), "Error al modificar el presupuesto", Toast.LENGTH_SHORT).show();
                         break;
-                    case -2: // Otro error (opcional)
+                    case -2:
                         Toast.makeText(getContext(), "Error: La cantidad debe ser mayor que 0", Toast.LENGTH_SHORT).show();
                         break;
-                    case -3: // Otro error (opcional)
+                    case -3:
                         Toast.makeText(getContext(), "Error: Fecha Fin debe ser posterior a Fecha Inicio", Toast.LENGTH_SHORT).show();
                         break;
                     default:

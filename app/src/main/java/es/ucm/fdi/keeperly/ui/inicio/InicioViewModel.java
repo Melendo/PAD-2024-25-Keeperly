@@ -52,6 +52,7 @@ public class InicioViewModel extends ViewModel {
             }
         });
 
+
         presupuestos.observeForever(new Observer<List<Presupuesto>>() {
             @Override
             public void onChanged(List<Presupuesto> presupuestos) {

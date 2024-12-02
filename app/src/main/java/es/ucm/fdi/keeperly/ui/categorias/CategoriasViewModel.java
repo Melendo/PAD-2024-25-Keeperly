@@ -36,7 +36,7 @@ public class CategoriasViewModel extends ViewModel {
         Categoria categoria = new Categoria();
         categoria.setNombre(nombre);
         categoria.setId_usuario(loginRepository.getLoggedUser().getId());
-        categoriaRepository.insert(categoria); // Insertamos el presupuesto en la base de datos
+        categoriaRepository.insert(categoria);
     }
 
     public LiveData<List<Categoria>> getCategorias() {

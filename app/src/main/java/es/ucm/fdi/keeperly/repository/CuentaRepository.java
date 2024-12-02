@@ -1,7 +1,5 @@
 package es.ucm.fdi.keeperly.repository;
 
-import android.content.Context;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -9,12 +7,10 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import es.ucm.fdi.keeperly.data.Result;
 import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
 import es.ucm.fdi.keeperly.data.local.database.dao.CuentaDAO;
 import es.ucm.fdi.keeperly.data.local.database.dao.TransaccionDAO;
 import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
-import es.ucm.fdi.keeperly.data.local.database.entities.Presupuesto;
 import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 
 public class CuentaRepository {
@@ -36,9 +32,6 @@ public class CuentaRepository {
         if (cuenta.getNombre().trim().isEmpty() || cuenta.getNombre().trim().length() > 30) {
             insertStatus.postValue(-2);
         }
-        else if (cuenta.getBalance() <= 0.0) {
-            insertStatus.postValue(-3);
-        }
         else {
             try {
                 executorService.execute(() -> {
@@ -59,9 +52,6 @@ public class CuentaRepository {
     public void update(Cuenta cuenta) {
         if (cuenta.getNombre().trim().isEmpty() || cuenta.getNombre().trim().length() > 30) {
             updateStatus.postValue(-2);
-        }
-        else if (cuenta.getBalance() <= 0.0) {
-            updateStatus.postValue(-3);
         }
         else {
             try {
@@ -88,9 +78,7 @@ public class CuentaRepository {
                 deleteStatus.postValue(-1);
             }
             else {
-                //Elimina todas las transacciones vinculadas a la cuenta
                 KeeperlyDB.getInstance().transaccionDao().deleteTransaccionesByCuenta(cuenta.getId());
-                //Elimina la cuenta
                 cuentaDao.delete(cuenta);
                 deleteStatus.postValue(1);
             }
@@ -108,21 +96,6 @@ public class CuentaRepository {
     public LiveData<List<Transaccion>> getAllTransaccionesByCuenta(int cuentaId) {
         return transaccionDAO.getTransaccionesByCuenta(cuentaId);
     }
-
-//    public double gastoTotal(Cuenta cuenta) {
-//        double total = 0.0;
-//        TransaccionDAO transaccionDAO = KeeperlyDB.getInstance().transaccionDao();
-//        List<Transaccion> transacciones = transaccionDAO.getTransaccionesByCuenta(cuenta.getId());
-//        for (Transaccion transaccion : transacciones) {
-//            total += transaccion.getCantidad();
-//        }
-//        Cuenta cuenta_aux = cuentaDao.getCuentaById(cuenta.getId());
-//        if(cuenta_aux.getGastado() != total){
-//            cuenta_aux.setGastado(total);
-//            cuentaDao.update(cuenta_aux);
-//        }
-//        return total * (-1);
-//    }
 
     public Cuenta creaCuenta(String nombre, double balance, int usuario) {
         Cuenta cuenta = new Cuenta();

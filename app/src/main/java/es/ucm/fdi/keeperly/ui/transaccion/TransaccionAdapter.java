@@ -61,7 +61,7 @@ public class TransaccionAdapter extends RecyclerView.Adapter<TransaccionAdapter.
         holder.cantidadTextView.setText(cantidad);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-        Date fecha = null;
+        Date fecha;
         try {
             fecha = dateFormat.parse(transaccion.getTransaccion().getFecha().toString());
         } catch (ParseException e) {
@@ -73,7 +73,6 @@ public class TransaccionAdapter extends RecyclerView.Adapter<TransaccionAdapter.
         holder.cuentaTextView.setText("Cuenta" + ": " + cuenta);
 
         holder.categoriaTextView.setText("Categoria" + ": " + transaccion.getCategoria());
-        // Configuracion del icono
         String letra = transaccion.getCategoria().substring(0, 1).toUpperCase();
         holder.iconoTextView.setText(letra);
         // Configuracion del boton editar

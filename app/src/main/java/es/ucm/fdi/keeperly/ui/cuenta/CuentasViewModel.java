@@ -70,6 +70,4 @@ public class CuentasViewModel extends ViewModel {
     public LiveData<List<Transaccion>> getTransaccionesDeCuenta(Cuenta cuenta) {
         return cuentaRepository.getAllTransaccionesByCuenta(cuenta.getId());
     }
-
-    //public  double getGastoTotal(Cuenta cuenta) { return cuentaRepository.gastoTotal(cuenta); }
 }

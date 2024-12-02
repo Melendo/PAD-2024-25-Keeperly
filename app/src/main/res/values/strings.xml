@@ -88,4 +88,9 @@
     <string name="fecha">Fecha</string>
     <string name="error_editar_transaccion">Ha habido un error realizando la edicion</string>
     <string name="balance_actual">"Balance: "</string>
+    <string name="sincronizar_con_paypal">Sincronizar con PayPal</string>
+    <string name="clientid">Client ID</string>
+    <string name="secret">Secret</string>
+    <string name="sincronizar">Sincronizar</string>
+    <string name="fecha_transacci_n">Fecha Transacción</string>
 </resources>

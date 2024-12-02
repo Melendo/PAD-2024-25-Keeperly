@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
+import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 import es.ucm.fdi.keeperly.repository.CuentaRepository;
 import es.ucm.fdi.keeperly.repository.LoginRepository;
 import es.ucm.fdi.keeperly.repository.RepositoryFactory;
@@ -64,6 +65,10 @@ public class CuentasViewModel extends ViewModel {
 
     public  void resetUpdateStatus() {
         cuentaRepository.resetUpdateStatus();
+    }
+
+    public LiveData<List<Transaccion>> getTransaccionesDeCuenta(Cuenta cuenta) {
+        return cuentaRepository.getAllTransaccionesByCuenta(cuenta.getId());
     }
 
     //public  double getGastoTotal(Cuenta cuenta) { return cuentaRepository.gastoTotal(cuenta); }

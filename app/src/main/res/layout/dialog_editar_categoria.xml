@@ -37,7 +37,7 @@
             android:text="Cancelar" />
 
         <Button
-            android:id="@+id/btnGuardar"
+            android:id="@+id/btnSincronizar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Guardar"

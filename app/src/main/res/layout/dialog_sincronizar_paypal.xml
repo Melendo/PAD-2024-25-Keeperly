@@ -10,26 +10,27 @@
         android:id="@+id/dialogTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/editar_cuenta"
+        android:text="@string/sincronizar_con_paypal"
         android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center"
         android:paddingBottom="16dp" />
 
     <EditText
-        android:id="@+id/editTextNombreCuenta"
+        android:id="@+id/editTextClientID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nombre de la cuenta"
+        android:hint="@string/clientid"
         android:inputType="text"
-        android:padding="8dp" />
+        android:padding="8dp"
+        android:layout_marginBottom="8dp"/>
 
     <EditText
-        android:id="@+id/editTextBalanceCuenta"
+        android:id="@+id/editTextSecret"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Balance de la cuenta"
-        android:inputType="numberDecimal"
+        android:hint="@string/secret"
+        android:inputType="textPassword"
         android:padding="8dp" />
 
     <LinearLayout
@@ -37,7 +38,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="end"
-        android:paddingTop="8dp">
+        android:layout_marginTop="8dp">
 
         <Button
             android:id="@+id/btnCancelar"
@@ -49,7 +50,7 @@
             android:id="@+id/btnSincronizar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Guardar"
+            android:text="@string/sincronizar"
             android:layout_marginStart="8dp" />
     </LinearLayout>
 </LinearLayout>

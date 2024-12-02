@@ -251,7 +251,7 @@ public class CreateTransaccionFragment extends Fragment {
                     idCategoria = -1;
 
                 double cantidad;
-                if (cantidadEditText.getText().toString().isEmpty() || cantidadEditText.getText().toString().equals("-"))
+                if (cantidadEditText.getText().toString().isEmpty() || cantidadEditText.getText().toString().equals("-") || cantidadEditText.getText().toString().equals("."))
                     cantidad = -1;
                 else
                     cantidad = Double.parseDouble(cantidadEditText.getText().toString());

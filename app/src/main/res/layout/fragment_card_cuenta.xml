@@ -35,23 +35,14 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <!-- Botón editar -->
-        <ImageButton
-            android:id="@+id/editarCuenta"
-            android:layout_width="48dp"
-            android:layout_height="50dp"
-            android:contentDescription="@string/editar"
-            android:src="@drawable/ic_edit"
-            />
-
-        <!-- Botón eliminar -->
-        <ImageButton
-            android:id="@+id/eliminarCuenta"
-            android:layout_width="48dp"
-            android:layout_height="50dp"
-            android:contentDescription="@string/eliminar"
-            android:src="@drawable/ic_delete"
-            />
+        <!-- Nombre de la categoría -->
+        <TextView
+            android:id="@+id/balanceCuenta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

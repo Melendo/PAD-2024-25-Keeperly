@@ -30,6 +30,27 @@
         android:name="es.ucm.fdi.keeperly.ui.cuenta.CrearCuentaFragment"
         android:label="@string/menu_create_accounts"
         tools:layout="@layout/fragment_crear_cuenta" />
+
+    <action
+        android:id="@+id/action_cuentasFragment_to_cuentaDetalladaFragment"
+        app:destination="@id/cuentaDetalladaFragment" />
+
+    <fragment
+        android:id="@+id/cuentaDetalladaFragment"
+        android:name="es.ucm.fdi.keeperly.ui.cuenta.CuentaDetalladaFragment"
+        android:label="Detalles de la Cuenta">
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="nombre"
+            app:argType="string" />
+        <argument
+            android:name="balance"
+            app:argType="string" />
+
+    </fragment>
+
     <!-- PRESUPUETOS -->
     <fragment
         android:id="@+id/nav_presupuestos"

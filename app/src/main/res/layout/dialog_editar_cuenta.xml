@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Balance de la cuenta"
-        android:inputType="text"
+        android:inputType="numberDecimal"
         android:padding="8dp" />
 
     <LinearLayout

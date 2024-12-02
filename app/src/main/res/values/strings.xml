@@ -82,10 +82,10 @@
     <string name="categoria_presupuesto">Categoría:</string>
     <string name="guardar">Modificar</string>
     <string name="editar_presupuesto">Editar Presupuesto</string>
-    <string name="euro">€</string>
     <string name="editar_cuenta">Editar Cuenta</string>
     <string name="editar_transaccion">Editar Transaccion</string>
     <string name="concepto_de_la_transaccion">Concepto de la transaccion</string>
     <string name="fecha">Fecha</string>
     <string name="error_editar_transaccion">Ha habido un error realizando la edicion</string>
+    <string name="balance_actual">"Balance: "</string>
 </resources>

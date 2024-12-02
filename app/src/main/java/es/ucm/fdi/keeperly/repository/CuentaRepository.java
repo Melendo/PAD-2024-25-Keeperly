@@ -12,7 +12,10 @@ import java.util.concurrent.Executors;
 import es.ucm.fdi.keeperly.data.Result;
 import es.ucm.fdi.keeperly.data.local.database.KeeperlyDB;
 import es.ucm.fdi.keeperly.data.local.database.dao.CuentaDAO;
+import es.ucm.fdi.keeperly.data.local.database.dao.TransaccionDAO;
 import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
+import es.ucm.fdi.keeperly.data.local.database.entities.Presupuesto;
+import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 
 public class CuentaRepository {
     private final MutableLiveData<Integer> insertStatus = new MutableLiveData<>();
@@ -20,10 +23,12 @@ public class CuentaRepository {
     private final MutableLiveData<Integer> updateStatus = new MutableLiveData<>();
 
     private final CuentaDAO cuentaDao;
+    private final TransaccionDAO transaccionDAO;
     private final ExecutorService executorService;
 
     public CuentaRepository() {
         cuentaDao = KeeperlyDB.getInstance().cuentaDao();
+        transaccionDAO = KeeperlyDB.getInstance().transaccionDao();
         executorService = Executors.newSingleThreadExecutor();
     }
 
@@ -98,6 +103,25 @@ public class CuentaRepository {
 
     public Cuenta getCuentaById(int id) {
         return cuentaDao.getCuentaById(id);
+    }
+
+    public List<Transaccion> getAllTransaccionesByCuenta(int cuentaId) {
+        return transaccionDAO.getTransaccionesByCuenta(cuentaId);
+    }
+
+    public double gastoTotal(Cuenta cuenta) {
+        double total = 0.0;
+        TransaccionDAO transaccionDAO = KeeperlyDB.getInstance().transaccionDao();
+        List<Transaccion> transacciones = transaccionDAO.getTransaccionesByCuenta(cuenta.getId());
+        for (Transaccion transaccion : transacciones) {
+            total += transaccion.getCantidad();
+        }
+        Cuenta cuenta_aux = cuentaDao.getCuentaById(cuenta.getId());
+        if(cuenta_aux.getGastado() != total){
+            cuenta_aux.setGastado(total);
+            cuentaDao.update(cuenta_aux);
+        }
+        return total * (-1);
     }
 
     public Cuenta creaCuenta(String nombre, double balance, int usuario) {

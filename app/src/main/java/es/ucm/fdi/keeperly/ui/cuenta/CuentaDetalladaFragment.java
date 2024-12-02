@@ -1,5 +1,10 @@
 package es.ucm.fdi.keeperly.ui.cuenta;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,11 +38,18 @@ public class CuentaDetalladaFragment extends Fragment {
 
     private EditText etNombre, etBalance, etClientID, etSecret;
 
+    private ConnectivityManager connectivityManager;
+    private Network network;
+    private NetworkCapabilities networkCapabilities;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cuenta_detallada, container, false);
         cuentasViewModel = new ViewModelProvider(this).get(CuentasViewModel.class);
+
+        connectivityManager = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
         return view;
     }
 
@@ -91,6 +103,22 @@ public class CuentaDetalladaFragment extends Fragment {
         sincPayPalB.setOnClickListener(v -> mostrarDialogoSyncPayPal());
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .build();
+        connectivityManager.registerNetworkCallback(networkRequest, networkCallback);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        connectivityManager.unregisterNetworkCallback(networkCallback);
+    }
+
+
     private void mostrarDialogoSyncPayPal() {
         //Crea el dialogo
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -113,6 +141,19 @@ public class CuentaDetalladaFragment extends Fragment {
         //Guardar
         btnGuardar.setOnClickListener(v -> {
             //Logica Sincronizacion
+            //Obtenemos una instancia del ConnectivityManager
+
+            network = connectivityManager.getActiveNetwork();
+            networkCapabilities = connectivityManager.getNetworkCapabilities(network);
+
+            if (networkCapabilities != null ) {
+                // Hay conexión a internet
+                System.out.println("Hay conexión a internet");
+            }
+            else {
+                // No hay conexión a internet
+                System.out.println("No hay conexión a internet");
+            }
         });
     }
 
@@ -235,4 +276,28 @@ public class CuentaDetalladaFragment extends Fragment {
 
         return true;
     }
+
+    private ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
+        @Override
+        public void onAvailable(@NonNull Network network) {
+            super.onAvailable(network);
+            // La red está disponible, puedes reintentar la llamada a la API de PayPal si es necesario
+        }
+
+        @Override
+        public void onLost(@NonNull Network network) {super.onLost(network);
+            // La red se ha perdido, muestra un mensaje de error al usuario
+        }
+
+        @Override
+        public void onCapabilitiesChanged(@NonNull Network network,
+                                          @NonNull NetworkCapabilities networkCapabilities)
+        {
+            super.onCapabilitiesChanged(network, networkCapabilities);
+            final boolean unmetered = networkCapabilities.hasCapability
+                    (NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
+        }
+
+
+    };
 }

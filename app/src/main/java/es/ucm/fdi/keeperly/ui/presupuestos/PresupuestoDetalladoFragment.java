@@ -34,7 +34,7 @@ import es.ucm.fdi.keeperly.data.local.database.entities.Presupuesto;
 import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 import es.ucm.fdi.keeperly.ui.categorias.CategoriasViewModel;
 
-public class PresupuestoDetalladoFragment extends Fragment {
+public class  PresupuestoDetalladoFragment extends Fragment {
 
 
     private PresupuestosViewModel presupuestosViewModel;

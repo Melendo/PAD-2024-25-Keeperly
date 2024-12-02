@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -60,14 +63,10 @@ public class TransaccionAdapter extends RecyclerView.Adapter<TransaccionAdapter.
         String cantidad = String.format("%.2f€", transaccion.getTransaccion().getCantidad());
         holder.cantidadTextView.setText(cantidad);
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
-        Date fecha;
-        try {
-            fecha = dateFormat.parse(transaccion.getTransaccion().getFecha().toString());
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        holder.fechaTextView.setText(fecha.toString());
+        LocalDate fecha = transaccion.getTransaccion().getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = fecha.format(formatter);
+        holder.fechaTextView.setText(formattedDate);
 
         String cuenta = transaccionViewModel.getCategoriaCuenta(transaccion.getTransaccion());
         holder.cuentaTextView.setText("Cuenta" + ": " + cuenta);

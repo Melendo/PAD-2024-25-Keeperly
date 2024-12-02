@@ -25,8 +25,8 @@ public class CuentaSpinnerAdapter extends ArrayAdapter<Cuenta> {
     }
 
     public void setData(List<Cuenta> cuentas) {
-        clear();
         addAll(cuentas);
+        cuentas.clear();
         notifyDataSetChanged();
     }
 }

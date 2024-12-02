@@ -50,7 +50,7 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/rounded_edit_text"
             android:hint="@string/cantidad"
-            android:inputType="numberSigned|numberDecimal"
+            android:inputType="numberDecimal|numberSigned"
             android:padding="16dp"
             android:textColor="#000"
             app:layout_constraintEnd_toEndOf="parent"

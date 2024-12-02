@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/cantidad"
-            android:inputType="numberDecimal"
+            android:inputType="numberDecimal|numberSigned"
             android:background="@drawable/rounded_edit_text"
             android:padding="12dp"
             android:layout_marginBottom="16dp" />

@@ -39,6 +39,8 @@ public class CuentaDetalladaFragment extends Fragment {
     private EditText etNombre, etBalance, etClientID, etSecret;
 
     private ConnectivityManager connectivityManager;
+    private Network network;
+    private NetworkCapabilities networkCapabilities;
 
     @Nullable
     @Override
@@ -141,14 +143,16 @@ public class CuentaDetalladaFragment extends Fragment {
             //Logica Sincronizacion
             //Obtenemos una instancia del ConnectivityManager
 
-            Network network = connectivityManager.getActiveNetwork();
-            NetworkCapabilities networkCapabilities = connectivityManager.getNetworkCapabilities(network);
+            network = connectivityManager.getActiveNetwork();
+            networkCapabilities = connectivityManager.getNetworkCapabilities(network);
 
-            if (networkCapabilities != null && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
+            if (networkCapabilities != null ) {
                 // Hay conexión a internet
+                System.out.println("Hay conexión a internet");
             }
             else {
                 // No hay conexión a internet
+                System.out.println("No hay conexión a internet");
             }
         });
     }

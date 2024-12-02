@@ -14,11 +14,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import es.ucm.fdi.keeperly.R;
 import es.ucm.fdi.keeperly.data.local.database.entities.Cuenta;
+import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 import es.ucm.fdi.keeperly.repository.LoginRepository;
 import es.ucm.fdi.keeperly.repository.RepositoryFactory;
+import es.ucm.fdi.keeperly.ui.presupuestos.PresupuestoDetalladoAdapter;
 
 public class CuentaDetalladaFragment extends Fragment {
     private CuentasViewModel cuentasViewModel;
@@ -70,6 +77,16 @@ public class CuentaDetalladaFragment extends Fragment {
         eliminarB.setOnClickListener(v -> eliminarCuenta(cuenta));
 
         editarB.setOnClickListener(v -> mostrarDialogoEditarCuenta(cuenta));
+
+        RecyclerView recyclerViewTransacciones = view.findViewById(R.id.recyclerViewTransacciones);
+
+        // Configurar el RecyclerView
+        recyclerViewTransacciones.setLayoutManager(new LinearLayoutManager(getContext()));
+        List<Transaccion> transacciones = new ArrayList<>(); // Aquí cargamos la lista con datos
+        CuentaDetalladaAdapter cuentaDetalladaAdapter = new CuentaDetalladaAdapter(transacciones);
+        recyclerViewTransacciones.setAdapter(cuentaDetalladaAdapter);
+
+        cuentasViewModel.getTransaccionesDeCuenta(cuenta).observe(getViewLifecycleOwner(), cuentaDetalladaAdapter::setTransacciones);
     }
 
     private void eliminarCuenta(Cuenta cuenta) {
@@ -137,12 +154,11 @@ public class CuentaDetalladaFragment extends Fragment {
                 try {
                     //Convertir el balance ingresado a double
                     double nuevoBalance = Double.parseDouble(nuevoBalanceT);
-                    if (!nuevoNombre.equals(cuenta.getNombre()) || nuevoBalance != cuenta.getBalance()) {
-                        // Actualizar los datos de la cuenta si hay cambios
-                        cuenta.setNombre(nuevoNombre);
-                        cuenta.setBalance(nuevoBalance);
-                        cuentasViewModel.update(cuenta);
-                    }
+                    // Actualizar los datos de la cuenta si hay cambios
+                    cuenta.setNombre(nuevoNombre);
+                    cuenta.setBalance(nuevoBalance);
+                    cuentasViewModel.update(cuenta);
+
                 } catch (NumberFormatException e) {
                     Toast.makeText(getContext(), "El balance debe ser un número válido", Toast.LENGTH_SHORT).show();
                 }

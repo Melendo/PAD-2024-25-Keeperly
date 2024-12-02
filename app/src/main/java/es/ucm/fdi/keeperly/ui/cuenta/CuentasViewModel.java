@@ -66,5 +66,5 @@ public class CuentasViewModel extends ViewModel {
         cuentaRepository.resetUpdateStatus();
     }
 
-    public  double getGastoTotal(Cuenta cuenta) { return cuentaRepository.gastoTotal(cuenta); }
+    //public  double getGastoTotal(Cuenta cuenta) { return cuentaRepository.gastoTotal(cuenta); }
 }

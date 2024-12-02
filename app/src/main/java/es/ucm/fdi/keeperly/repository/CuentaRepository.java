@@ -105,24 +105,24 @@ public class CuentaRepository {
         return cuentaDao.getCuentaById(id);
     }
 
-    public List<Transaccion> getAllTransaccionesByCuenta(int cuentaId) {
+    public LiveData<List<Transaccion>> getAllTransaccionesByCuenta(int cuentaId) {
         return transaccionDAO.getTransaccionesByCuenta(cuentaId);
     }
 
-    public double gastoTotal(Cuenta cuenta) {
-        double total = 0.0;
-        TransaccionDAO transaccionDAO = KeeperlyDB.getInstance().transaccionDao();
-        List<Transaccion> transacciones = transaccionDAO.getTransaccionesByCuenta(cuenta.getId());
-        for (Transaccion transaccion : transacciones) {
-            total += transaccion.getCantidad();
-        }
-        Cuenta cuenta_aux = cuentaDao.getCuentaById(cuenta.getId());
-        if(cuenta_aux.getGastado() != total){
-            cuenta_aux.setGastado(total);
-            cuentaDao.update(cuenta_aux);
-        }
-        return total * (-1);
-    }
+//    public double gastoTotal(Cuenta cuenta) {
+//        double total = 0.0;
+//        TransaccionDAO transaccionDAO = KeeperlyDB.getInstance().transaccionDao();
+//        List<Transaccion> transacciones = transaccionDAO.getTransaccionesByCuenta(cuenta.getId());
+//        for (Transaccion transaccion : transacciones) {
+//            total += transaccion.getCantidad();
+//        }
+//        Cuenta cuenta_aux = cuentaDao.getCuentaById(cuenta.getId());
+//        if(cuenta_aux.getGastado() != total){
+//            cuenta_aux.setGastado(total);
+//            cuentaDao.update(cuenta_aux);
+//        }
+//        return total * (-1);
+//    }
 
     public Cuenta creaCuenta(String nombre, double balance, int usuario) {
         Cuenta cuenta = new Cuenta();

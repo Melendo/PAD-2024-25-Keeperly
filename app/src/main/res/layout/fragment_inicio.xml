@@ -47,7 +47,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Total Gastado:"
+        android:text="Este Mes:"
         android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@+id/divider2"
         app:layout_constraintTop_toBottomOf="@+id/welcomeText"
@@ -110,6 +110,8 @@
         android:fontFamily="sans-serif-medium"
         android:textColor="@color/money_red"
         android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.414"
         app:layout_constraintStart_toEndOf="@+id/divider2"
         app:layout_constraintTop_toBottomOf="@+id/textViewGastado" />
 

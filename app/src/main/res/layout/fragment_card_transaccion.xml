@@ -74,18 +74,19 @@
             android:id="@+id/editarTransaccion"
             android:layout_width="48dp"
             android:layout_height="50dp"
+            android:background="@drawable/rounded_edit_button_icon"
             android:contentDescription="@string/editar"
-            android:src="@drawable/ic_edit"
-            />
+            android:src="@drawable/ic_edit" />
 
         <!-- Botón eliminar -->
         <ImageButton
             android:id="@+id/eliminarTransaccion"
             android:layout_width="48dp"
             android:layout_height="50dp"
+            android:layout_marginStart="3dp"
+            android:background="@drawable/rounded_delete_button_icon"
             android:contentDescription="@string/eliminar"
-            android:src="@drawable/ic_delete"
-            />
+            android:src="@drawable/ic_delete" />
 
 
     </LinearLayout>

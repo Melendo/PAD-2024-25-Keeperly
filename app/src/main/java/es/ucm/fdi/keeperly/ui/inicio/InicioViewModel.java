@@ -90,7 +90,7 @@ public class InicioViewModel extends ViewModel {
     }
 
     public double getGastosMesActual() {
-        return transaccionRepository.getTransaccionesMesActual();
+        return transaccionRepository.getTransaccionesMesActual(loginRepository.getLoggedUser().getId());
     }
 
 

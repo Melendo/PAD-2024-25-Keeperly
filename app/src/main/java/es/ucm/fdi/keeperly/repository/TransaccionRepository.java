@@ -124,7 +124,7 @@ public class TransaccionRepository {
         return new Result.Success<Boolean>(true);
     }
 
-    public double getTransaccionesMesActual() {
+    public double getTransaccionesMesActual(int idUsuario) {
         double total = 0.0;
         LocalDate now = LocalDate.now();
         // Día 1 del mes actual
@@ -136,7 +136,10 @@ public class TransaccionRepository {
         // Convertir a `Date` para la consulta
         Date fechaInicio = Date.from(inicioMes.atStartOfDay(ZoneId.systemDefault()).toInstant());
         Date fechaFin = Date.from(inicioMesSiguiente.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        List<Transaccion> transacciones = transaccionDao.obtenerTodasTransaccionesEntreFechas(fechaInicio, fechaFin);
+
+        List<Integer> id_cuentas_ususario = cuentaDao.getIdCuentasByUsuario(idUsuario);
+
+        List<Transaccion> transacciones = transaccionDao.obtenerTodasTransaccionesEntreFechas(fechaInicio, fechaFin, id_cuentas_ususario);
         for (Transaccion t : transacciones) {
             total += t.getCantidad();
         }

@@ -6,6 +6,7 @@ import androidx.room.*;
 import java.util.Date;
 import java.util.List;
 
+import es.ucm.fdi.keeperly.data.local.database.entities.Categoria;
 import es.ucm.fdi.keeperly.data.local.database.entities.Transaccion;
 
 @Dao
@@ -44,8 +45,8 @@ public interface TransaccionDAO {
     @Query("SELECT * FROM transacciones WHERE fecha BETWEEN :fechaInicio AND :fechaFin AND idCategoria = :categoria")
     List<Transaccion> obtenerTransaccionesEntreFechasDirect(Date fechaInicio, Date fechaFin, int categoria);
 
-    @Query("SELECT * FROM transacciones WHERE fecha BETWEEN :fechaInicio AND :fechaFin")
-    List<Transaccion> obtenerTodasTransaccionesEntreFechas(Date fechaInicio, Date fechaFin);
+    @Query("SELECT * FROM transacciones WHERE fecha BETWEEN :fechaInicio AND :fechaFin AND idCategoria IN (:categorias)")
+    List<Transaccion> obtenerTodasTransaccionesEntreFechas(Date fechaInicio, Date fechaFin, List<Integer> categorias);
 
 
 }

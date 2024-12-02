@@ -59,6 +59,14 @@
                 android:layout_weight="1"
                 android:textSize="15sp" />
 
+            <!-- Cuenta de la transaccion -->
+            <TextView
+                android:id="@+id/textViewTransaccionCuenta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="15sp" />
+
             <!-- Categoria de la transaccion -->
             <TextView
                 android:id="@+id/textViewTransaccionCategoria"

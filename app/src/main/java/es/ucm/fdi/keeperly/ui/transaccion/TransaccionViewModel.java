@@ -125,4 +125,8 @@ public class TransaccionViewModel extends ViewModel {
     public void delete(Transaccion transaccion) {
         transaccionRepository.delete(transaccion);
     }
+
+    public String getCategoriaCuenta(Transaccion transaccion) {
+        return transaccionRepository.getNombreCuenta(transaccion);
+    }
 }

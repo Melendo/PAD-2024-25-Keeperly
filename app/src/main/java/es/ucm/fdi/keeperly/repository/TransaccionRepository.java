@@ -1,9 +1,6 @@
 package es.ucm.fdi.keeperly.repository;
 
-import android.content.Context;
-
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
@@ -120,5 +117,9 @@ public class TransaccionRepository {
     public Result<Boolean> updateTransaccion(Transaccion transaccion) {
         transaccionDao.update(transaccion);
         return new Result.Success<Boolean>(true);
+    }
+
+    public String getNombreCuenta(Transaccion transaccion) {
+        return transaccionDao.getNombreCuenta(transaccion.getId());
     }
 }

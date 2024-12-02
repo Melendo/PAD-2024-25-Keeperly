@@ -79,7 +79,7 @@ public class TransaccionFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         if (transaccionAdapter == null) { // Prevent re-initialization
-            transaccionAdapter = new TransaccionAdapter();
+            transaccionAdapter = new TransaccionAdapter(transaccionViewModel);
         }
         recyclerView.setAdapter(transaccionAdapter);
 
@@ -218,10 +218,14 @@ public class TransaccionFragment extends Fragment {
         editTextConcepto.setText(transaccion.getConcepto());
         editTextCantidad.setText(String.valueOf(transaccion.getCantidad()));
 
-        LocalDate fechaantigua = transaccion.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedDate = fechaantigua.format(formatter);
-        editTextFecha.setText(formattedDate);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        Date fechaantigua = null;
+        try {
+            fechaantigua = dateFormat.parse(transaccion.getFecha().toString());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        editTextFecha.setText(fechaantigua.toString());
 
         spinnerCategoria.setSelection(transaccion.getIdCategoria());
         spinnerCuenta.setSelection(transaccion.getIdCuenta());
@@ -256,7 +260,6 @@ public class TransaccionFragment extends Fragment {
                 }
 
                 try {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                     Date fecha = dateFormat.parse(editTextFecha.getText().toString());
                     transaccionViewModel.editTransaccion(transaccion.getId(), concepto, cantidad, idcuenta, idcategoria, fecha);
                 } catch (ParseException e) {

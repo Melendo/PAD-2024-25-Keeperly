@@ -44,6 +44,6 @@ public interface TransaccionDAO {
     @Query("SELECT * FROM transacciones WHERE fecha BETWEEN :fechaInicio AND :fechaFin AND idCategoria = :categoria")
     List<Transaccion> obtenerTransaccionesEntreFechasDirect(Date fechaInicio, Date fechaFin, int categoria);
 
-
-
+    @Query("SELECT cuentas.nombre FROM transacciones JOIN cuentas ON transacciones.idCuenta = cuentas.id WHERE transacciones.id = :id")
+    String getNombreCuenta(int id);
 }

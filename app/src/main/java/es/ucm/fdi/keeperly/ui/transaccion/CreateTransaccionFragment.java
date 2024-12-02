@@ -166,6 +166,10 @@ public class CreateTransaccionFragment extends Fragment {
                 cantidadEditText.setError("La cantidad es obligatoria");
             } else if (fechaField.getText().toString().isEmpty()) {
                 fechaField.setError("La fecha es obligatoria");
+            } else if (categoriaSpinner.getSelectedItemPosition() == 0) {
+                Toast.makeText(requireContext(), "Debes seleccionar una categoría", Toast.LENGTH_SHORT).show();
+            } else if (cuentaSpinner.getSelectedItemPosition() == 0) {
+                Toast.makeText(requireContext(), "Debes seleccionar una cuenta", Toast.LENGTH_SHORT).show();
             } else {
                 // Obtener los datos del formulario
                 String concepto = conceptoEditText.getText().toString();
